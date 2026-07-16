@@ -1,0 +1,10 @@
+- [ ] Responsive
+- [ ] Dark Mode
+- [ ] Metadata
+- [ ] Loading States
+- [ ] Error States
+- [ ] Empty States
+- [ ] 404
+- [ ] README
+- [ ] Docker
+- [ ] Deploy to Vercel
