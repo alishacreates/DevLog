@@ -1,6 +1,8 @@
+
 import { SectionHeader } from "@/components/shared/section-header";
-import { colors } from "../data/colors";
 import { cn } from "@/lib/utils";
+
+import { colors } from "../data/colors";
 
 export function ColorSection() {
   return (
@@ -8,7 +10,7 @@ export function ColorSection() {
       <SectionHeader
         eyebrow="Color"
         title="Theme tokens"
-        description="The interface remains primarily neutral. Brand color is reserved for actions, focus, active states, and important details."
+        description="Brand colors define DevLog's identity. Semantic colors communicate state, allowing users to quickly distinguish actions, success, warnings, and errors."
       />
 
       <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -29,33 +31,63 @@ export function ColorSection() {
         ))}
       </div>
 
-      <div className="mt-6 grid gap-4 sm:grid-cols-3">
+      <div className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         <div className="rounded-xl border border-border bg-card p-5">
           <div className="h-2 rounded-full bg-primary" />
-          <p className="mt-4 text-sm font-semibold">Primary usage</p>
+
+          <p className="mt-4 text-sm font-semibold">Brand</p>
+
           <p className="mt-2 text-sm leading-6 text-muted-foreground">
-            Main actions, active navigation, focus rings, links, and product
+            Primary actions, active navigation, links, focus rings, and DevLog
             identity.
           </p>
         </div>
 
         <div className="rounded-xl border border-border bg-card p-5">
           <div className="h-2 rounded-full bg-muted" />
-          <p className="mt-4 text-sm font-semibold">Neutral usage</p>
+
+          <p className="mt-4 text-sm font-semibold">Neutral</p>
+
           <p className="mt-2 text-sm leading-6 text-muted-foreground">
-            Surfaces, inactive states, subtle grouping, and quiet supporting
-            content.
+            Backgrounds, cards, borders, inactive states, and supporting
+            information.
+          </p>
+        </div>
+
+        <div className="rounded-xl border border-border bg-card p-5">
+          <div className="h-2 rounded-full bg-success" />
+
+          <p className="mt-4 text-sm font-semibold">Success</p>
+
+          <p className="mt-2 text-sm leading-6 text-muted-foreground">
+            Published, deployed, connected, completed, verified, and healthy
+            states.
           </p>
         </div>
 
         <div className="rounded-xl border border-border bg-card p-5">
           <div className="h-2 rounded-full bg-destructive" />
-          <p className="mt-4 text-sm font-semibold">Semantic usage</p>
+
+          <p className="mt-4 text-sm font-semibold">Destructive</p>
+
           <p className="mt-2 text-sm leading-6 text-muted-foreground">
-            Reserve destructive colors for errors, removals, and critical
-            actions.
+            Errors, failed actions, deletions, dangerous operations, and
+            critical warnings.
           </p>
         </div>
+      </div>
+
+      <div className="mt-8 rounded-xl border border-primary/20 bg-primary/5 p-5">
+        <p className="text-sm font-semibold">Design rule</p>
+
+        <p className="mt-3 text-sm leading-6 text-muted-foreground">
+          Use the{" "}
+          <span className="font-medium text-primary">brand color</span> to guide
+          attention. Use{" "}
+          <span className="font-medium text-success">success</span> and{" "}
+          <span className="font-medium text-destructive">destructive</span>{" "}
+          only to communicate meaning, not as additional brand colors.
+        </p>
       </div>
     </section>
   );

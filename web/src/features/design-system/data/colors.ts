@@ -34,4 +34,14 @@ export const colors = [
     className: "bg-destructive text-white",
     variable: "bg-destructive",
   },
+  {
+  name: "Success",
+  className: "bg-success text-success-foreground",
+  variable: "bg-success",
+},
+{
+  name: "Success Subtle",
+  className: "bg-success-subtle text-success-subtle-foreground",
+  variable: "bg-success-subtle",
+},
 ];
