@@ -2,88 +2,83 @@
 
 This document defines the Git workflow used for DevLog.
 
-The goal is to maintain a clean, production-ready history while building features incrementally.
+The goal is to keep development simple, maintain a clean history, and ensure `main` is always stable and deployable.
 
 ---
 
 # Branch Strategy
 
-```
+DevLog uses a simple trunk-based workflow with short-lived branches.
+
+```text
 main
-│
-develop
-│
-├── feature/auth
-├── feature/profile
-├── feature/projects
-├── feature/updates
-├── feature/feed
-├── feature/comments
-├── feature/follow
-├── feature/search
-└── feature/landing
+├── feature/*
+├── fix/*
+├── docs/*
+└── refactor/*
 ```
 
-## Branches
+There is no permanent `develop` branch. Since DevLog is currently developed by a single developer, feature branches are merged directly into `main` after testing.
 
-### `main`
+## `main`
+
+`main` is the production branch.
 
 * Always stable and deployable.
-* Only receives tested code.
-* Every merge represents a milestone.
+* Contains tested code.
+* Used for production deployments.
+* Features are merged into `main` only when complete.
 
-### `develop`
+## `feature/*`
 
-* Integration branch.
-* Completed features are merged here first.
-* Used for testing before release.
-
-### `feature/*`
-
-* One branch per feature.
-* Keep changes focused on a single feature.
+Used for new functionality.
 
 Examples:
 
-```
+```text
 feature/auth
-feature/profile
+feature/profile-onboarding
 feature/projects
+feature/devlogs
 feature/feed
-feature/landing
+feature/comments
+feature/follow
+feature/search
 ```
 
-### `fix/*`
+Keep each branch focused on one feature or milestone.
 
-Bug fixes.
+## `fix/*`
+
+Used for bug fixes.
 
 Examples:
 
-```
+```text
 fix/session
 fix/navbar
-fix/theme
+fix/feed-pagination
 ```
 
-### `docs/*`
+## `docs/*`
 
-Documentation changes.
+Used for documentation-only changes.
 
 Examples:
 
-```
-docs/readme
+```text
+docs/auth-architecture
 docs/api
 docs/mvp
 ```
 
-### `refactor/*`
+## `refactor/*`
 
-Code improvements without changing functionality.
+Used for internal code improvements that do not intentionally change functionality.
 
 Examples:
 
-```
+```text
 refactor/models
 refactor/components
 ```
@@ -96,67 +91,83 @@ Use Conventional Commits.
 
 Examples:
 
-```
+```text
 feat(auth): add GitHub authentication
 
 feat(profile): create onboarding flow
 
-feat(feed): render latest updates
+feat(projects): add project creation
 
-feat(projects): create project model
+feat(devlogs): add DevLog creation
 
-fix(auth): resolve session refresh issue
+feat(feed): render latest DevLogs
 
-refactor(feed): simplify update card
+fix(auth): resolve session redirect issue
 
-docs(mvp): define version one scope
+refactor(feed): simplify DevLog card
 
-style(theme): update color palette
+docs(auth): update authentication architecture
+
+style(theme): refine typography
 ```
 
-Avoid messages like:
+Avoid vague commit messages such as:
 
-```
+```text
 updated
-
 changes
-
 fixed stuff
-
 final
 ```
+
+Commits should describe what changed and remain reasonably small and focused.
 
 ---
 
 # Development Workflow
 
-1. Pull the latest `develop`.
-2. Create a feature branch.
-3. Build one feature.
-4. Commit frequently with meaningful messages.
-5. Push the feature branch.
-6. Open a Pull Request into `develop`.
-7. Test after merging into `develop`.
-8. Merge `develop` into `main`.
-9. Deploy from `main`.
+For each feature:
+
+1. Make sure `main` is up to date.
+2. Create a short-lived branch from `main`.
+3. Implement the feature.
+4. Commit meaningful units of work.
+5. Run linting, tests, and the production build where applicable.
+6. Push the branch.
+7. Open a Pull Request into `main`.
+8. Review the diff and verify the feature.
+9. Merge into `main`.
+10. Delete the completed branch.
+
+Example:
+
+```bash
+git switch main
+git pull
+
+git switch -c feature/auth
+
+# develop and commit
+
+git push -u origin feature/auth
+```
+
+After the feature is verified, merge it into `main`.
 
 ---
 
 # Releases
 
-Tag meaningful milestones.
+Tag meaningful product milestones rather than every small change.
 
-```
-v0.1  Landing Page
-
+```text
+v0.1  Landing + Design System
 v0.2  Authentication
-
-v0.3  Projects
-
-v0.4  Updates
-
-v0.5  Feed
-
+v0.3  Profile + Onboarding
+v0.4  Projects
+v0.5  DevLogs
+v0.6  Feed + Social Interactions
+v0.7  Search
 v1.0  MVP
 ```
 
@@ -164,9 +175,11 @@ v1.0  MVP
 
 # Principles
 
-* `main` should always be deployable.
-* Build one feature at a time.
-* Keep commits small and focused.
-* Prefer many small commits over one large commit.
-* Every merge into `main` should represent visible progress.
-* Treat Git history as part of the project's documentation.
+* Keep `main` deployable.
+* Use short-lived branches.
+* Build one focused feature at a time.
+* Keep commits small and meaningful.
+* Test before merging.
+* Delete branches after they are merged.
+* Avoid unnecessary Git complexity for a solo project.
+* Treat Git history as part of the project's engineering documentation.
