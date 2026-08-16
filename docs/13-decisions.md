@@ -64,7 +64,9 @@ Use **MongoDB Atlas** with **Mongoose**.
 
 **Reason**
 
-DevLog contains highly relational but flexible entities such as users, projects, DevLogs, comments, and notifications. MongoDB's document model allows the schema to evolve quickly while Mongoose provides validation and modeling.
+DevLog contains relational but flexible entities such as users, projects, DevLogs, comments, likes, and follows.
+
+MongoDB's document model allows the schema to evolve quickly while Mongoose provides validation, schema modeling, and indexing.
 
 ---
 
@@ -72,21 +74,66 @@ DevLog contains highly relational but flexible entities such as users, projects,
 
 **Decision**
 
-Use **Auth.js (NextAuth)**.
-
-**Reason**
-
-* Secure authentication
-* Excellent integration with Next.js
-* Built-in OAuth providers
-* Session management out of the box
+Use **Auth.js (NextAuth)** with OAuth-only authentication for the MVP.
 
 **Authentication Providers**
 
 * GitHub
 * Google
 
-Email/password authentication may be added in a future release if required.
+**Authentication Model**
+
+Auth.js is responsible for:
+
+* OAuth authentication
+* Session creation
+* Session validation
+* Sign-in
+* Sign-out
+* Authentication callbacks
+
+DevLog will not implement custom username/password authentication during the MVP.
+
+DevLog will not store user passwords.
+
+Custom endpoints such as the following are not part of the MVP architecture:
+
+```text
+POST /api/auth/signup
+POST /api/auth/login
+POST /api/auth/logout
+```
+
+After successful OAuth authentication, DevLog will maintain application-specific user profile information such as:
+
+* username
+* bio
+* university
+* location
+* skills
+* tech stack
+* GitHub profile
+* portfolio
+
+New users may be required to complete onboarding after their first successful authentication.
+
+**Reason**
+
+* Secure OAuth implementation
+* Strong integration with Next.js
+* Built-in support for GitHub and Google
+* Session management out of the box
+* Avoids building and maintaining password authentication during the MVP
+* Reduces security-sensitive code
+* Allows faster MVP development
+
+**Trade-offs**
+
+* Users must have a supported OAuth account
+* Authentication depends on third-party providers
+* Email/password authentication is unavailable initially
+
+Email/password authentication may be considered in a future release if user demand justifies it.
 
 ---
 

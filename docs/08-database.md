@@ -6,7 +6,7 @@ MongoDB Atlas
 
 ---
 
-# Collections
+# MVP Collections
 
 * Users
 * Projects
@@ -14,8 +14,10 @@ MongoDB Atlas
 * Comments
 * Likes
 * Follows
-* Notifications
-* Tags
+
+> Notifications are intentionally excluded from the MVP scope.
+>
+> Tags are stored directly on DevLogs as an array of strings for the MVP instead of using a separate Tags collection.
 
 ---
 
@@ -25,13 +27,11 @@ MongoDB Atlas
 {
   _id: ObjectId,
 
-  username: String,
+  username: String, // unique
 
   name: String,
 
-  email: String,
-
-  password: String,
+  email: String, // unique
 
   avatar: String,
 
@@ -60,6 +60,23 @@ MongoDB Atlas
   updatedAt: Date
 }
 ```
+
+## Authentication Notes
+
+DevLog uses Auth.js with OAuth providers for authentication.
+
+MVP providers:
+
+* GitHub
+* Google
+
+DevLog does not store user passwords in the MVP.
+
+Authentication identity and session handling are managed by Auth.js.
+
+DevLog-specific profile information such as username, bio, skills, university, and portfolio information is managed separately by the application.
+
+A newly authenticated user may be required to complete onboarding before accessing the main application.
 
 ---
 
@@ -135,7 +152,9 @@ MongoDB Atlas
 
   content: String,
 
-  createdAt: Date
+  createdAt: Date,
+
+  updatedAt: Date
 }
 ```
 
@@ -173,60 +192,59 @@ MongoDB Atlas
 
 ---
 
-# Notification Schema
+# Relationships
 
-```ts
-{
-  _id: ObjectId,
+```text
+User
+ ├── owns ───────► Projects
+ ├── writes ─────► DevLogs
+ ├── writes ─────► Comments
+ ├── likes ──────► DevLogs
+ └── follows ────► Users
 
-  receiver: ObjectId,
+Project
+ └── contains ───► DevLogs
 
-  sender: ObjectId,
-
-  type: String,
-
-  referenceId: ObjectId,
-
-  isRead: Boolean,
-
-  createdAt: Date
-}
+DevLog
+ ├── receives ───► Comments
+ └── receives ───► Likes
 ```
 
 ---
 
-# Relationships
+# MVP Data Constraints
 
-User
+## User
 
-↓
+* `email` must be unique.
+* `username` must be unique.
+* `username` is selected during DevLog onboarding.
+* A user must be authenticated before creating or modifying application data.
 
-owns
+## Like
 
-↓
+A user should only be able to like a specific DevLog once.
 
-Projects
+A compound unique index should eventually enforce:
 
-↓
+```ts
+{
+  user: 1,
+  post: 1
+}
+```
 
-contains
+## Follow
 
-↓
+A user should only be able to follow another user once.
 
-DevLogs
+A compound unique index should eventually enforce:
 
-↓
+```ts
+{
+  follower: 1,
+  following: 1
+}
+```
 
-receive
-
-↓
-
-Comments
-
-↓
-
-receive
-
-↓
-
-Likes
+A user cannot follow themselves.
