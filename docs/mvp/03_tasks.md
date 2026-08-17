@@ -1,16 +1,17 @@
 ## Authentication
 
-- [ ] Setup NextAuth
-- [ ] GitHub Provider
-- [ ] Google Provider
-- [ ] Middleware
-- [ ] Protected Routes
+- [x] Setup Auth.js
+- [x] GitHub Provider
+- [x] Google Provider
+- [x] Protected Routes
+- [x] Sign Out
+- [x] Basic Auth Error Handling
 
 ---
 
 ## Database
 
-- [ ] User Model
+- [x] User Model
 - [ ] Project Model
 - [ ] DevLog Model
 - [ ] Comment Model
@@ -20,10 +21,8 @@
 
 ## UI
 
-- [ ] Landing Page
+- [x] Landing Page
 - [ ] Dashboard
 - [ ] Feed
 - [ ] Profile
 - [ ] Project Page
-
-...
