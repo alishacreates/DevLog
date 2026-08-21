@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 
 import { auth } from "@/auth";
-import { EditProfileForm } from "@/components/profile/edit-profile-form";
+import { EditProfileForm } from "@/features/profile/components/edit-profile-form";
 import { connectDB } from "@/lib/db";
 import { User } from "@/models/user";
 

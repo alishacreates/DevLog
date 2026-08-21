@@ -5,7 +5,7 @@ import { redirect } from "next/navigation";
 
 import { auth } from "@/auth";
 import { connectDB } from "@/lib/db";
-import { profileSchema } from "@/lib/validations/profile";
+import { profileSchema } from "../schemas/profile.schema";
 import { User } from "@/models/user";
 
 export type ProfileState = {
