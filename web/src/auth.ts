@@ -26,8 +26,8 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           },
         },
         {
-          upsert: true,
-          new: true,
+        upsert: true,
+        returnDocument: "after",
         }
       );
 
