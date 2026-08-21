@@ -9,6 +9,10 @@ export default async function FeedPage() {
     redirect("/sign-in");
   }
 
+  if (!session.user.isOnboarded) {
+    redirect("/onboarding");
+  }
+
   return (
     <main className="mx-auto max-w-3xl px-6 py-10">
       <div className="flex items-center justify-between">

@@ -3,7 +3,7 @@ import GitHub from "next-auth/providers/github";
 import Google from "next-auth/providers/google";
 
 import { connectDB } from "@/lib/db";
-import { User } from "@/models/user"
+import { User } from "@/models/user";
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   providers: [GitHub, Google],
@@ -46,8 +46,11 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       }).lean();
 
       if (dbUser) {
+        session.user.id = dbUser._id.toString();
         session.user.name = dbUser.name;
         session.user.image = dbUser.image;
+        session.user.username = dbUser.username ?? null;
+        session.user.isOnboarded = Boolean(dbUser.username);
       }
 
       return session;
