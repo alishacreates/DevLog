@@ -5,7 +5,7 @@ import { redirect } from "next/navigation";
 import { auth } from "@/auth";
 import { RESERVED_USERNAMES } from "@/features/onboarding/constants/reserved-usernames";
 import { onboardingSchema } from "@/features/onboarding/schemas/onboarding.schema";
-import { connectDB } from "@/lib/db";
+import { connectDB } from "@/lib/db/mongoose";
 import { User } from "@/models/user";
 
 export type OnboardingState = {

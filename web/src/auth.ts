@@ -2,7 +2,7 @@ import NextAuth from "next-auth";
 import GitHub from "next-auth/providers/github";
 import Google from "next-auth/providers/google";
 
-import { connectDB } from "@/lib/db";
+import { connectDB } from "@/lib/db/mongoose";
 import { User } from "@/models/user";
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
