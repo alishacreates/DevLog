@@ -6,7 +6,7 @@ import { useFormStatus } from "react-dom";
 import {
   completeOnboarding,
   type OnboardingState,
-} from "@/actions/profile";
+} from "@/features/onboarding/actions/complete-onboarding";
 
 const initialState: OnboardingState = {};
 
