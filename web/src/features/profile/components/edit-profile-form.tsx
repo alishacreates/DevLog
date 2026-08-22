@@ -7,7 +7,7 @@ import { useFormStatus } from "react-dom";
 import {
   updateProfile,
   type ProfileState,
-} from "@/actions/profile";
+} from "@/features/profile/actions/update-profile";
 
 type EditProfileFormProps = {
   user: {

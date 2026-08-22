@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 
 import { auth } from "@/auth";
-import { OnboardingForm } from "@/components/onboarding/onboarding-form";
+import { OnboardingForm } from "@/features/onboarding/components/onboarding-form";
 
 export default async function OnboardingPage() {
   const session = await auth();

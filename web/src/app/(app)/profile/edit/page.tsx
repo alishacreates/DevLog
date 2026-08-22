@@ -1,8 +1,8 @@
 import { redirect } from "next/navigation";
 
 import { auth } from "@/auth";
-import { EditProfileForm } from "@/components/profile/edit-profile-form";
-import { connectDB } from "@/lib/db";
+import { EditProfileForm } from "@/features/profile/components/edit-profile-form";
+import { connectDB } from "@/lib/db/mongoose";
 import { User } from "@/models/user";
 
 export default async function EditProfilePage() {
