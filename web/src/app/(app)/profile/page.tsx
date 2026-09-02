@@ -4,6 +4,7 @@ import { auth } from "@/auth";
 import { connectDB } from "@/lib/db/mongoose";
 import { User } from "@/models/user";
 import Image from "next/image";
+import { Project } from "@/models/project";
 
 export default async function ProfilePage() {
   const session = await auth();
@@ -23,6 +24,10 @@ export default async function ProfilePage() {
   if (!user) {
     redirect("/sign-in");
   }
+
+  const projectsCount = await Project.countDocuments({
+  owner: session.user.id,
+});
 
   return (
     <main className="mx-auto max-w-4xl px-6 py-10">
@@ -89,7 +94,7 @@ export default async function ProfilePage() {
 
           <div className="rounded-lg border p-4">
             <p className="text-2xl font-semibold">
-              {user.projectsCount}
+              {projectsCount}
             </p>
             <p className="text-sm text-muted-foreground">Projects</p>
           </div>

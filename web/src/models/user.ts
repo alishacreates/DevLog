@@ -79,11 +79,11 @@ const userSchema = new Schema(
       min: 0,
     },
 
-    projectsCount: {
-      type: Number,
-      default: 0,
-      min: 0,
-    },
+    // projectsCount: {
+    //   type: Number,
+    //   default: 0,
+    //   min: 0,
+    // },
   },
   {
     timestamps: true,
