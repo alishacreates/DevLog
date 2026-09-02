@@ -21,23 +21,41 @@
 - [x] Prevent Completed Users from Returning to Onboarding
 
 ---
-
 ## Database
 
 - [x] User Model
-- [ ] Project Model
+- [x] Project Model
 - [ ] DevLog Model
 - [ ] Comment Model
 - [ ] Follow Model
 
 ---
 
+## Projects
+
+- [x] Project Model
+- [x] Project Validation
+- [x] Create Project
+- [x] Project Listing
+- [x] Project Detail
+- [x] Edit Project
+- [x] Delete Project
+- [x] Project Ownership Authorization
+- [x] Project Status
+- [x] Tech Stack
+- [x] GitHub / Live Demo Links
+- [x] Public / Private Project State
+- [x] Derived Project Count
+
+---
+
 ## UI
 
 - [x] Landing Page
-- [ ] Dashboard
 - [ ] Feed
 - [x] Profile
 - [x] Edit Profile
 - [x] Authenticated App Shell
-- [ ] Project Page
+- [x] Project Page
+- [x] Create Project
+- [x] Edit Project
