@@ -33,6 +33,13 @@ export function AppShell({ children, user }: AppShellProps) {
               </Link>
 
               <Link
+                href="/projects"
+                className="text-muted-foreground transition-colors hover:text-foreground"
+              >
+                Projects
+              </Link>
+
+              <Link
                 href="/profile"
                 className="text-muted-foreground transition-colors hover:text-foreground"
               >
@@ -42,6 +49,13 @@ export function AppShell({ children, user }: AppShellProps) {
           </div>
 
           <div className="flex items-center gap-4">
+            <Link
+              href="/projects/new"
+              className="rounded-md bg-primary px-3 py-2 text-sm font-medium text-primary-foreground"
+            >
+              New Project
+            </Link>
+
             <Link
               href="/profile"
               className="text-sm text-muted-foreground transition-colors hover:text-foreground"
