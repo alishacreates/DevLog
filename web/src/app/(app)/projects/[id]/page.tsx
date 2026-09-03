@@ -5,6 +5,7 @@ import { Types } from "mongoose";
 import { auth } from "@/auth";
 import { connectDB } from "@/lib/db/mongoose";
 import { Project } from "@/models/project";
+import { DevLog } from "@/models/devlog";
 
 type ProjectPageProps = {
   params: Promise<{
@@ -34,6 +35,13 @@ export default async function ProjectPage({
     notFound();
   }
 
+  const devLogs = await DevLog.find({
+  project: project._id,
+  author: session!.user.id,
+})
+  .sort({ createdAt: -1 })
+  .lean();
+  
   return (
     <main className="mx-auto max-w-4xl px-6 py-10">
       <Link
@@ -109,16 +117,68 @@ export default async function ProjectPage({
             </a>
           ) : null}
         </div>
+<section className="mt-12">
+  <div className="flex items-center justify-between gap-4">
+    <div>
+      <h2 className="text-xl font-semibold">
+        DevLogs
+      </h2>
 
-        <section className="mt-12 rounded-xl border p-6">
-          <h2 className="text-lg font-semibold">
-            DevLogs
-          </h2>
+      <p className="mt-1 text-sm text-muted-foreground">
+        Progress updates for this project.
+      </p>
+    </div>
 
-          <p className="mt-2 text-sm text-muted-foreground">
-            No DevLogs for this project yet.
+    <Link href={`/devlogs/new?project=${project._id.toString()}`}>
+  New DevLog
+</Link>
+  </div>
+
+  {devLogs.length === 0 ? (
+    <div className="mt-6 rounded-xl border p-6">
+      <p className="text-sm text-muted-foreground">
+        No DevLogs for this project yet.
+      </p>
+    </div>
+  ) : (
+    <div className="mt-6 space-y-3">
+      {devLogs.map((devLog) => (
+        <Link
+          key={devLog._id.toString()}
+          href={`/devlogs/${devLog._id.toString()}`}
+          className="block rounded-xl border p-5 transition-colors hover:bg-muted/40"
+        >
+          <div className="flex items-start justify-between gap-4">
+            <h3 className="font-semibold">
+              {devLog.title}
+            </h3>
+
+            <span className="text-xs text-muted-foreground">
+              {new Date(devLog.createdAt).toLocaleDateString()}
+            </span>
+          </div>
+
+          <p className="mt-2 line-clamp-2 text-sm text-muted-foreground">
+            {devLog.content}
           </p>
-        </section>
+
+          {devLog.tags.length > 0 ? (
+            <div className="mt-3 flex flex-wrap gap-2">
+              {devLog.tags.slice(0, 5).map((tag: string) => (
+                <span
+                  key={tag}
+                  className="text-xs text-muted-foreground"
+                >
+                  #{tag}
+                </span>
+              ))}
+            </div>
+          ) : null}
+        </Link>
+      ))}
+    </div>
+  )}
+</section>
       </section>
     </main>
   );
