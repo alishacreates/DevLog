@@ -19,35 +19,32 @@
 - [x] Unique Username Enforcement
 - [x] Redirect Incomplete Users to Onboarding
 - [x] Prevent Completed Users from Returning to Onboarding
-
----
 ## Database
 
 - [x] User Model
 - [x] Project Model
-- [ ] DevLog Model
+- [x] DevLog Model
 - [ ] Comment Model
 - [ ] Follow Model
 
 ---
 
-## Projects
+## DevLogs
 
-- [x] Project Model
-- [x] Project Validation
-- [x] Create Project
-- [x] Project Listing
-- [x] Project Detail
-- [x] Edit Project
-- [x] Delete Project
-- [x] Project Ownership Authorization
-- [x] Project Status
-- [x] Tech Stack
-- [x] GitHub / Live Demo Links
-- [x] Public / Private Project State
-- [x] Derived Project Count
+- [x] DevLog Model
+- [x] DevLog Validation
+- [x] Create DevLog
+- [x] DevLog Detail
+- [x] Edit DevLog
+- [x] Delete DevLog
+- [x] Associate DevLog with Project
+- [x] Project Ownership Validation
+- [x] DevLog Ownership Authorization
+- [x] Public / Private State
+- [x] Tags
+- [x] Project DevLog Timeline
+- [x] Project Preselection from Project Page
 
----
 
 ## UI
 
