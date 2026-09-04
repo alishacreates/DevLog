@@ -27,20 +27,39 @@ export default async function DevLogPage({
   await connectDB();
 
   const devLog = await DevLog.findOne({
-    _id: id,
-    author: session!.user.id,
-  })
-    .populate("project", "_id title")
-    .lean();
+  _id: id,
+  $or: [
+    { author: session!.user.id },
+    { isPublic: true },
+  ],
+})
+  .populate("author", "name username image")
+  .populate("project", "_id title isPublic")
+  .lean();
 
   if (!devLog) {
     notFound();
   }
 
   const project = devLog.project as unknown as {
-    _id: Types.ObjectId;
-    title: string;
-  };
+  _id: Types.ObjectId;
+  title: string;
+  isPublic: boolean;
+};
+
+const author = devLog.author as unknown as {
+  _id: Types.ObjectId;
+  name: string;
+  username: string;
+  image?: string;
+};
+
+const isOwner =
+  author._id.toString() === session!.user.id;
+
+  if (!isOwner && !project.isPublic) {
+  notFound();
+}
 
   return (
     <main className="mx-auto max-w-3xl px-6 py-10">
@@ -67,12 +86,14 @@ export default async function DevLogPage({
             </p>
           </div>
 
-          <Link
-            href={`/devlogs/${devLog._id.toString()}/edit`}
-            className="rounded-md border px-4 py-2 text-sm font-medium"
-          >
-            Edit
-          </Link>
+          {isOwner ? (
+  <Link
+    href={`/devlogs/${devLog._id.toString()}/edit`}
+    className="rounded-md border px-4 py-2 text-sm font-medium"
+  >
+    Edit
+  </Link>
+) : null}
         </div>
 
         <div className="mt-8 whitespace-pre-wrap leading-7">
