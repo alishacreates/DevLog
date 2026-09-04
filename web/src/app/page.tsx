@@ -479,11 +479,13 @@
 // }
 
 import { LandingHero } from "@/features/landing/components/landing-hero";
+import { ProductStorySection } from "@/features/landing/components/product-story-section";
 
 export default function Home() {
   return (
     <main>
       <LandingHero />
+      <ProductStorySection />
     </main>
   );
 }
