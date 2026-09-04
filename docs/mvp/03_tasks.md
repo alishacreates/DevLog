@@ -49,7 +49,7 @@
 ## UI
 
 - [x] Landing Page
-- [ ] Feed
+- [x] Feed
 - [x] Profile
 - [x] Edit Profile
 - [x] Authenticated App Shell

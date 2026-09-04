@@ -27,18 +27,30 @@ export default async function ProjectPage({
   await connectDB();
 
   const project = await Project.findOne({
-    _id: id,
-    owner: session!.user.id,
-  }).lean();
+  _id: id,
+  $or: [
+    { owner: session!.user.id },
+    { isPublic: true },
+  ],
+}).lean();
 
   if (!project) {
     notFound();
   }
 
-  const devLogs = await DevLog.find({
-  project: project._id,
-  author: session!.user.id,
-})
+  const isOwner =
+  project.owner.toString() === session!.user.id;
+
+  const devLogs = await DevLog.find(
+  isOwner
+    ? {
+        project: project._id,
+      }
+    : {
+        project: project._id,
+        isPublic: true,
+      }
+)
   .sort({ createdAt: -1 })
   .lean();
   
@@ -63,12 +75,14 @@ export default async function ProjectPage({
             </p>
           </div>
 
-          <Link
-            href={`/projects/${project._id.toString()}/edit`}
-            className="rounded-md border px-4 py-2 text-sm font-medium"
-          >
-            Edit project
-          </Link>
+          {isOwner ? (
+  <Link
+    href={`/projects/${project._id.toString()}/edit`}
+    className="rounded-md border px-4 py-2 text-sm font-medium"
+  >
+    Edit project
+  </Link>
+) : null}
         </div>
 
         <p className="mt-8 leading-7">
@@ -129,9 +143,14 @@ export default async function ProjectPage({
       </p>
     </div>
 
-    <Link href={`/devlogs/new?project=${project._id.toString()}`}>
-  New DevLog
-</Link>
+    {isOwner ? (
+  <Link
+    href={`/devlogs/new?project=${project._id.toString()}`}
+    className="rounded-md border px-4 py-2 text-sm font-medium"
+  >
+    New DevLog
+  </Link>
+) : null}
   </div>
 
   {devLogs.length === 0 ? (
