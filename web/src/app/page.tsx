@@ -478,14 +478,27 @@
 //   );
 // }
 
-import { LandingHero } from "@/features/landing/components/landing-hero";
-import { ProductStorySection } from "@/features/landing/components/product-story-section";
+import {
+  CommunitySection,
+  LandingHero,
+  ProductStorySection,
+  BuildLoopSection,
+  ProductPreviewSection,
+  FinalCtaSection,
+  LandingFooter
+} from "@/features/landing";
+
 
 export default function Home() {
   return (
     <main>
       <LandingHero />
-      <ProductStorySection />
+<ProductStorySection />
+<CommunitySection />
+<BuildLoopSection />
+<ProductPreviewSection />
+<FinalCtaSection />
+<LandingFooter />
     </main>
   );
 }
