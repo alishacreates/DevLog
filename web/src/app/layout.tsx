@@ -6,6 +6,13 @@ import {
 } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
+import { Anton } from "next/font/google";
+import { Source_Code_Pro } from "next/font/google";
+
+const sourceCodePro = Source_Code_Pro({
+  subsets: ["latin"],
+  variable: "--font-source-code-pro",
+});
 
 const manrope = Manrope({
   variable: "--font-manrope",
@@ -22,6 +29,12 @@ const newsreader = Newsreader({
   variable: "--font-newsreader",
   subsets: ["latin"],
   style: ["normal", "italic"],
+});
+
+const anton = Anton({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-anton",
 });
 
 export const metadata: Metadata = {
@@ -42,7 +55,10 @@ export default function RootLayout({
           manrope.variable,
           ibmPlexMono.variable,
           newsreader.variable,
+          anton.variable,
+          sourceCodePro.variable,
           "min-h-screen bg-background font-sans text-foreground antialiased"
+          
         )}
       >
         {children}

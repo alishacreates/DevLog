@@ -1,33 +1,31 @@
 import Link from "next/link";
-import { ArrowRight, GitCommitHorizontal } from "lucide-react";
-import { buttonVariants } from "@/components/ui/button";
+import { ArrowUpRight } from "lucide-react";
 
 export function DesignHeader() {
   return (
-    <header className="sticky top-0 z-50 border-b border-border/80 bg-background/90 backdrop-blur-md">
-      <nav className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 sm:px-8">
-        <Link href="/" className="flex items-center gap-3">
-          <span className="flex size-8 items-center justify-center rounded-lg border border-primary/25 bg-primary/10 text-primary">
-            <GitCommitHorizontal className="size-4" />
+    <header className="sticky top-0 z-50 border-b border-border bg-background/90 backdrop-blur-md">
+      <nav className="mx-auto flex h-16 max-w-375 items-center justify-between px-6 lg:px-10">
+        {/* Brand */}
+        <Link href="/" className="flex items-center gap-4">
+          <span className="landing-display text-2xl uppercase tracking-[-0.02em]">
+            DEVLOG<span className="text-primary">_</span>
           </span>
 
-          <div>
-            <p className="text-sm font-semibold leading-none">DevLog</p>
-            <p className="mt-1 font-mono text-[9px] uppercase tracking-[0.16em] text-muted-foreground">
-              Design system
-            </p>
-          </div>
+          <span className="hidden h-5 w-px bg-border sm:block" />
+
+          <span className="hidden font-section text-[10px] font-bold uppercase tracking-[0.14em] text-muted-foreground sm:block">
+            Design System
+          </span>
         </Link>
 
+        {/* Back to product */}
         <Link
           href="/"
-          className={buttonVariants({
-            variant: "outline",
-            size: "sm",
-          })}
+          className="group inline-flex items-center gap-3 rounded-full border border-foreground/40 px-5 py-2.5 font-section text-[10px] font-bold uppercase tracking-widest transition-all hover:border-primary hover:text-primary"
         >
-          View landing page
-          <ArrowRight className="size-4" />
+          View product
+
+          <ArrowUpRight className="size-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
         </Link>
       </nav>
     </header>
