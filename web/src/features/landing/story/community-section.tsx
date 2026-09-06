@@ -38,7 +38,7 @@ export function CommunitySection() {
       id="community"
       className="overflow-hidden border-b border-black/20 bg-[#eeeeec] text-black"
     >
-      <div className="mx-auto max-w-[1500px] px-6 py-24 lg:px-10 lg:py-32">
+      <div className="mx-auto max-w-375 px-6 py-24 lg:px-10 lg:py-32">
         {/* Section heading */}
         <div className="grid gap-10 lg:grid-cols-[0.65fr_1.35fr]">
           <div>
@@ -79,7 +79,7 @@ export function CommunitySection() {
 
               {/* Developer */}
               <div>
-                <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.1em]">
+                <p className="font-mono text-[10px] font-semibold uppercase tracking-widest">
                   {update.username}
                 </p>
 
@@ -102,7 +102,7 @@ export function CommunitySection() {
                   {update.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="rounded-full border border-black/40 px-3 py-1.5 font-mono text-[8px] uppercase tracking-[0.1em]"
+                      className="rounded-full border border-black/40 px-3 py-1.5 font-mono text-[8px] uppercase tracking-widest"
                     >
                       {tag}
                     </span>
@@ -112,7 +112,7 @@ export function CommunitySection() {
 
               {/* Time + action */}
               <div className="flex items-start justify-between gap-4 md:flex-col md:items-end">
-                <span className="font-mono text-[9px] uppercase tracking-[0.1em] text-black/40">
+                <span className="font-mono text-[9px] uppercase tracking-widest text-black/40">
                   {update.time}
                 </span>
 
@@ -140,7 +140,7 @@ export function CommunitySection() {
 
           <Link
             href="/sign-in"
-            className="inline-flex items-center gap-3 rounded-full bg-black px-6 py-3 font-mono text-[9px] font-semibold uppercase tracking-[0.1em] text-white transition-colors hover:bg-[#1e7a6f]"
+            className="inline-flex items-center gap-3 rounded-full bg-black px-6 py-3 font-mono text-[9px] font-semibold uppercase tracking-widest text-white transition-colors hover:bg-[#1e7a6f]"
           >
             Explore DevLogs
             <ArrowUpRight className="size-4" />

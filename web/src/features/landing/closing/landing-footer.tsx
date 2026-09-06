@@ -3,7 +3,7 @@ import Link from "next/link";
 export function LandingFooter() {
   return (
     <footer className="bg-[#0f1111] text-[#eeeeec]">
-      <div className="mx-auto max-w-[1500px] px-6 pb-10 lg:px-10">
+      <div className="mx-auto max-w-375 px-6 pb-10 lg:px-10">
         <div className="grid gap-10 border-t border-white/20 py-10 sm:grid-cols-2 lg:grid-cols-[1fr_auto_auto] lg:items-start lg:gap-20">
           <div>
             <Link

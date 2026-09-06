@@ -8,7 +8,7 @@ export function ProductPreviewSection() {
       id="projects"
       className="overflow-hidden bg-[#f3f0e8] text-foreground"
     >
-      <div className="mx-auto max-w-[1500px] px-6 py-24 lg:px-10 lg:py-32">
+      <div className="mx-auto max-w-375 px-6 py-24 lg:px-10 lg:py-32">
         {/* Heading */}
         <div className="grid items-center gap-8 lg:grid-cols-[0.72fr_1.28fr] lg:gap-12">
   {/* Left visual */}
@@ -64,7 +64,7 @@ export function ProductPreviewSection() {
                 DEVLOG<span className="text-primary">_</span>
               </p>
 
-              <nav className="mt-12 space-y-5 font-mono text-[10px] uppercase tracking-[0.1em]">
+              <nav className="mt-12 space-y-5 font-mono text-[10px] uppercase tracking-widest">
                 <p className="text-primary">● Feed</p>
                 <p className="text-black/45">Projects</p>
                 <p className="text-black/45">Profile</p>
@@ -139,7 +139,7 @@ export function ProductPreviewSection() {
 
           <Link
             href="/sign-in"
-            className="inline-flex shrink-0 items-center gap-3 rounded-full bg-black px-6 py-3 font-mono text-[9px] font-semibold uppercase tracking-[0.1em] text-white transition-colors hover:bg-primary"
+            className="inline-flex shrink-0 items-center gap-3 rounded-full bg-black px-6 py-3 font-mono text-[9px] font-semibold uppercase tracking-widest text-white transition-colors hover:bg-primary"
           >
             Start your DevLog
             <ArrowUpRight className="size-4" />
@@ -172,7 +172,7 @@ function PreviewPost({
           {username}
         </p>
 
-        <p className="mt-2 font-mono text-[8px] uppercase tracking-[0.1em] text-primary">
+        <p className="mt-2 font-mono text-[8px] uppercase tracking-widest text-primary">
           / {project}
         </p>
       </div>
@@ -190,7 +190,7 @@ function PreviewPost({
           {tags.map((tag) => (
             <span
               key={tag}
-              className="font-mono text-[8px] uppercase tracking-[0.1em] text-black/40"
+              className="font-mono text-[8px] uppercase tracking-widest text-black/40"
             >
               #{tag}
             </span>

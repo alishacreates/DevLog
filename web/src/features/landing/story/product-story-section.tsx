@@ -6,7 +6,7 @@ export function ProductStorySection() {
       id="product"
       className="overflow-hidden border-b border-white/10 bg-[#0f1111] text-[#eeeeec]"
     >
-      <div className="mx-auto max-w-[1500px] px-6 py-24 lg:px-10 lg:py-32">
+      <div className="mx-auto max-w-375 px-6 py-24 lg:px-10 lg:py-32">
         <div className="grid gap-16 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
           {/* Copy */}
           <div>

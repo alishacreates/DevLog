@@ -1,4 +1,3 @@
-
 import { SectionHeader } from "@/components/shared/section-header";
 import { cn } from "@/lib/utils";
 
@@ -9,86 +8,102 @@ export function ColorSection() {
     <section className="border-b border-border py-16">
       <SectionHeader
         eyebrow="Color"
-        title="Theme tokens"
-        description="Brand colors define DevLog's identity. Semantic colors communicate state, allowing users to quickly distinguish actions, success, warnings, and errors."
+        title="Color should guide attention."
+        description="DevLog uses a warm neutral foundation, deep ink, and a restrained teal brand accent. Semantic colors communicate state without competing with the identity."
       />
 
-      <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      {/* Token swatches */}
+      <div className="mt-10 grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
         {colors.map((color) => (
           <div
             key={color.name}
             className={cn(
-              "flex min-h-32 flex-col justify-between rounded-xl p-5",
+              "flex min-h-36 flex-col justify-between p-5",
               color.className
             )}
           >
-            <span className="text-sm font-semibold">{color.name}</span>
+            <span className="font-section text-sm font-bold uppercase tracking-widest">
+              {color.name}
+            </span>
 
-            <span className="font-mono text-[10px] opacity-70">
+            <span className="font-mono text-[10px] opacity-65">
               {color.variable}
             </span>
           </div>
         ))}
       </div>
 
-      <div className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-        <div className="rounded-xl border border-border bg-card p-5">
-          <div className="h-2 rounded-full bg-primary" />
+      {/* Usage */}
+      <div className="mt-10 grid border-y border-border md:grid-cols-4 md:divide-x md:divide-border">
+        <ColorUsage
+          label="Brand"
+          tone="bg-primary"
+          description="Primary actions, active states, links, focus, motion accents, and DevLog identity."
+        />
 
-          <p className="mt-4 text-sm font-semibold">Brand</p>
+        <ColorUsage
+          label="Neutral"
+          tone="bg-muted"
+          description="Page foundations, surfaces, borders, quiet states, and supporting information."
+        />
 
-          <p className="mt-2 text-sm leading-6 text-muted-foreground">
-            Primary actions, active navigation, links, focus rings, and DevLog
-            identity.
-          </p>
-        </div>
+        <ColorUsage
+          label="Success"
+          tone="bg-success"
+          description="Published, deployed, connected, completed, verified, and healthy states."
+        />
 
-        <div className="rounded-xl border border-border bg-card p-5">
-          <div className="h-2 rounded-full bg-muted" />
-
-          <p className="mt-4 text-sm font-semibold">Neutral</p>
-
-          <p className="mt-2 text-sm leading-6 text-muted-foreground">
-            Backgrounds, cards, borders, inactive states, and supporting
-            information.
-          </p>
-        </div>
-
-        <div className="rounded-xl border border-border bg-card p-5">
-          <div className="h-2 rounded-full bg-success" />
-
-          <p className="mt-4 text-sm font-semibold">Success</p>
-
-          <p className="mt-2 text-sm leading-6 text-muted-foreground">
-            Published, deployed, connected, completed, verified, and healthy
-            states.
-          </p>
-        </div>
-
-        <div className="rounded-xl border border-border bg-card p-5">
-          <div className="h-2 rounded-full bg-destructive" />
-
-          <p className="mt-4 text-sm font-semibold">Destructive</p>
-
-          <p className="mt-2 text-sm leading-6 text-muted-foreground">
-            Errors, failed actions, deletions, dangerous operations, and
-            critical warnings.
-          </p>
-        </div>
+        <ColorUsage
+          label="Destructive"
+          tone="bg-destructive"
+          description="Errors, deletions, failed actions, dangerous operations, and critical warnings."
+        />
       </div>
 
-      <div className="mt-8 rounded-xl border border-primary/20 bg-primary/5 p-5">
-        <p className="text-sm font-semibold">Design rule</p>
+      {/* Brand emphasis */}
+      <div className="mt-10 grid gap-8 border-l-2 border-primary bg-primary/[0.04] px-6 py-7 lg:grid-cols-[0.7fr_1.3fr] lg:items-start">
+        <div>
+          <p className="font-section text-base font-bold uppercase tracking-[0.12em] text-primary">
+            Brand rule
+          </p>
+        </div>
 
-        <p className="mt-3 text-sm leading-6 text-muted-foreground">
-          Use the{" "}
-          <span className="font-medium text-primary">brand color</span> to guide
-          attention. Use{" "}
-          <span className="font-medium text-success">success</span> and{" "}
-          <span className="font-medium text-destructive">destructive</span>{" "}
-          only to communicate meaning, not as additional brand colors.
-        </p>
+        <div>
+          <p className="max-w-3xl text-xl leading-8 tracking-[-0.02em]">
+            Teal is an accent, not a wallpaper.
+          </p>
+
+          <p className="mt-3 max-w-2xl text-sm leading-6 text-muted-foreground">
+            Use the brand color to guide attention and create recognition.
+            Success and destructive colors should only appear when they carry
+            semantic meaning.
+          </p>
+        </div>
       </div>
     </section>
+  );
+}
+
+function ColorUsage({
+  label,
+  tone,
+  description,
+}: {
+  label: string;
+  tone: string;
+  description: string;
+}) {
+  return (
+    <div className="py-8 md:px-6">
+      <div className={cn("h-1.5 w-12", tone)} />
+
+      <p className="mt-5 font-section text-sm font-bold uppercase tracking-widest">
+        {label}
+      </p>
+
+      <p className="mt-3 text-sm leading-6 text-muted-foreground">
+        {description}
+      </p>
+    </div>
   );
 }

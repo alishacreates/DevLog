@@ -4,7 +4,7 @@ import { LaptopShowcase } from "./laptop-showcase";
 export function LandingHero() {
   return (
     <section className="bg-[#d6d6d3] px-3 py-3 sm:px-5 sm:py-8 lg:px-9">
-      <div className="relative mx-auto h-[760px] max-w-[1500px] overflow-hidden rounded-[24px] bg-[#eeeeec] sm:h-[900px] sm:rounded-[36px]">
+      <div className="relative mx-auto h-[760px] max-w-375 overflow-hidden rounded-[24px] bg-[#eeeeec] sm:h-[900px] sm:rounded-[36px]">
         <LandingHeader />
 
         {/* Intro */}

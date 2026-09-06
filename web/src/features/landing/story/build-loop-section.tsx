@@ -6,7 +6,7 @@ export function BuildLoopSection() {
       id="devlogs"
       className="overflow-hidden bg-primary text-[#F1EFE8]"
     >
-      <div className="mx-auto max-w-[1500px] px-6 py-24 lg:px-10 lg:py-32">
+      <div className="mx-auto max-w-375 px-6 py-24 lg:px-10 lg:py-32">
 
         {/* Header */}
         <div className="flex flex-col justify-between gap-8 lg:flex-row lg:items-start">

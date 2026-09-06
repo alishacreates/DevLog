@@ -7,7 +7,7 @@ export function FinalCtaSection() {
       id="about"
       className="relative overflow-hidden bg-[#0f1111] text-[#eeeeec]"
     >
-      <div className="mx-auto max-w-[1500px] px-6 pb-16 pt-24 lg:px-10 lg:pb-20 lg:pt-32">
+      <div className="mx-auto max-w-375 px-6 pb-16 pt-24 lg:px-10 lg:pb-20 lg:pt-32">
         <p className="font-section text-base font-bold uppercase tracking-[0.12em] text-primary sm:text-lg">
   05 / Your Turn
 </p>
@@ -30,7 +30,7 @@ export function FinalCtaSection() {
 
           <Link
             href="/sign-in"
-            className="group flex size-40 shrink-0 items-center justify-center rounded-full bg-primary text-center font-mono text-[10px] font-semibold uppercase leading-5 tracking-[0.1em] text-white transition-transform hover:scale-105 lg:size-48"
+            className="group flex size-40 shrink-0 items-center justify-center rounded-full bg-primary text-center font-mono text-[10px] font-semibold uppercase leading-5 tracking-widest text-white transition-transform hover:scale-105 lg:size-48"
           >
             <span>
               Start your
