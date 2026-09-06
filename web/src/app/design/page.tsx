@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 
+import type { Metadata } from "next";
+
 import { DesignHeader } from "@/components/layout/design-header";
 import {
   ActionsSection,
@@ -16,6 +18,14 @@ import {
   SystemStatesSection,
   TypographySection,
 } from "@/features/design-system";
+
+
+export const metadata: Metadata = {
+  title: "Design System",
+  description:
+    "Explore the visual language, typography, colors, components, and design principles behind DevLog.",
+};
+
 
 export default function DesignPage() {
   return (

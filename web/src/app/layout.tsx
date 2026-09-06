@@ -39,24 +39,27 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
 
   title: {
-    default: "DevLog",
+    default: "DevLog | Build in Motion",
     template: "%s | DevLog",
   },
 
   description:
-    "A platform for developers to document the process, share progress, and show the journey behind what they build.",
-
-  applicationName: "DevLog",
+    "DevLog is a platform for developers to document projects, share development progress, and show the journey behind what they build.",
 
   keywords: [
     "DevLog",
-    "developers",
-    "build in public",
     "developer projects",
+    "development logs",
+    "build in public",
+    "developer portfolio",
     "developer community",
     "software development",
+    "software projects",
+    "coding projects",
     "project progress",
   ],
+
+  applicationName: "DevLog",
 
   authors: [
     {
@@ -66,10 +69,19 @@ export const metadata: Metadata = {
 
   creator: "Alisha",
 
+  alternates: {
+    canonical: "/",
+  },
+
+  robots: {
+    index: true,
+    follow: true,
+  },
+
   openGraph: {
     type: "website",
     siteName: "DevLog",
-    title: "DevLog — Build in Motion",
+    title: "DevLog | Build in Motion",
     description:
       "Projects show what you built. DevLogs show how you got there.",
     url: "/",
@@ -78,14 +90,14 @@ export const metadata: Metadata = {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "DevLog — Build in Motion",
+        alt: "DevLog Build in Motion",
       },
     ],
   },
 
   twitter: {
     card: "summary_large_image",
-    title: "DevLog — Build in Motion",
+    title: "DevLog | Build in Motion",
     description:
       "Projects show what you built. DevLogs show how you got there.",
     images: ["/og-image.png"],
