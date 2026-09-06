@@ -39,7 +39,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
 
   title: {
-    default: "DevLog — Build in Motion",
+    default: "DevLog",
     template: "%s | DevLog",
   },
 
