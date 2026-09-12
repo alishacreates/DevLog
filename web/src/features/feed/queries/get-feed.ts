@@ -6,7 +6,10 @@ import { DevLog } from "@/models/devlog";
 
 const FEED_PAGE_SIZE = 10;
 
-export async function getFeed(cursor?: string) {
+export async function getFeed(
+  cursor?: string,
+  currentUserId?: string
+) {
   await connectDB();
 
   const pipeline: PipelineStage[] = [];
@@ -60,6 +63,23 @@ export async function getFeed(cursor?: string) {
       $unwind: "$author",
     },
 
+      {
+    $lookup: {
+      from: "likes",
+      localField: "_id",
+      foreignField: "devLog",
+      as: "likes",
+    },
+  },
+
+  {
+  $lookup: {
+    from: "comments",
+    localField: "_id",
+    foreignField: "devLog",
+    as: "comments",
+  },
+},
     {
       $limit: FEED_PAGE_SIZE + 1,
     }
@@ -74,24 +94,34 @@ export async function getFeed(cursor?: string) {
     : devLogs;
 
   const serializedItems = items.map((devLog) => ({
-    id: devLog._id.toString(),
-    title: devLog.title,
-    content: devLog.content,
-    tags: devLog.tags,
-    createdAt: new Date(devLog.createdAt).toISOString(),
+  id: devLog._id.toString(),
+  title: devLog.title,
+  content: devLog.content,
+  tags: devLog.tags,
+  createdAt: new Date(devLog.createdAt).toISOString(),
 
-    author: {
-      id: devLog.author._id.toString(),
-      name: devLog.author.name,
-      username: devLog.author.username,
-      image: devLog.author.image,
-    },
+  likesCount: devLog.likes?.length ?? 0,
 
-    project: {
-      id: devLog.project._id.toString(),
-      title: devLog.project.title,
-    },
-  }));
+likedByCurrentUser: currentUserId
+  ? (devLog.likes ?? []).some(
+      (like: { user: Types.ObjectId }) =>
+        like.user.toString() === currentUserId
+    )
+  : false,
+  commentsCount: devLog.comments?.length ?? 0,
+
+  author: {
+    id: devLog.author._id.toString(),
+    name: devLog.author.name,
+    username: devLog.author.username,
+    image: devLog.author.image,
+  },
+
+  project: {
+    id: devLog.project._id.toString(),
+    title: devLog.project.title,
+  },
+}));
 
   const nextCursor =
     hasMore && items.length > 0
