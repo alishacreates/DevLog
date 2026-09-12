@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { Types } from "mongoose";
 
@@ -6,6 +7,9 @@ import { auth } from "@/auth";
 import { connectDB } from "@/lib/db/mongoose";
 import { DevLog } from "@/models/devlog";
 import "@/models/project";
+import { CommentForm } from "@/features/comments/components/comment-form";
+import { Comment } from "@/models/comment";
+
 
 type DevLogPageProps = {
   params: Promise<{
@@ -26,24 +30,16 @@ export default async function DevLogPage({
 
   await connectDB();
 
-  const devLog = await DevLog.findOne({
-  _id: id,
-  $or: [
-    { author: session!.user.id },
-  ],
-})
+  const devLog = await DevLog.findById(id)
   .populate("author", "name username image")
-  .populate("project", "_id title isPublic")
+  .populate("project", "_id title isPublic owner")
   .lean();
-
-  if (!devLog) {
-    notFound();
-  }
 
   const project = devLog.project as unknown as {
   _id: Types.ObjectId;
   title: string;
   isPublic: boolean;
+  owner: Types.ObjectId;
 };
 
 const author = devLog.author as unknown as {
@@ -59,6 +55,13 @@ const isOwner =
   if (!isOwner && !project.isPublic) {
   notFound();
 }
+
+const comments = await Comment.find({
+  devLog: devLog._id,
+})
+  .sort({ createdAt: -1 })
+  .populate("author", "name username image")
+  .lean();
 
   return (
     <main className="mx-auto max-w-3xl px-6 py-10">
@@ -112,6 +115,95 @@ const isOwner =
           </div>
         ) : null}
       </article>
+
+      <section
+  id="comments"
+  className="mt-12 border-t border-border pt-8"
+>
+  <div className="flex items-center justify-between">
+    <div>
+      <p className="text-section-label text-primary">
+        Discussion
+      </p>
+
+      <h2 className="mt-2 text-xl font-semibold">
+        {comments.length} Comment
+        {comments.length === 1 ? "" : "s"}
+      </h2>
+    </div>
+  </div>
+
+  <div className="mt-6">
+    <CommentForm devLogId={devLog._id.toString()} />
+  </div>
+
+  {comments.length === 0 ? (
+    <p className="mt-6 text-sm text-muted-foreground">
+      No comments yet. Start the discussion.
+    </p>
+  ) : (
+    <div className="mt-6 space-y-4">
+      {comments.map((comment) => {
+        const commentAuthor = comment.author as unknown as {
+  _id: Types.ObjectId;
+  name: string;
+  username: string;
+  image?: string;
+};
+
+        return (
+          <article
+            key={comment._id.toString()}
+            className="rounded-2xl border border-border bg-card p-4"
+          >
+            <div className="flex items-start gap-3">
+              {commentAuthor.image ? (
+                <Image
+                  src={commentAuthor.image}
+                  alt={commentAuthor.name}
+                  width={36}
+                  height={36}
+                  className="size-9 rounded-full object-cover"
+                />
+              ) : (
+                <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-primary text-xs font-semibold text-primary-foreground">
+                  {commentAuthor.name.charAt(0).toUpperCase()}
+                </div>
+              )}
+
+              <div className="min-w-0 flex-1">
+                <div className="flex flex-wrap items-center gap-2">
+                  <Link
+                    href={`/u/${commentAuthor.username}`}
+                    className="text-sm font-semibold hover:underline"
+                  >
+                    {commentAuthor.name}
+                  </Link>
+
+                  <span className="text-meta text-muted-foreground">
+                    @{commentAuthor.username}
+                  </span>
+
+                  <span className="text-muted-foreground">
+                    ·
+                  </span>
+
+                  <span className="text-meta text-muted-foreground">
+                    {new Date(comment.createdAt).toLocaleDateString()}
+                  </span>
+                </div>
+
+                <p className="mt-2 whitespace-pre-wrap text-sm leading-6">
+                  {comment.content}
+                </p>
+              </div>
+            </div>
+          </article>
+        );
+      })}
+    </div>
+  )}
+</section>
     </main>
   );
 }

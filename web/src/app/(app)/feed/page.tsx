@@ -22,7 +22,7 @@ const [projects, feed] = await Promise.all([
     .limit(4)
     .lean(),
 
-  getFeed(),
+  getFeed(undefined, session!.user.id),
 ]);
 
 const { items, nextCursor } = feed;
@@ -31,59 +31,58 @@ const { items, nextCursor } = feed;
     id: project._id.toString(),
     title: project.title,
   }));
+return (
+  <main className="mx-auto w-full max-w-[1440px] px-6 py-8 lg:px-10">
+    <div className="grid gap-7 xl:grid-cols-[240px_minmax(0,760px)_240px] xl:justify-center">
+      <FeedLeftSidebar
+        user={session!.user}
+        projects={serializedProjects}
+      />
 
-  return (
-    <main className="mx-auto max-w-375 px-6 py-8 lg:px-10">
-      <div className="grid gap-6 lg:grid-cols-[220px_minmax(0,1fr)] xl:grid-cols-[220px_minmax(0,720px)_260px]">
-        <FeedLeftSidebar
-          user={session!.user}
-          projects={serializedProjects}
-        />
+      <section className="min-w-0">
+        <div className="mb-5 flex items-center justify-between">
+          <div>
+            <p className="text-section-label text-primary">
+              Community Feed
+            </p>
 
-        <section className="min-w-0">
-          <div className="mb-5 flex items-center justify-between">
-            <div>
-              <p className="font-section text-[10px] font-bold uppercase tracking-widest text-primary">
-                Community Feed
-              </p>
-
-              <h1 className="mt-1 text-2xl font-semibold tracking-[-0.03em]">
-                See what developers are building.
-              </h1>
-            </div>
-
-            <Link
-              href="/devlogs/new"
-              className="hidden rounded-full bg-primary px-4 py-2 font-section text-[9px] font-bold uppercase tracking-widest text-primary-foreground sm:inline-flex"
-            >
-              New DevLog
-            </Link>
+            <h1 className="mt-1 text-2xl font-semibold tracking-[-0.03em]">
+              See what developers are building.
+            </h1>
           </div>
 
-          <FeedComposer />
+          <Link
+            href="/devlogs/new"
+            className="text-action-label hidden rounded-full bg-primary px-4 py-2 text-primary-foreground sm:inline-flex"
+          >
+            New DevLog
+          </Link>
+        </div>
 
-          {items.length === 0 ? (
-            <section className="mt-5 rounded-2xl border border-border bg-card p-8 text-center">
-              <h2 className="text-lg font-semibold">
-                Nothing here yet
-              </h2>
+        <FeedComposer />
 
-              <p className="mx-auto mt-2 max-w-md text-sm text-muted-foreground">
-                Public DevLogs from the community will appear here.
-              </p>
-            </section>
-          ) : (
-            <div className="mt-5">
-              <FeedList
-                initialItems={items}
-                initialCursor={nextCursor}
-              />
-            </div>
-          )}
-        </section>
+        {items.length === 0 ? (
+          <section className="mt-5 rounded-2xl border border-border bg-card p-8 text-center">
+            <h2 className="text-lg font-semibold">
+              Nothing here yet
+            </h2>
 
-        <FeedRightSidebar />
-      </div>
-    </main>
-  );
+            <p className="mx-auto mt-2 max-w-md text-sm text-muted-foreground">
+              Public DevLogs from the community will appear here.
+            </p>
+          </section>
+        ) : (
+          <div className="mt-5">
+            <FeedList
+              initialItems={items}
+              initialCursor={nextCursor}
+            />
+          </div>
+        )}
+      </section>
+
+      <FeedRightSidebar />
+    </div>
+  </main>
+);
 }

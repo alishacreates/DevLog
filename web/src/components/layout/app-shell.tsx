@@ -38,6 +38,13 @@ export function AppShell({ children, user }: AppShellProps) {
               >
                 Projects
               </Link>
+              <Link
+    href="/search"
+    className="transition-colors hover:text-primary"
+  >
+    Search
+  </Link>
+  
             </nav>
           </div>
 

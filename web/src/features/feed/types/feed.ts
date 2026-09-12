@@ -4,6 +4,10 @@ export type FeedItem = {
   content: string;
   tags: string[];
   createdAt: string;
+  
+  likesCount: number;
+  likedByCurrentUser: boolean;
+  commentsCount: number;
 
   author: {
     id: string;
