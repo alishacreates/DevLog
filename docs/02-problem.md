@@ -2,90 +2,137 @@
 
 ## Background
 
-Student developers spend hundreds of hours learning technologies, building personal projects, participating in hackathons, and contributing to open source. Despite this effort, they often struggle to showcase their work, connect with like-minded developers, and receive meaningful feedback.
+Developers spend significant time building projects, learning technologies, solving bugs, experimenting with ideas, making technical decisions, and shipping features.
 
-The journey of building software is fragmented across multiple platforms, each solving only one part of the problem.
+But most of that work disappears.
+
+GitHub preserves the code. Portfolios showcase finished projects. Professional networks highlight achievements.
+
+Very few places are designed around documenting and discovering the process of building software itself.
+
+The development journey is fragmented across multiple platforms, with each platform capturing only one part of it.
 
 ---
 
 ## Current Problems
 
-### 1. Projects Remain Invisible
+### 1. The Building Process Is Invisible
 
-Many excellent student projects are never seen outside GitHub repositories.
+Most developer projects are eventually represented by a repository, deployed application, or portfolio entry.
 
-### 2. Limited Collaboration
+But these rarely show how the project actually evolved.
 
-Finding reliable teammates for personal projects and hackathons is difficult.
+The bugs, experiments, architecture decisions, failed approaches, lessons, and small milestones that happened along the way are usually lost.
 
-### 3. No Place to Share Progress
+### 2. There Is No Natural Home for Development Progress
 
-Developers improve every day, but there is no dedicated platform focused on documenting daily or weekly development progress.
+Developers constantly make progress that may not justify a full blog post or professional announcement:
 
-### 4. Existing Platforms Have Different Goals
+* Fixed a difficult bug
+* Built a new feature
+* Changed an architecture decision
+* Learned a new technology
+* Reached a project milestone
+* Tried an approach that failed
+* Shipped an early version
 
-GitHub focuses on source code.
+There is no dedicated platform centered around capturing these updates as part of a project's ongoing history.
 
-LinkedIn focuses on employment.
+### 3. Projects Become Static Showcases
 
-Discord focuses on conversation.
+Traditional portfolios usually show:
 
-None of these platforms are designed around the experience of building software as a student.
+* Project name
+* Description
+* Tech stack
+* GitHub repository
+* Live demo
 
-### 5. Motivation Declines
+Once published, the project often becomes a static card.
 
-Many students abandon projects because there is little accountability, encouragement, or recognition during development.
+But real software keeps changing.
 
----
+A developer's project should be able to show its journey from the first commit to the latest release.
 
-## Existing Solutions
+### 4. Developer Discovery Is Disconnected From Building
 
-### GitHub
+Developers are often discovered through profiles, résumés, follower counts, or polished posts.
 
-Excellent for version control and code hosting.
+These signals do not always show what someone is actively building.
 
-Weak for social interaction and project storytelling.
+There is an opportunity to discover developers through their actual work:
 
-### LinkedIn
+> What are they building?
+>
+> What problems are they solving?
+>
+> What are they learning?
+>
+> How is their project evolving?
 
-Useful for professional networking.
+### 5. Existing Platforms Solve Different Problems
 
-Not designed for sharing technical progress or finding collaborators.
+**GitHub** focuses on source code and collaboration around repositories.
 
-### Dev.to / Hashnode
+**LinkedIn** focuses primarily on professional identity, networking, and career updates.
 
-Excellent for technical writing.
+**Discord** enables real-time developer communities, but conversations are often temporary and difficult to discover later.
 
-Less focused on ongoing project development.
+**Dev.to / Hashnode** are strong platforms for technical articles and long-form writing.
 
-### Reddit
+**Reddit** enables discussion but is not organized around persistent developer projects and their development history.
 
-Strong discussions.
-
-Weak personal identity and project portfolios.
+Each platform is valuable, but none is centered specifically around the ongoing journey behind building software.
 
 ---
 
 ## Opportunity
 
-Student developers need one platform where they can:
+Developers need a place where they can:
 
-* Document their journey.
-* Showcase projects.
-* Find collaborators.
-* Receive feedback.
-* Build credibility through consistent progress.
+* Create and showcase projects
+* Document progress while building
+* Preserve the history behind their work
+* Share bugs, decisions, experiments, lessons, and milestones
+* Discover what other developers are actively building
+* Receive useful feedback
+* Build a developer identity through their work
+* Find opportunities for discussion and collaboration
+
+The opportunity is not to replace GitHub, LinkedIn, or developer communities.
+
+It is to provide the missing layer between them:
+
+**the story of how software gets built.**
 
 ---
 
 ## Our Solution
 
-DevLog combines project showcasing, progress updates, developer networking, and collaboration into a single platform designed specifically for student developers.
+DevLog is a developer platform centered around projects and the journey behind them.
+
+Developers create projects and publish DevLogs as they build — documenting progress, technical decisions, bugs, lessons, experiments, and milestones along the way.
+
+Instead of a project being represented only by its final result, DevLog turns it into a living development history.
+
+And instead of discovering developers only through what they say about themselves, DevLog creates another way to discover them:
+
+through what they are actually building.
+
+GitHub shows the code.
+
+Portfolios show the result.
+
+**DevLog shows the journey.**
+
+---
+
+## Core Question
 
 Instead of asking:
 
-"What job do you have?"
+> "What do you do?"
 
 DevLog asks:
 
-"What are you building today?"
+> **"What are you building?"**

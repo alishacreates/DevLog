@@ -1,115 +1,79 @@
 # Product Requirements Document (PRD)
 
-# Product Name
 
-DevLog
+## Product Name
+
+**DevLog**
 
 ---
 
 # Product Vision
 
-Create the best platform where student developers document their software development journey, collaborate on projects, and grow together through consistent learning.
+Create a developer platform where projects are represented not only by their finished result, but by the journey behind building them.
+
+DevLog should give developers a persistent place to document progress, preserve development history, and discover what others are actively building.
 
 ---
 
 # Problem Statement
 
-Student developers lack a dedicated platform to consistently share project progress, receive meaningful feedback, discover collaborators, and build a reputation based on what they create rather than traditional resumes.
+Developers build features, solve bugs, make technical decisions, experiment with ideas, learn technologies, and reach milestones throughout a project's development.
+
+Most of this process disappears.
+
+Existing platforms preserve pieces of the journey — code, professional updates, discussions, or finished portfolios — but there is no persistent project-centered home for the development story itself.
 
 ---
 
 # Target Users
 
-Primary
+## Primary
 
-* University students
-* Computer Science students
-* Beginner developers
+Developers actively building software projects.
 
-Secondary
+## Early User Segments
 
-* Open-source contributors
-* Hackathon participants
+- Student developers
+- Early-career developers
+- Self-taught developers
+- Side-project builders
+- Indie hackers
 
----
+## Secondary
 
-# Goals
-
-## Business Goals
-
-* Build an engaged developer community.
-* Reach the first 100 active users.
-* Validate the product idea.
-* Create a scalable startup foundation.
-
-## User Goals
-
-* Share progress easily.
-* Showcase projects.
-* Receive feedback.
-* Find collaborators.
-* Build credibility.
+- Open-source contributors
+- Hackathon participants
+- Professional developers building outside work
 
 ---
 
-# Non-Goals (MVP)
+# MVP Goal
 
-The first version will NOT include:
+The MVP exists to validate one core behavior:
 
-* Video streaming
-* Voice chat
-* Marketplace
-* AI assistant
-* Job board
-* Premium subscriptions
+> **Will developers consistently document meaningful project progress if that progress becomes part of a persistent project history?**
+
+Everything included in the MVP should support testing this question.
 
 ---
 
-# MVP Features
+# Core Product Loop
 
-* Authentication
-* User Profiles
-* Developer Feed
-* DevLogs
-* Project Showcase
-* Likes
-* Comments
-* Follow System
-* Search
-* Notifications
-
----
-
-# Success Metrics
-
-* 100 registered users
-* 50 weekly active users
-* 300 DevLogs created
-* 100 projects uploaded
-* Average of 5 interactions per post
-
----
-
-# Constraints
-
-* Single developer
-* Student budget
-* MongoDB database
-* Next.js frontend
-* Node.js backend
-* 6–8 month MVP timeline
-
----
-
-# Future Vision
-
-Future releases may include:
-
-* Messaging
-* Communities
-* Hackathons
-* Team matching
-* AI-assisted code review
-* Recruiter dashboard
-* Events
-* Open-source discovery
+```text
+Developer signs in
+        ↓
+Completes profile
+        ↓
+Creates project
+        ↓
+Builds something
+        ↓
+Creates DevLog
+        ↓
+DevLog becomes part of project history
+        ↓
+Public DevLog can be discovered
+        ↓
+Developer continues building
+        ↓
+Creates another DevLog

@@ -2,28 +2,35 @@
 
 ## Vision Statement
 
-To become the leading platform where student developers build in public, collaborate on meaningful projects, and grow together through shared learning, innovation, and real-world experience.
+To become a platform where developers build in public, document their journey, discover what others are building, collaborate on meaningful projects, and grow through shared learning and real-world experience.
 
 ---
 
 ## Mission
 
-DevLog empowers student developers to document their development journey, showcase their projects, discover collaborators, receive constructive feedback, and build a professional network based on what they create rather than what they claim.
+DevLog empowers developers to document their development journey, share their projects and progress, discover other builders, exchange useful feedback, and build a developer identity based on what they create.
 
 ---
 
 ## Why DevLog Exists
 
-Every day, thousands of students build interesting projects, learn new technologies, and solve challenging problems. Most of this work remains hidden inside GitHub repositories or personal computers.
+Every day, developers build projects, learn new technologies, solve difficult problems, fix bugs, make architectural decisions, and reach small milestones.
+
+Most of that journey disappears.
+
+GitHub may contain the code and a portfolio may contain the finished result, but neither fully captures what happened while the project was being built.
 
 Existing platforms serve only part of a developer's journey:
 
-* GitHub hosts code but is not designed for documenting progress or building relationships.
-* LinkedIn focuses on professional achievements rather than continuous learning.
-* Discord enables communication but conversations are temporary and difficult to discover.
-* Reddit encourages discussion but lacks persistent developer identity and project history.
+* **GitHub** hosts code but is not designed around documenting the story and progress behind a project.
 
-DevLog exists to become the place where the entire journey of building software is shared.
+* **LinkedIn** is largely centered around professional updates and finished achievements rather than continuous development.
+
+* **Discord** enables developer communities and conversation, but much of that knowledge is temporary and difficult to discover later.
+
+* **Reddit** enables discussion and knowledge sharing, but is not built around persistent developer projects and their development history.
+
+DevLog exists to give the process of building software a place to live.
 
 ---
 
@@ -31,23 +38,23 @@ DevLog exists to become the place where the entire journey of building software 
 
 ### Build in Public
 
-Progress is more valuable than perfection.
+Progress is worth sharing before the final launch.
 
 ### Learn Together
 
-Knowledge grows when it is shared.
-
-### Collaboration First
-
-Great software is built by teams, not individuals.
+The bugs, decisions, experiments, and lessons behind a project can help other developers too.
 
 ### Authenticity
 
-Celebrate real progress, failures, lessons, and achievements.
+Show the real development process — not only polished outcomes.
+
+### Collaboration
+
+Building publicly creates opportunities for feedback, discussion, and collaboration.
 
 ### Community
 
-Developers succeed faster when they help one another.
+Discover developers through what they are actually building.
 
 ---
 
@@ -55,30 +62,82 @@ Developers succeed faster when they help one another.
 
 DevLog exists to make building software more rewarding than consuming content.
 
-Every feature should encourage developers to create, share progress, learn from others, and return because they are inspired to build—not because they are trapped in an endless feed.
+Every feature should encourage developers to build, document progress, learn from others, and return because they are inspired to create.
 
-The goal is not to maximize screen time. The goal is to maximize meaningful progress.
+The goal is not to maximize screen time.
+
+The goal is to maximize meaningful progress.
+
+DevLog should reward:
+
+* Building over scrolling
+* Progress over perfection
+* Useful discussion over vanity metrics
+* Developer identity through work rather than claims
+* Long-term project journeys over isolated posts
+
+---
+
+## Who DevLog Is For
+
+DevLog is for developers who build.
+
+That can include:
+
+* Students learning through projects
+* Early-career developers building their portfolio
+* Professional developers working on side projects
+* Indie hackers building products
+* Open-source contributors
+* Hackathon participants
+* Developers experimenting with new technologies
+* Teams building projects in public
+
+Experience level does not define the community.
+
+Building does.
 
 ---
 
 ## Long-Term Vision
 
-Within the next five years, DevLog aims to become the preferred community for student developers worldwide by providing:
+DevLog aims to become a developer community centered around the process of building software.
 
-* Project discovery
-* Developer networking
-* Collaboration opportunities
-* Learning through real projects
+Over time, the platform can support:
+
 * Public development journals
-* Technical communities
-* Hackathon support
+* Project discovery
+* Developer profiles
+* Developer networking
+* Project collaboration
+* Technical discussions around real projects
+* Learning through other developers' work
+* Open-source discovery
+* Hackathon projects and teams
+* Project milestones and development history
+
+The product should evolve around one central object:
+
+**the project and the journey behind it.**
 
 ---
 
 ## Success Definition
 
-DevLog succeeds when student developers naturally think:
+DevLog succeeds when developers naturally think:
 
-> "I just built something. Let me post it on DevLog."
+> "I just built something. Let me DevLog it."
 
-instead of wondering where to share their progress.
+A bug fixed.
+
+A feature shipped.
+
+A decision made.
+
+An experiment that failed.
+
+A milestone reached.
+
+All of it is part of building.
+
+**Build. Log. Share. Repeat.**

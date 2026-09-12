@@ -1,0 +1,30 @@
+AUTH
+src/auth.ts
+src/app/sign-in/page.tsx
+        ↓
+ONBOARDING
+src/app/onboarding/page.tsx
+features/onboarding/*
+        ↓
+APP SHELL
+src/app/(app)/layout.tsx
+components/layout/app-shell.tsx
+        ↓
+PROFILE
+/app/profile
+/app/profile/edit
+        ↓
+PROJECTS
+/projects
+/projects/new
+/projects/[id]
+/projects/[id]/edit
+        ↓
+DEVLOGS
+/devlogs/new
+/devlogs/[id]
+/devlogs/[id]/edit
+        ↓
+COMMUNITY
+/feed
+loadMoreFeed()
