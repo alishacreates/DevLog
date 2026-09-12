@@ -39,12 +39,6 @@ const devLogSchema = new Schema(
       type: [String],
       default: [],
     },
-
-    isPublic: {
-      type: Boolean,
-      default: true,
-      index: true,
-    },
   },
   {
     timestamps: true,
@@ -58,11 +52,6 @@ devLogSchema.index({
 
 devLogSchema.index({
   author: 1,
-  createdAt: -1,
-});
-
-devLogSchema.index({
-  isPublic: 1,
   createdAt: -1,
 });
 

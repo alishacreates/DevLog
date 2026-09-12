@@ -8,6 +8,7 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 import { Anton } from "next/font/google";
 import { Source_Code_Pro } from "next/font/google";
+import { ThemeProvider } from "@/components/providers/theme-provider";
 
 const sourceCodePro = Source_Code_Pro({
   subsets: ["latin"],
@@ -49,7 +50,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={cn(
           manrope.variable,
@@ -61,7 +62,9 @@ export default function RootLayout({
           
         )}
       >
-        {children}
+        <ThemeProvider>
+      {children}
+    </ThemeProvider>
       </body>
     </html>
   );

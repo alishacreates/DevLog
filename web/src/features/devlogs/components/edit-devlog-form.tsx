@@ -16,7 +16,6 @@ type EditDevLogFormProps = {
     title: string;
     content: string;
     tags: string[];
-    isPublic: boolean;
   };
   projects: {
     id: string;
@@ -146,21 +145,9 @@ export function EditDevLogForm({
       </div>
 
       {/* Public */}
-      <label className="flex items-start gap-3 rounded-md border p-4">
-        <input
-          type="checkbox"
-          name="isPublic"
-          defaultChecked={devLog.isPublic}
-          className="mt-1"
-        />
-
-        <div>
-          <p className="text-sm font-medium">Public DevLog</p>
-          <p className="text-sm text-muted-foreground">
-            Public DevLogs can appear in the community feed.
-          </p>
-        </div>
-      </label>
+      <p className="text-sm text-muted-foreground">
+  This DevLog uses the visibility of its project.
+</p>
 
       {state.error ? (
         <p className="text-sm text-destructive">

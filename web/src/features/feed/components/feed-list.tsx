@@ -39,24 +39,24 @@ export function FeedList({
   return (
     <>
       <div className="space-y-4">
-        {items.map((devLog) => (
-          <DevLogCard
-            key={devLog.id}
-            devLog={devLog}
-          />
-        ))}
-      </div>
+  {items.map((devLog) => (
+    <DevLogCard
+      key={devLog.id}
+      devLog={devLog}
+    />
+  ))}
+</div>
 
       {cursor ? (
         <div className="mt-8 flex justify-center">
           <button
-            type="button"
-            disabled={isPending}
-            onClick={handleLoadMore}
-            className="rounded-md border px-4 py-2 text-sm font-medium transition-colors hover:bg-muted disabled:cursor-not-allowed disabled:opacity-60"
-          >
-            {isPending ? "Loading..." : "Load more"}
-          </button>
+  type="button"
+  disabled={isPending}
+  onClick={handleLoadMore}
+  className="rounded-full border border-black/30 px-6 py-3 font-section text-[9px] font-bold uppercase tracking-widest transition-colors hover:border-primary hover:text-primary disabled:cursor-not-allowed disabled:opacity-50"
+>
+  {isPending ? "Loading..." : "Load more"}
+</button>
         </div>
       ) : null}
     </>

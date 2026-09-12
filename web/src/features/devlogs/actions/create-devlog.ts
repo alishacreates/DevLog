@@ -8,6 +8,7 @@ import { devLogSchema } from "../schema/devlog.schema";
 import { connectDB } from "@/lib/db/mongoose";
 import { DevLog } from "@/models/devlog";
 import { Project } from "@/models/project";
+import { revalidatePath } from "next/cache";
 
 export type CreateDevLogState = {
   error?: string;
@@ -16,7 +17,6 @@ export type CreateDevLogState = {
     title?: string[];
     content?: string[];
     tags?: string[];
-    isPublic?: string[];
   };
 };
 
@@ -48,7 +48,6 @@ export async function createDevLog(
     title: formData.get("title"),
     content: formData.get("content"),
     tags,
-    isPublic: formData.get("isPublic") === "on",
   });
 
   if (!parsed.success) {
@@ -86,7 +85,7 @@ export async function createDevLog(
       title: parsed.data.title,
       content: parsed.data.content,
       tags: parsed.data.tags,
-      isPublic: parsed.data.isPublic,
+
     });
 
     devLogId = devLog._id.toString();
@@ -98,5 +97,8 @@ export async function createDevLog(
     };
   }
 
-  redirect(`/devlogs/${devLogId}`);
+  revalidatePath("/feed");
+revalidatePath(`/projects/${parsed.data.projectId}`);
+
+redirect(`/devlogs/${devLogId}`);
 }

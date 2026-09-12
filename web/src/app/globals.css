@@ -145,3 +145,29 @@
   transform: scaleY(1.15);
   transform-origin: top;
 }
+
+@layer components {
+  .text-meta {
+    @apply font-mono text-[11px] leading-4 tracking-[0.04em];
+  }
+
+  .text-meta-uppercase {
+    @apply font-mono text-[11px] uppercase leading-4 tracking-[0.08em];
+  }
+
+  .text-section-label {
+    @apply font-section text-xs font-bold uppercase tracking-widest;
+  }
+
+  .text-action-label {
+    @apply font-section text-xs font-bold uppercase tracking-widest;
+  }
+
+  .text-interface-small {
+    @apply text-sm leading-5;
+  }
+
+  .text-interface {
+    @apply text-base leading-6;
+  }
+}

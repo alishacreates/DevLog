@@ -17,7 +17,6 @@ export type UpdateDevLogState = {
     title?: string[];
     content?: string[];
     tags?: string[];
-    isPublic?: string[];
   };
 };
 
@@ -46,7 +45,6 @@ export async function updateDevLog(
     title: formData.get("title"),
     content: formData.get("content"),
     tags,
-    isPublic: formData.get("isPublic") === "on",
   });
 
   if (!parsed.success) {
@@ -86,7 +84,6 @@ export async function updateDevLog(
           title: parsed.data.title,
           content: parsed.data.content,
           tags: parsed.data.tags,
-          isPublic: parsed.data.isPublic,
         },
       },
       {
@@ -109,7 +106,8 @@ export async function updateDevLog(
   }
 
   revalidatePath(`/devlogs/${devLogId}`);
-  revalidatePath(`/projects/${parsed.data.projectId}`);
+revalidatePath(`/projects/${parsed.data.projectId}`);
+revalidatePath("/feed");
 
-  redirect(`/devlogs/${devLogId}`);
+redirect(`/devlogs/${devLogId}`);
 }

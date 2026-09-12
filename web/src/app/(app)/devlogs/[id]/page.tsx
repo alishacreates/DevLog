@@ -30,7 +30,6 @@ export default async function DevLogPage({
   _id: id,
   $or: [
     { author: session!.user.id },
-    { isPublic: true },
   ],
 })
   .populate("author", "name username image")

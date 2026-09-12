@@ -62,7 +62,6 @@ export default async function EditDevLogPage({
           title: devLog.title,
           content: devLog.content,
           tags: devLog.tags ?? [],
-          isPublic: devLog.isPublic,
         }}
         projects={projects.map((project) => ({
           id: project._id.toString(),

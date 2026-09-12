@@ -21,8 +21,6 @@ export const devLogSchema = z.object({
   tags: z
     .array(z.string().trim().min(1).max(40))
     .max(10, "You can add at most 10 tags."),
-
-  isPublic: z.boolean(),
 });
 
 export type DevLogInput = z.infer<typeof devLogSchema>;

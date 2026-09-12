@@ -1,4 +1,6 @@
-import { signIn } from "@/auth";
+import { redirect } from "next/navigation";
+
+import { auth, signIn } from "@/auth";
 
 type SignInPageProps = {
   searchParams: Promise<{
@@ -9,6 +11,16 @@ type SignInPageProps = {
 export default async function SignInPage({
   searchParams,
 }: SignInPageProps) {
+  const session = await auth();
+
+  if (session?.user) {
+    if (session.user.isOnboarded) {
+      redirect("/feed");
+    }
+
+    redirect("/onboarding");
+  }
+
   const { error } = await searchParams;
 
   return (
@@ -16,6 +28,7 @@ export default async function SignInPage({
       <div className="w-full max-w-sm space-y-6">
         <div>
           <h1 className="text-2xl font-semibold">Sign in to DevLog</h1>
+
           <p className="mt-2 text-sm text-muted-foreground">
             Continue with your developer account.
           </p>

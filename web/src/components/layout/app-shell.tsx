@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { signOut } from "@/auth";
+import { AccountMenu } from "@/components/layout/account-menu";
 
 type AppShellProps = {
   children: React.ReactNode;
@@ -13,73 +13,35 @@ type AppShellProps = {
 
 export function AppShell({ children, user }: AppShellProps) {
   return (
-    <div className="min-h-screen bg-background">
-      <header className="border-b">
-        <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
-          <div className="flex items-center gap-8">
+    <div className="min-h-screen bg-background text-foreground">
+      <header className="border-b border-border bg-background">
+        <div className="mx-auto flex h-20 max-w-375 items-center justify-between px-6 lg:px-10">
+          <div className="flex items-center gap-10">
             <Link
               href="/feed"
-              className="text-lg font-semibold tracking-tight"
+              className="landing-display text-2xl uppercase tracking-[-0.02em]"
             >
-              DevLog
+              DEVLOG<span className="text-primary">_</span>
             </Link>
 
-            <nav className="flex items-center gap-5 text-sm">
+            <nav className="hidden items-center gap-7 font-section text-xs font-bold uppercase tracking-[0.12em] md:flex">
               <Link
                 href="/feed"
-                className="text-muted-foreground transition-colors hover:text-foreground"
+                className="transition-colors hover:text-primary"
               >
                 Feed
               </Link>
 
               <Link
                 href="/projects"
-                className="text-muted-foreground transition-colors hover:text-foreground"
+                className="transition-colors hover:text-primary"
               >
                 Projects
-              </Link>
-
-              <Link
-                href="/profile"
-                className="text-muted-foreground transition-colors hover:text-foreground"
-              >
-                Profile
               </Link>
             </nav>
           </div>
 
-          <div className="flex items-center gap-4">
-            <Link
-              href="/projects/new"
-              className="rounded-md bg-primary px-3 py-2 text-sm font-medium text-primary-foreground"
-            >
-              New Project
-            </Link>
-
-            <Link
-              href="/profile"
-              className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-            >
-              @{user.username}
-            </Link>
-
-            <form
-              action={async () => {
-                "use server";
-
-                await signOut({
-                  redirectTo: "/",
-                });
-              }}
-            >
-              <button
-                type="submit"
-                className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-              >
-                Sign out
-              </button>
-            </form>
-          </div>
+          <AccountMenu user={user} />
         </div>
       </header>
 
