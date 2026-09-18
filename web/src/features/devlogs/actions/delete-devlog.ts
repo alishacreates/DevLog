@@ -7,6 +7,7 @@ import { Types } from "mongoose";
 import { auth } from "@/auth";
 import { connectDB } from "@/lib/db/mongoose";
 import { DevLog } from "@/models/devlog";
+import { del } from "@vercel/blob";
 
 export async function deleteDevLog(devLogId: string) {
   const session = await auth();
@@ -22,9 +23,11 @@ export async function deleteDevLog(devLogId: string) {
   await connectDB();
 
   const devLog = await DevLog.findOne({
-    _id: devLogId,
-    author: session.user.id,
-  }).lean();
+  _id: devLogId,
+  author: session.user.id,
+})
+  .select("project images")
+  .lean();
 
   if (!devLog) {
     throw new Error(
@@ -38,6 +41,17 @@ export async function deleteDevLog(devLogId: string) {
     _id: devLogId,
     author: session.user.id,
   });
+
+  if (devLog.images?.length > 0) {
+  try {
+    await del(devLog.images);
+  } catch (error) {
+    console.error(
+      "Failed to delete DevLog images:",
+      error
+    );
+  }
+}
 
   revalidatePath(`/projects/${projectId}`);
   revalidatePath("/feed");

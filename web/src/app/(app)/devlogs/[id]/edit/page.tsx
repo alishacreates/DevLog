@@ -7,6 +7,7 @@ import { connectDB } from "@/lib/db/mongoose";
 import { DevLog } from "@/models/devlog";
 import { Project } from "@/models/project";
 import { DeleteDevLogDialog } from "@/features/devlogs/components/delete-devlog-dialog";
+import { BackButton } from "@/components/shared/back-button";
 
 type EditDevLogPageProps = {
   params: Promise<{
@@ -45,6 +46,7 @@ export default async function EditDevLogPage({
 
   return (
     <main className="mx-auto max-w-2xl px-6 py-10">
+      <BackButton fallback={`/devlogs/${id}`} />
       <div className="mb-8">
         <h1 className="text-3xl font-semibold tracking-tight">
           Edit DevLog
@@ -62,6 +64,7 @@ export default async function EditDevLogPage({
           title: devLog.title,
           content: devLog.content,
           tags: devLog.tags ?? [],
+          images: devLog.images ?? [],
         }}
         projects={projects.map((project) => ({
           id: project._id.toString(),

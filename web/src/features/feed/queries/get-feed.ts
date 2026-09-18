@@ -99,6 +99,7 @@ export async function getFeed(
   content: devLog.content,
   tags: devLog.tags,
   createdAt: new Date(devLog.createdAt).toISOString(),
+  images: devLog.images ?? [],
 
   likesCount: devLog.likes?.length ?? 0,
 

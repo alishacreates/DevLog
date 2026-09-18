@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { Types } from "mongoose";
+import { del } from "@vercel/blob";
 
 import { auth } from "@/auth";
 import { devLogSchema } from "../schema/devlog.schema";
@@ -17,6 +18,7 @@ export type UpdateDevLogState = {
     title?: string[];
     content?: string[];
     tags?: string[];
+    images?: string[];
   };
 };
 
@@ -40,11 +42,18 @@ export async function updateDevLog(
     .map((tag) => tag.trim())
     .filter(Boolean);
 
+  const images = formData
+    .getAll("images")
+    .map(String)
+    .map((image) => image.trim())
+    .filter(Boolean);
+
   const parsed = devLogSchema.safeParse({
     projectId: formData.get("projectId"),
     title: formData.get("title"),
     content: formData.get("content"),
     tags,
+    images,
   });
 
   if (!parsed.success) {
@@ -60,7 +69,19 @@ export async function updateDevLog(
 
   await connectDB();
 
-  // User must own the selected project.
+  const existingDevLog = await DevLog.findOne({
+    _id: devLogId,
+    author: session.user.id,
+  })
+    .select("images")
+    .lean();
+
+  if (!existingDevLog) {
+    return {
+      error: "DevLog not found or you do not have permission to edit it.",
+    };
+  }
+
   const project = await Project.findOne({
     _id: parsed.data.projectId,
     owner: session.user.id,
@@ -71,6 +92,13 @@ export async function updateDevLog(
       error: "Project not found or you do not have permission to use it.",
     };
   }
+
+  const oldImages = existingDevLog.images ?? [];
+  const newImages = parsed.data.images;
+
+  const removedImages = oldImages.filter(
+    (image: string) => !newImages.includes(image)
+  );
 
   try {
     const updatedDevLog = await DevLog.findOneAndUpdate(
@@ -84,6 +112,7 @@ export async function updateDevLog(
           title: parsed.data.title,
           content: parsed.data.content,
           tags: parsed.data.tags,
+          images: parsed.data.images,
         },
       },
       {
@@ -97,6 +126,17 @@ export async function updateDevLog(
         error: "DevLog not found or you do not have permission to edit it.",
       };
     }
+
+    if (removedImages.length > 0) {
+      try {
+        await del(removedImages);
+      } catch (error) {
+        console.error(
+          "Failed to delete removed DevLog images:",
+          error
+        );
+      }
+    }
   } catch (error) {
     console.error("Update DevLog error:", error);
 
@@ -106,8 +146,8 @@ export async function updateDevLog(
   }
 
   revalidatePath(`/devlogs/${devLogId}`);
-revalidatePath(`/projects/${parsed.data.projectId}`);
-revalidatePath("/feed");
+  revalidatePath(`/projects/${parsed.data.projectId}`);
+  revalidatePath("/feed");
 
-redirect(`/devlogs/${devLogId}`);
+  redirect(`/devlogs/${devLogId}`);
 }

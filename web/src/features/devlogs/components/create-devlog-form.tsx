@@ -8,6 +8,7 @@ import {
   createDevLog,
   type CreateDevLogState,
 } from "@/features/devlogs/actions/create-devlog";
+import { DevLogImageUploader } from "@/features/devlogs/components/devlog-image-uploader";
 
 type CreateDevLogFormProps = {
   projects: {
@@ -151,6 +152,8 @@ export function CreateDevLogForm({
           </p>
         ) : null}
       </div>
+
+      <DevLogImageUploader />
 
       <div className="space-y-2">
         <label

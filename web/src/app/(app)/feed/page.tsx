@@ -9,28 +9,35 @@ import { FeedList } from "@/features/feed/components/feed-list";
 import { FeedRightSidebar } from "@/features/feed/components/feed-right-sidebar";
 import { getFeed } from "@/features/feed/queries/get-feed";
 
+
 export default async function FeedPage() {
+
+
   const session = await auth();
 
   await connectDB();
 
-const [projects, feed] = await Promise.all([
-  Project.find({
-    owner: session!.user.id,
-  })
-    .sort({ createdAt: -1 })
-    .limit(4)
-    .lean(),
 
-  getFeed(undefined, session!.user.id),
-]);
+  const [projects, feed] = await Promise.all([
+    Project.find({
+      owner: session!.user.id,
+    })
+      .sort({ createdAt: -1 })
+      .limit(4)
+      .lean(),
 
-const { items, nextCursor } = feed;
+    getFeed(undefined, session!.user.id),
+  ]);
+
+
+  const { items, nextCursor } = feed;
 
   const serializedProjects = projects.map((project) => ({
     id: project._id.toString(),
     title: project.title,
   }));
+
+
 return (
   <main className="mx-auto w-full max-w-[1440px] px-6 py-8 lg:px-10">
     <div className="grid gap-7 xl:grid-cols-[240px_minmax(0,760px)_240px] xl:justify-center">

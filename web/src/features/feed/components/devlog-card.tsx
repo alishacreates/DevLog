@@ -91,6 +91,46 @@ export function DevLogCard({ devLog }: DevLogCardProps) {
         </p>
       </Link>
 
+      {devLog.images.length > 0 ? (
+  <Link
+    href={`/devlogs/${devLog.id}`}
+    className="mt-4 block overflow-hidden rounded-xl border border-border/60"
+  >
+    {devLog.images.length === 1 ? (
+      <Image
+        src={devLog.images[0]}
+        alt={devLog.title}
+        width={1200}
+        height={800}
+        className="max-h-[520px] w-full object-cover"
+      />
+    ) : (
+      <div className="grid grid-cols-2 gap-1">
+        {devLog.images.slice(0, 4).map((image, index) => (
+          <div
+            key={image}
+            className="relative overflow-hidden"
+          >
+            <Image
+              src={image}
+              alt={`${devLog.title} screenshot ${index + 1}`}
+              width={600}
+              height={450}
+              className="aspect-[4/3] w-full object-cover"
+            />
+
+            {index === 3 && devLog.images.length > 4 ? (
+              <div className="absolute inset-0 flex items-center justify-center bg-black/60 text-lg font-semibold text-white">
+                +{devLog.images.length - 4}
+              </div>
+            ) : null}
+          </div>
+        ))}
+      </div>
+    )}
+  </Link>
+) : null}
+
       {/* Tags */}
       {devLog.tags.length > 0 && (
         <div className="mt-4 flex flex-wrap gap-1.5">

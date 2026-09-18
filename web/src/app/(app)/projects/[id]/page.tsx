@@ -13,6 +13,7 @@ import { auth } from "@/auth";
 import { connectDB } from "@/lib/db/mongoose";
 import { DevLog } from "@/models/devlog";
 import { Project } from "@/models/project";
+import { BackButton } from "@/components/shared/back-button";
 
 type ProjectPageProps = {
   params: Promise<{
@@ -56,12 +57,7 @@ export default async function ProjectPage({
 
   return (
     <main className="mx-auto max-w-5xl px-6 py-10">
-      <Link
-        href="/projects"
-        className="text-meta-uppercase text-muted-foreground transition-colors hover:text-foreground"
-      >
-        ← Back to projects
-      </Link>
+      <BackButton fallback="/projects" />
 
       <section className="mt-8 overflow-hidden rounded-[28px] border border-border bg-card">
         <div className="relative min-h-[320px] overflow-hidden p-8 sm:p-10">

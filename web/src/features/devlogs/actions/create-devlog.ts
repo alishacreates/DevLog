@@ -17,6 +17,7 @@ export type CreateDevLogState = {
     title?: string[];
     content?: string[];
     tags?: string[];
+    images?: string[];
   };
 };
 
@@ -43,11 +44,18 @@ export async function createDevLog(
     .map((tag) => tag.trim())
     .filter(Boolean);
 
+  const images = formData
+  .getAll("images")
+  .map(String)
+  .map((image) => image.trim())
+  .filter(Boolean);
+
   const parsed = devLogSchema.safeParse({
     projectId: formData.get("projectId"),
     title: formData.get("title"),
     content: formData.get("content"),
     tags,
+    images,
   });
 
   if (!parsed.success) {
@@ -85,7 +93,7 @@ export async function createDevLog(
       title: parsed.data.title,
       content: parsed.data.content,
       tags: parsed.data.tags,
-
+      images: parsed.data.images,
     });
 
     devLogId = devLog._id.toString();

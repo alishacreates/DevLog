@@ -9,6 +9,7 @@ import { DevLog } from "@/models/devlog";
 import "@/models/project";
 import { CommentForm } from "@/features/comments/components/comment-form";
 import { Comment } from "@/models/comment";
+import { BackButton } from "@/components/shared/back-button";
 
 
 type DevLogPageProps = {
@@ -35,6 +36,10 @@ export default async function DevLogPage({
   .populate("project", "_id title isPublic owner")
   .lean();
 
+  if (!devLog) {
+  notFound();
+}
+
   const project = devLog.project as unknown as {
   _id: Types.ObjectId;
   title: string;
@@ -42,15 +47,9 @@ export default async function DevLogPage({
   owner: Types.ObjectId;
 };
 
-const author = devLog.author as unknown as {
-  _id: Types.ObjectId;
-  name: string;
-  username: string;
-  image?: string;
-};
 
 const isOwner =
-  author._id.toString() === session!.user.id;
+  project.owner.toString() === session!.user.id;
 
   if (!isOwner && !project.isPublic) {
   notFound();
@@ -65,12 +64,7 @@ const comments = await Comment.find({
 
   return (
     <main className="mx-auto max-w-3xl px-6 py-10">
-      <Link
-        href={`/projects/${project._id.toString()}`}
-        className="text-sm text-muted-foreground hover:text-foreground"
-      >
-        ← Back to {project.title}
-      </Link>
+      <BackButton fallback="/feed" />
 
       <article className="mt-8">
         <div className="flex items-start justify-between gap-6">
@@ -101,6 +95,32 @@ const comments = await Comment.find({
         <div className="mt-8 whitespace-pre-wrap leading-7">
           {devLog.content}
         </div>
+
+        {devLog.images?.length > 0 ? (
+  <div
+    className={
+      devLog.images.length === 1
+        ? "mt-8 grid grid-cols-1 gap-3"
+        : "mt-8 grid grid-cols-2 gap-3"
+    }
+  >
+    {devLog.images.map((image: string, index: number) => (
+      <div
+        key={image}
+        className="overflow-hidden rounded-2xl border border-border"
+      >
+        <Image
+  src={image}
+  alt={`${devLog.title} screenshot ${index + 1}`}
+  width={1200}
+  height={800}
+  priority={index === 0}
+  className="w-full object-cover"
+/>
+      </div>
+    ))}
+  </div>
+) : null}
 
         {devLog.tags.length > 0 ? (
           <div className="mt-8 flex flex-wrap gap-2">

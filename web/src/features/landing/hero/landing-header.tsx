@@ -34,12 +34,12 @@ export function LandingHeader() {
         </div>
 
         <div className="flex items-center gap-2 sm:gap-3">
-  <Link
+  <a
     href="/sign-in"
     className="hidden rounded-full bg-[#d3d3d0] px-5 py-2.5 font-mono text-[9px] font-semibold uppercase tracking-[0.08em] transition hover:bg-[#c4c4c1] sm:inline-flex"
   >
     Sign in
-  </Link>
+  </a>
 
   <Link
     href="/sign-in"

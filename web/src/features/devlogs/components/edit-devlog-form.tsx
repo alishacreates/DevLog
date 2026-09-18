@@ -8,15 +8,17 @@ import {
   updateDevLog,
   type UpdateDevLogState,
 } from "@/features/devlogs/actions/update-devlog";
+import { DevLogImageUploader } from "@/features/devlogs/components/devlog-image-uploader";
 
 type EditDevLogFormProps = {
   devLog: {
-    id: string;
-    projectId: string;
-    title: string;
-    content: string;
-    tags: string[];
-  };
+  id: string;
+  projectId: string;
+  title: string;
+  content: string;
+  tags: string[];
+  images: string[];
+};
   projects: {
     id: string;
     title: string;
@@ -24,6 +26,7 @@ type EditDevLogFormProps = {
 };
 
 const initialState: UpdateDevLogState = {};
+
 
 function SaveButton() {
   const { pending } = useFormStatus();
@@ -123,6 +126,10 @@ export function EditDevLogForm({
           </p>
         ) : null}
       </div>
+
+      <DevLogImageUploader
+  initialImages={devLog.images}
+/>
 
       {/* Tags */}
       <div className="space-y-2">
