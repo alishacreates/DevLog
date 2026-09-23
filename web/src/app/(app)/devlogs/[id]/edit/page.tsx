@@ -47,9 +47,10 @@ export default async function EditDevLogPage({
   return (
     <main className="mx-auto max-w-2xl px-6 py-10">
       <BackButton fallback={`/devlogs/${id}`} />
+
       <div className="mb-8">
         <h1 className="text-3xl font-semibold tracking-tight">
-          Edit DevLog
+          Edit Post
         </h1>
 
         <p className="mt-2 text-muted-foreground">
@@ -73,23 +74,23 @@ export default async function EditDevLogPage({
       />
 
       <section className="mt-12 border-t pt-8">
-  <div className="rounded-lg border border-destructive/30 p-6">
-    <h2 className="font-semibold">
-      Danger zone
-    </h2>
+        <div className="rounded-lg border border-destructive/30 p-6">
+          <h2 className="font-semibold">
+            Danger zone
+          </h2>
 
-    <p className="mt-2 text-sm text-muted-foreground">
-      Permanently delete this DevLog. This action cannot be undone.
-    </p>
+          <p className="mt-2 text-sm text-muted-foreground">
+            Permanently delete this post. This action cannot be undone.
+          </p>
 
-    <div className="mt-5">
-      <DeleteDevLogDialog
-        devLogId={devLog._id.toString()}
-        devLogTitle={devLog.title}
-      />
-    </div>
-  </div>
-</section>
+          <div className="mt-5">
+            <DeleteDevLogDialog
+              devLogId={devLog._id.toString()}
+              devLogTitle={devLog.title}
+            />
+          </div>
+        </div>
+      </section>
     </main>
   );
 }

@@ -177,7 +177,7 @@ const [images, setImages] = useState<string[]>(initialImages);
             >
               <Image
                 src={url}
-                alt="DevLog screenshot"
+                alt="Post screenshot"
                 width={800}
                 height={600}
                 className="aspect-video w-full object-cover"

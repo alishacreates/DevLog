@@ -69,9 +69,9 @@ export default async function EditProjectPage({
     </h2>
 
     <p className="mt-2 text-sm text-muted-foreground">
-      Permanently delete this project from DevLog.
-      This action cannot be undone.
-    </p>
+  Permanently delete this project and all of its posts.
+  This action cannot be undone.
+</p>
 
     <div className="mt-5">
       <DeleteProjectDialog

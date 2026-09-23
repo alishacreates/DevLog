@@ -24,38 +24,38 @@ export function LikeButton({
   const [isPending, startTransition] = useTransition();
 
   function handleClick() {
-  if (isPending) {
-    return;
-  }
-
-  const previousLiked = liked;
-  const previousCount = count;
-  const nextLiked = !liked;
-
-  // Update UI immediately
-  setLiked(nextLiked);
-  setCount((current) =>
-    nextLiked
-      ? current + 1
-      : Math.max(0, current - 1)
-  );
-
-  startTransition(async () => {
-    try {
-      if (nextLiked) {
-        await likeDevLog(devLogId);
-      } else {
-        await unlikeDevLog(devLogId);
-      }
-    } catch (error) {
-      // Roll back if the request fails
-      setLiked(previousLiked);
-      setCount(previousCount);
-
-      console.error("Like update failed:", error);
+    if (isPending) {
+      return;
     }
-  });
-}
+
+    const previousLiked = liked;
+    const previousCount = count;
+    const nextLiked = !liked;
+
+    // Update UI immediately
+    setLiked(nextLiked);
+    setCount((current) =>
+      nextLiked
+        ? current + 1
+        : Math.max(0, current - 1)
+    );
+
+    startTransition(async () => {
+      try {
+        if (nextLiked) {
+          await likeDevLog(devLogId);
+        } else {
+          await unlikeDevLog(devLogId);
+        }
+      } catch (error) {
+        // Roll back if the request fails
+        setLiked(previousLiked);
+        setCount(previousCount);
+
+        console.error("Like update failed:", error);
+      }
+    });
+  }
 
   return (
     <button
@@ -68,11 +68,13 @@ export function LikeButton({
           : "inline-flex cursor-pointer items-center gap-1.5 text-muted-foreground transition-colors hover:text-red-500 disabled:cursor-not-allowed disabled:opacity-50"
       }
       aria-pressed={liked}
-      aria-label={liked ? "Unlike DevLog" : "Like DevLog"}
+      aria-label={liked ? "Unlike post" : "Like post"}
     >
       <Heart
         className={`size-4 transition-colors ${
-          liked ? "fill-red-500 text-red-500" : "fill-none text-muted-foreground"
+          liked
+            ? "fill-red-500 text-red-500"
+            : "fill-none text-muted-foreground"
         }`}
       />
 

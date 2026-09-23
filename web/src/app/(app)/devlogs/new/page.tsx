@@ -24,12 +24,11 @@ export default async function NewDevLogPage({
     .select("_id title")
     .lean();
 
-
   return (
     <main className="mx-auto max-w-2xl px-6 py-10">
       <div className="mb-8">
         <h1 className="text-3xl font-semibold tracking-tight">
-          Create DevLog
+          Create Post
         </h1>
 
         <p className="mt-2 text-muted-foreground">

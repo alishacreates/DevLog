@@ -1,13 +1,9 @@
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Types } from "mongoose";
-import {
-  ArrowUpRight,
-  Code2,
-  Globe2,
-  Lock,
-  Plus,
-} from "lucide-react";
+import { ArrowUpRight, Globe2, Lock, Plus } from "lucide-react";
+import { FaGithub } from "react-icons/fa";
 
 import { auth } from "@/auth";
 import { connectDB } from "@/lib/db/mongoose";
@@ -21,9 +17,7 @@ type ProjectPageProps = {
   }>;
 };
 
-export default async function ProjectPage({
-  params,
-}: ProjectPageProps) {
+export default async function ProjectPage({ params }: ProjectPageProps) {
   const { id } = await params;
 
   if (!Types.ObjectId.isValid(id)) {
@@ -36,18 +30,14 @@ export default async function ProjectPage({
 
   const project = await Project.findOne({
     _id: id,
-    $or: [
-      { owner: session!.user.id },
-      { isPublic: true },
-    ],
+    $or: [{ owner: session!.user.id }, { isPublic: true }],
   }).lean();
 
   if (!project) {
     notFound();
   }
 
-  const isOwner =
-    project.owner.toString() === session!.user.id;
+  const isOwner = project.owner.toString() === session!.user.id;
 
   const devLogs = await DevLog.find({
     project: project._id,
@@ -68,135 +58,122 @@ export default async function ProjectPage({
           </div>
 
           <div className="relative z-10 grid gap-10 lg:grid-cols-[1.3fr_0.7fr]">
-  <div>
-    <div className="flex flex-wrap items-center gap-3">
-      <span
-        className={
-          project.isPublic
-            ? "text-meta-uppercase inline-flex items-center gap-1.5 rounded-full bg-primary px-3 py-1.5 text-primary-foreground"
-            : "text-meta-uppercase inline-flex items-center gap-1.5 rounded-full bg-muted px-3 py-1.5 text-muted-foreground"
-        }
-      >
-        {project.isPublic ? (
-          <Globe2 className="size-3.5" />
-        ) : (
-          <Lock className="size-3.5" />
-        )}
-
-        {project.isPublic ? "Public" : "Private"}
-      </span>
-
-      <span className="text-meta-uppercase rounded-full border border-border bg-background/70 px-3 py-1.5 text-muted-foreground backdrop-blur-sm">
-        {formatStatus(project.status)}
-      </span>
-    </div>
-
-    <div className="mt-14">
-      <p className="landing-display text-2xl uppercase tracking-[-0.02em]">
-        DEVLOG<span className="text-primary">_</span>
-      </p>
-
-      <h1 className="mt-4 text-4xl font-semibold tracking-[-0.04em] sm:text-5xl">
-        {project.title}
-      </h1>
-
-      <p className="mt-5 max-w-2xl text-base leading-7 text-muted-foreground">
-        {project.description}
-      </p>
-    </div>
-  </div>
-
-  <aside className="lg:border-l lg:border-border lg:pl-8">
-    <div className="space-y-3">
-      {project.githubUrl ? (
-        <a
-          href={project.githubUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex w-full items-center justify-between rounded-full border border-border px-4 py-2.5 text-sm font-medium transition-colors hover:border-primary hover:text-primary"
-        >
-          GitHub
-          <Code2 className="size-4" />
-        </a>
-      ) : null}
-
-      {project.liveUrl ? (
-        <a
-          href={project.liveUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex w-full items-center justify-between rounded-full border border-border px-4 py-2.5 text-sm font-medium transition-colors hover:border-primary hover:text-primary"
-        >
-          Live Demo
-          <ArrowUpRight className="size-4" />
-        </a>
-      ) : null}
-
-      {isOwner ? (
-        <Link
-          href={`/projects/${project._id.toString()}/edit`}
-          className="flex w-full items-center justify-center rounded-full bg-primary px-4 py-2.5 text-sm font-medium text-primary-foreground"
-        >
-          Edit Project
-        </Link>
-      ) : null}
-    </div>
-
-    {project.techStack.length > 0 ? (
-      <div className="mt-8 border-t border-border pt-6">
-        <p className="text-section-label text-muted-foreground">
-          Tech stack
-        </p>
-
-        <div className="mt-3 flex flex-wrap gap-2">
-          {project.techStack.map((tech: string) => (
-            <span
-              key={tech}
-              className="text-meta rounded-full border border-border bg-muted/50 px-3 py-1.5 text-muted-foreground"
-            >
-              {tech}
-            </span>
-          ))}
-        </div>
-      </div>
-    ) : null}
-  </aside>
-</div>
-        </div>
-
-        {project.techStack.length > 0 ? (
-          <div className="border-t border-border px-8 py-6 sm:px-10">
-            <p className="text-section-label text-muted-foreground">
-              Tech stack
-            </p>
-
-            <div className="mt-3 flex flex-wrap gap-2">
-              {project.techStack.map((tech: string) => (
+            <div>
+              <div className="flex flex-wrap items-center gap-3">
                 <span
-                  key={tech}
-                  className="text-meta rounded-full border border-border bg-muted/50 px-3 py-1.5 text-muted-foreground"
+                  className={
+                    project.isPublic
+                      ? "text-meta-uppercase inline-flex items-center gap-1.5 rounded-full bg-primary px-3 py-1.5 text-primary-foreground"
+                      : "text-meta-uppercase inline-flex items-center gap-1.5 rounded-full bg-muted px-3 py-1.5 text-muted-foreground"
+                  }
                 >
-                  {tech}
+                  {project.isPublic ? (
+                    <Globe2 className="size-3.5" />
+                  ) : (
+                    <Lock className="size-3.5" />
+                  )}
+
+                  {project.isPublic ? "Public" : "Private"}
                 </span>
-              ))}
+
+                <span className="text-meta-uppercase rounded-full border border-border bg-background/70 px-3 py-1.5 text-muted-foreground backdrop-blur-sm">
+                  {formatStatus(project.status)}
+                </span>
+              </div>
+
+              <div className="mt-14">
+                <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-primary">
+                  Project / Build in public
+                </p>
+
+                <h1 className="mt-4 text-4xl font-semibold tracking-[-0.04em] sm:text-5xl">
+                  {project.title}
+                </h1>
+
+                <p className="mt-5 max-w-2xl text-base leading-7 text-muted-foreground">
+                  {project.description}
+                </p>
+              </div>
             </div>
+
+            <aside className="lg:border-l lg:border-border lg:pl-8">
+              <div className="space-y-3">
+                {project.githubUrl ? (
+                  <a
+                    href={project.githubUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group flex w-full items-center justify-between rounded-xl bg-foreground px-4 py-3 text-sm font-medium text-background transition-opacity hover:opacity-90"
+                  >
+                    <span className="flex items-center gap-2.5">
+                      <FaGithub className="size-4" />
+                      GitHub
+                    </span>
+
+                    <ArrowUpRight className="size-4 opacity-60 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                  </a>
+                ) : null}
+
+                {project.liveUrl ? (
+                  <a
+                    href={project.liveUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group flex w-full items-center justify-between rounded-xl bg-primary px-4 py-3 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90"
+                  >
+                    <span>View Live Project</span>
+
+                    <ArrowUpRight className="size-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                  </a>
+                ) : null}
+
+                {isOwner ? (
+                  <Link
+                    href={`/projects/${project._id.toString()}/edit`}
+                    className="flex w-full items-center justify-center rounded-xl border border-border px-4 py-3 text-sm font-medium transition-colors hover:bg-muted"
+                  >
+                    Edit Project
+                  </Link>
+                ) : null}
+              </div>
+
+              {project.techStack.length > 0 ? (
+                <div className="mt-8 border-t border-border pt-6">
+                  <p className="text-section-label text-muted-foreground">
+                    Tech stack
+                  </p>
+
+                  <div className="mt-3 flex flex-wrap gap-2">
+                    {project.techStack.map((tech: string) => (
+                      <span
+                        key={tech}
+                        className="text-meta rounded-full border border-border bg-muted/50 px-3 py-1.5 text-muted-foreground"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              ) : null}
+            </aside>
           </div>
-        ) : null}
+        </div>
       </section>
 
       <section className="mt-12">
         <div className="flex items-end justify-between gap-6 border-b border-border pb-5">
           <div>
             <p className="text-section-label text-primary">
-              Project Journey
+              Project Updates
             </p>
 
             <h2 className="mt-2 text-2xl font-semibold tracking-[-0.03em]">
-              {devLogs.length} DevLog{devLogs.length === 1 ? "" : "s"}
+              {devLogs.length} Post{devLogs.length === 1 ? "" : "s"}
             </h2>
 
             <p className="mt-2 text-sm text-muted-foreground">
-              Progress, decisions, bugs, lessons and milestones from this project.
+              Progress, decisions, bugs, lessons and milestones from this
+              project.
             </p>
           </div>
 
@@ -206,7 +183,7 @@ export default async function ProjectPage({
               className="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-2 text-action-label text-primary-foreground"
             >
               <Plus className="size-4" />
-              New DevLog
+              New Post
             </Link>
           ) : null}
         </div>
@@ -214,11 +191,11 @@ export default async function ProjectPage({
         {devLogs.length === 0 ? (
           <div className="mt-6 rounded-2xl border border-border bg-card p-8 text-center">
             <h3 className="text-lg font-semibold">
-              No DevLogs yet
+              No posts yet
             </h3>
 
             <p className="mt-2 text-sm text-muted-foreground">
-              This project&apos;s journey hasn&apos;t been documented yet.
+              No updates have been posted for this project yet.
             </p>
           </div>
         ) : (
@@ -227,38 +204,60 @@ export default async function ProjectPage({
               <Link
                 key={devLog._id.toString()}
                 href={`/devlogs/${devLog._id.toString()}`}
-                className="group block rounded-2xl border border-border bg-card p-5 transition-all hover:border-primary/40 hover:shadow-sm"
+                className="group block overflow-hidden rounded-2xl border border-border bg-card transition-all hover:border-primary/40 hover:shadow-sm"
               >
-                <div className="flex items-start justify-between gap-4">
-                  <div>
-                    <h3 className="text-lg font-semibold tracking-[-0.02em] transition-colors group-hover:text-primary">
-                      {devLog.title}
-                    </h3>
+                <div
+                  className={
+                    devLog.images?.length
+                      ? "grid md:grid-cols-[1fr_220px]"
+                      : ""
+                  }
+                >
+                  <div className="p-5">
+                    <div className="flex items-start justify-between gap-4">
+                      <div>
+                        <h3 className="text-lg font-semibold tracking-[-0.02em] transition-colors group-hover:text-primary">
+                          {devLog.title}
+                        </h3>
 
-                    <p className="mt-1 text-meta-uppercase text-muted-foreground">
-                      {formatDate(devLog.createdAt)}
+                        <p className="mt-1 text-meta-uppercase text-muted-foreground">
+                          {formatDate(devLog.createdAt)}
+                        </p>
+                      </div>
+
+                      <ArrowUpRight className="size-4 shrink-0 text-muted-foreground transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-primary" />
+                    </div>
+
+                    <p className="mt-3 line-clamp-3 text-sm leading-6 text-muted-foreground">
+                      {devLog.content}
                     </p>
+
+                    {devLog.tags.length > 0 ? (
+                      <div className="mt-4 flex flex-wrap gap-2">
+                        {devLog.tags.slice(0, 5).map((tag: string) => (
+                          <span
+                            key={tag}
+                            className="text-meta-uppercase rounded-full bg-muted px-2.5 py-1 text-muted-foreground"
+                          >
+                            #{tag}
+                          </span>
+                        ))}
+                      </div>
+                    ) : null}
                   </div>
 
-                  <ArrowUpRight className="size-4 text-muted-foreground transition-colors group-hover:text-primary" />
+                  {devLog.images?.[0] ? (
+                    <div className="relative min-h-[170px] border-t border-border md:border-l md:border-t-0">
+                      <Image
+                        src={devLog.images[0]}
+                        alt={`${devLog.title} screenshot`}
+                        fill
+                        className="object-cover transition-transform duration-300 group-hover:scale-[1.02]"
+                        sizes="(max-width: 768px) 100vw, 220px"
+                      />
+                    </div>
+                  ) : null}
                 </div>
-
-                <p className="mt-3 line-clamp-3 text-sm leading-6 text-muted-foreground">
-                  {devLog.content}
-                </p>
-
-                {devLog.tags.length > 0 ? (
-                  <div className="mt-4 flex flex-wrap gap-2">
-                    {devLog.tags.slice(0, 5).map((tag: string) => (
-                      <span
-                        key={tag}
-                        className="text-meta-uppercase rounded-full bg-muted px-2.5 py-1 text-muted-foreground"
-                      >
-                        #{tag}
-                      </span>
-                    ))}
-                  </div>
-                ) : null}
               </Link>
             ))}
           </div>

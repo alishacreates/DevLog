@@ -17,6 +17,7 @@ type CreateDevLogFormProps = {
   }[];
   selectedProjectId?: string;
 };
+
 const initialState: CreateDevLogState = {};
 
 function SubmitButton() {
@@ -28,7 +29,7 @@ function SubmitButton() {
       disabled={pending}
       className="rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground disabled:cursor-not-allowed disabled:opacity-60"
     >
-      {pending ? "Publishing..." : "Publish DevLog"}
+      {pending ? "Publishing..." : "Publish Post"}
     </button>
   );
 }
@@ -50,7 +51,7 @@ export function CreateDevLogForm({
         </h2>
 
         <p className="mx-auto mt-2 max-w-md text-sm text-muted-foreground">
-          DevLogs are connected to projects, so add a project before
+          Posts are connected to projects, so add a project before
           publishing your first update.
         </p>
 
@@ -181,9 +182,10 @@ export function CreateDevLogForm({
           </p>
         ) : null}
       </div>
+
       <p className="text-sm text-muted-foreground">
-  This DevLog will use the visibility of its project.
-</p>
+        This post will use the visibility of its project.
+      </p>
 
       {state.error ? (
         <p className="text-sm text-destructive">

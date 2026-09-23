@@ -2,13 +2,13 @@
 
 import { redirect } from "next/navigation";
 import { Types } from "mongoose";
+import { revalidatePath } from "next/cache";
 
 import { auth } from "@/auth";
 import { devLogSchema } from "../schema/devlog.schema";
 import { connectDB } from "@/lib/db/mongoose";
 import { DevLog } from "@/models/devlog";
 import { Project } from "@/models/project";
-import { revalidatePath } from "next/cache";
 
 export type CreateDevLogState = {
   error?: string;
@@ -29,7 +29,7 @@ export async function createDevLog(
 
   if (!session?.user?.id) {
     return {
-      error: "You must be signed in to create a DevLog.",
+      error: "You must be signed in to create a post.",
     };
   }
 
@@ -45,10 +45,10 @@ export async function createDevLog(
     .filter(Boolean);
 
   const images = formData
-  .getAll("images")
-  .map(String)
-  .map((image) => image.trim())
-  .filter(Boolean);
+    .getAll("images")
+    .map(String)
+    .map((image) => image.trim())
+    .filter(Boolean);
 
   const parsed = devLogSchema.safeParse({
     projectId: formData.get("projectId"),
@@ -101,12 +101,12 @@ export async function createDevLog(
     console.error("Create DevLog error:", error);
 
     return {
-      error: "Something went wrong while creating the DevLog.",
+      error: "Something went wrong while creating the post.",
     };
   }
 
   revalidatePath("/feed");
-revalidatePath(`/projects/${parsed.data.projectId}`);
+  revalidatePath(`/projects/${parsed.data.projectId}`);
 
-redirect(`/devlogs/${devLogId}`);
+  redirect(`/devlogs/${devLogId}`);
 }

@@ -34,7 +34,7 @@ export async function updateDevLog(
   }
 
   if (!Types.ObjectId.isValid(devLogId)) {
-    return { error: "Invalid DevLog." };
+    return { error: "Invalid post." };
   }
 
   const tags = String(formData.get("tags") ?? "")
@@ -78,7 +78,7 @@ export async function updateDevLog(
 
   if (!existingDevLog) {
     return {
-      error: "DevLog not found or you do not have permission to edit it.",
+      error: "Post not found or you do not have permission to edit it.",
     };
   }
 
@@ -123,7 +123,7 @@ export async function updateDevLog(
 
     if (!updatedDevLog) {
       return {
-        error: "DevLog not found or you do not have permission to edit it.",
+        error: "Post not found or you do not have permission to edit it.",
       };
     }
 
@@ -141,7 +141,7 @@ export async function updateDevLog(
     console.error("Update DevLog error:", error);
 
     return {
-      error: "Something went wrong while updating the DevLog.",
+      error: "Something went wrong while updating the post.",
     };
   }
 

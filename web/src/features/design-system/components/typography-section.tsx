@@ -34,7 +34,7 @@ export function TypographySection() {
             <p className="mt-4 text-3xl font-semibold leading-[1.05] tracking-[-0.04em] sm:text-4xl">
               Projects show what you built.
               <span className="block text-muted-foreground">
-                DevLogs show how you got there.
+                DevLog Posts show how you got there.
               </span>
             </p>
           </div>

@@ -3,11 +3,11 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { Types } from "mongoose";
+import { del } from "@vercel/blob";
 
 import { auth } from "@/auth";
 import { connectDB } from "@/lib/db/mongoose";
 import { DevLog } from "@/models/devlog";
-import { del } from "@vercel/blob";
 
 export async function deleteDevLog(devLogId: string) {
   const session = await auth();
@@ -17,21 +17,21 @@ export async function deleteDevLog(devLogId: string) {
   }
 
   if (!Types.ObjectId.isValid(devLogId)) {
-    throw new Error("Invalid DevLog.");
+    throw new Error("Invalid post.");
   }
 
   await connectDB();
 
   const devLog = await DevLog.findOne({
-  _id: devLogId,
-  author: session.user.id,
-})
-  .select("project images")
-  .lean();
+    _id: devLogId,
+    author: session.user.id,
+  })
+    .select("project images")
+    .lean();
 
   if (!devLog) {
     throw new Error(
-      "DevLog not found or you do not have permission to delete it."
+      "Post not found or you do not have permission to delete it."
     );
   }
 
@@ -43,15 +43,15 @@ export async function deleteDevLog(devLogId: string) {
   });
 
   if (devLog.images?.length > 0) {
-  try {
-    await del(devLog.images);
-  } catch (error) {
-    console.error(
-      "Failed to delete DevLog images:",
-      error
-    );
+    try {
+      await del(devLog.images);
+    } catch (error) {
+      console.error(
+        "Failed to delete DevLog images:",
+        error
+      );
+    }
   }
-}
 
   revalidatePath(`/projects/${projectId}`);
   revalidatePath("/feed");

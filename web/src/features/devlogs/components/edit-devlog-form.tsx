@@ -12,13 +12,13 @@ import { DevLogImageUploader } from "@/features/devlogs/components/devlog-image-
 
 type EditDevLogFormProps = {
   devLog: {
-  id: string;
-  projectId: string;
-  title: string;
-  content: string;
-  tags: string[];
-  images: string[];
-};
+    id: string;
+    projectId: string;
+    title: string;
+    content: string;
+    tags: string[];
+    images: string[];
+  };
   projects: {
     id: string;
     title: string;
@@ -26,7 +26,6 @@ type EditDevLogFormProps = {
 };
 
 const initialState: UpdateDevLogState = {};
-
 
 function SaveButton() {
   const { pending } = useFormStatus();
@@ -127,9 +126,7 @@ export function EditDevLogForm({
         ) : null}
       </div>
 
-      <DevLogImageUploader
-  initialImages={devLog.images}
-/>
+      <DevLogImageUploader initialImages={devLog.images} />
 
       {/* Tags */}
       <div className="space-y-2">
@@ -151,10 +148,9 @@ export function EditDevLogForm({
         ) : null}
       </div>
 
-      {/* Public */}
       <p className="text-sm text-muted-foreground">
-  This DevLog uses the visibility of its project.
-</p>
+        This post uses the visibility of its project.
+      </p>
 
       {state.error ? (
         <p className="text-sm text-destructive">

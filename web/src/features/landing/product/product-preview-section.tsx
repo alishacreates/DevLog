@@ -33,7 +33,7 @@ export function ProductPreviewSection() {
 
     <p className="mt-8 max-w-xl text-base leading-7 text-muted-foreground">
       Your projects, progress, and developer identity live together — from
-      the first commit to the latest DevLog.
+      the first commit to the latest post.
     </p>
   </div>
 </div>
@@ -94,7 +94,7 @@ export function ProductPreviewSection() {
                 </div>
 
                 <span className="hidden rounded-full bg-black px-4 py-2 font-mono text-[9px] uppercase text-white sm:block">
-                  + New DevLog
+                 + New Post
                 </span>
               </div>
 
@@ -141,7 +141,7 @@ export function ProductPreviewSection() {
             href="/sign-in"
             className="inline-flex shrink-0 items-center gap-3 rounded-full bg-black px-6 py-3 font-mono text-[9px] font-semibold uppercase tracking-widest text-white transition-colors hover:bg-primary"
           >
-            Start your DevLog
+            Join DevLog
             <ArrowUpRight className="size-4" />
           </Link>
         </div>

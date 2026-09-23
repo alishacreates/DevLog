@@ -34,12 +34,12 @@ export function CreateProjectForm() {
   return (
     <form action={formAction} className="space-y-6">
       <ProjectInput
-        label="Project title"
-        name="title"
-        placeholder="DevLog"
-        required
-        error={state.fieldErrors?.title?.[0]}
-      />
+  label="Project title"
+  name="title"
+  placeholder="Developer Portfolio"
+  required
+  error={state.fieldErrors?.title?.[0]}
+/>
 
       <div className="space-y-2">
         <label htmlFor="description" className="text-sm font-medium">

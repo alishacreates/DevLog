@@ -29,7 +29,7 @@ export async function createComment(
 
   if (!Types.ObjectId.isValid(devLogId)) {
     return {
-      error: "Invalid DevLog.",
+      error: "Invalid post.",
     };
   }
 
@@ -53,7 +53,7 @@ export async function createComment(
 
   if (!devLog) {
     return {
-      error: "DevLog not found.",
+      error: "Post not found.",
     };
   }
 
@@ -74,7 +74,7 @@ export async function createComment(
 
   if (!project.isPublic && !isOwner) {
     return {
-      error: "You do not have permission to comment on this DevLog.",
+      error: "You do not have permission to comment on this post.",
     };
   }
 

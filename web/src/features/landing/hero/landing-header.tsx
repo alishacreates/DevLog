@@ -17,7 +17,7 @@ export function LandingHeader() {
           </Link>
 
           <Link href="#devlogs" className="transition-opacity hover:opacity-50">
-            DevLogs
+           Posts
           </Link>
 
           <Link href="#projects" className="transition-opacity hover:opacity-50">

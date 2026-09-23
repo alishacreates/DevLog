@@ -32,7 +32,7 @@ export function DeleteDevLogDialog({
       <DialogTrigger
         className="inline-flex h-9 items-center justify-center rounded-md bg-destructive px-4 py-2 text-sm font-medium text-destructive-foreground transition-colors hover:bg-destructive/90"
       >
-        Delete DevLog
+        Delete Post
       </DialogTrigger>
 
       <DialogContent>
@@ -42,7 +42,7 @@ export function DeleteDevLogDialog({
           </DialogTitle>
 
           <DialogDescription>
-            This action cannot be undone. This DevLog will be permanently removed.
+            This action cannot be undone. This post will be permanently removed.
           </DialogDescription>
         </DialogHeader>
 
@@ -57,7 +57,7 @@ export function DeleteDevLogDialog({
 
           <form action={deleteDevLogWithId}>
             <Button type="submit" variant="destructive">
-              Delete DevLog
+              Delete Post
             </Button>
           </form>
         </DialogFooter>

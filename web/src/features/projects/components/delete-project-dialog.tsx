@@ -45,9 +45,9 @@ export function DeleteProjectDialog({
           </DialogTitle>
 
           <DialogDescription>
-            This action cannot be undone. The project will be
-            permanently removed from DevLog.
-          </DialogDescription>
+  This action cannot be undone. This project and its posts will be
+  permanently deleted.
+</DialogDescription>
         </DialogHeader>
 
         <DialogFooter>

@@ -15,8 +15,8 @@ export const devLogSchema = z.object({
   content: z
     .string()
     .trim()
-    .min(10, "DevLog content must be at least 10 characters.")
-    .max(5000, "DevLog content must be at most 5000 characters."),
+    .min(10, "Post content must be at least 10 characters.")
+    .max(5000, "Post content must be at most 5000 characters."),
 
   tags: z
     .array(z.string().trim().min(1).max(40))

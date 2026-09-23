@@ -20,10 +20,10 @@ export function ProductStorySection() {
               what you built.
 
               <span className="mt-3 block text-[#8c9290]">
-                DevLogs show
-                <br />
-                how you got there.
-              </span>
+  Posts show
+  <br />
+  how you got there.
+</span>
             </h2>
 
             <p className="mt-8 max-w-xl text-base leading-7 text-[#9ca3a1]">

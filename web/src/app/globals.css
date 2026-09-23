@@ -52,6 +52,7 @@
 --color-success-foreground: var(--success-foreground);
 --color-success-subtle: var(--success-subtle);
 --color-success-subtle-foreground: var(--success-subtle-foreground);
+--color-accent-warm: var(--accent-warm);
 
 }
 :root {
@@ -200,4 +201,34 @@
   .text-interface {
     @apply text-base leading-6;
   }
+}
+
+@keyframes float-one {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+
+  50% {
+    transform: translate(40px, 30px);
+  }
+}
+
+@keyframes float-two {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+
+  50% {
+    transform: translate(-35px, -25px);
+  }
+}
+
+:root {
+  --accent-warm: #d9a45f;
+}
+
+.dark {
+  --accent-warm: #e2b66f;
 }
