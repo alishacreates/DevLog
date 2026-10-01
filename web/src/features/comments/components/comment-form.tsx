@@ -1,28 +1,68 @@
 "use client";
 
-import { useActionState } from "react";
+import {
+  useActionState,
+  useState,
+} from "react";
 import { useFormStatus } from "react-dom";
+import { toast } from "sonner";
 
 import {
   createComment,
   type CreateCommentState,
 } from "@/features/comments/actions/create-comment";
+import { RichCommentEditor } from "@/features/comments/components/rich-comment-editor";
 
 type CommentFormProps = {
   devLogId: string;
   compact?: boolean;
+  onSuccess?: () => void;
 };
 
 const initialState: CreateCommentState = {};
 
-function SubmitButton() {
+function SubmitButton({
+  compact,
+  disabled,
+}: {
+  compact: boolean;
+  disabled: boolean;
+}) {
   const { pending } = useFormStatus();
 
   return (
     <button
       type="submit"
-      disabled={pending}
-      className="cursor-pointer rounded-full bg-primary px-4 py-2 text-sm font-medium text-primary-foreground disabled:cursor-not-allowed disabled:opacity-50"
+      disabled={pending || disabled}
+      className={
+        compact
+          ? `
+              shrink-0 rounded-full
+              bg-primary px-3.5 py-1.5
+              font-section text-[9px]
+              font-bold uppercase
+              tracking-widest
+              text-primary-foreground
+              transition-opacity
+              hover:opacity-90
+              disabled:opacity-40
+              dark:bg-accent-warm
+              dark:text-[#101513]
+            `
+          : `
+              shrink-0 rounded-full
+              bg-primary px-4 py-2
+              font-section text-[10px]
+              font-bold uppercase
+              tracking-widest
+              text-primary-foreground
+              transition-opacity
+              hover:opacity-90
+              disabled:opacity-40
+              dark:bg-accent-warm
+              dark:text-[#101513]
+            `
+      }
     >
       {pending ? "Posting..." : "Comment"}
     </button>
@@ -32,41 +72,90 @@ function SubmitButton() {
 export function CommentForm({
   devLogId,
   compact = false,
+  onSuccess,
 }: CommentFormProps) {
-  const createCommentWithId =
-    createComment.bind(null, devLogId);
+  const [resetKey, setResetKey] =
+    useState(0);
 
-  const [state, formAction] = useActionState(
-    createCommentWithId,
-    initialState
-  );
+  const [hasContent, setHasContent] =
+    useState(false);
 
-if (compact) {
+  async function submitComment(
+    previousState: CreateCommentState,
+    formData: FormData,
+  ) {
+    const result = await createComment(
+      devLogId,
+      previousState,
+      formData,
+    );
+
+    if (result.success) {
+      toast.success("Comment posted");
+
+      setResetKey(
+        (current) => current + 1,
+      );
+
+      setHasContent(false);
+      onSuccess?.();
+    } else if (result.error) {
+      toast.error(result.error);
+    }
+
+    return result;
+  }
+
+  const [state, formAction] =
+    useActionState(
+      submitComment,
+      initialState,
+    );
+
   return (
     <form
       action={formAction}
-      className="rounded-2xl border border-border bg-card p-4"
+      noValidate
+      className={
+        compact
+          ? `
+              rounded-xl border border-border
+              bg-card px-4 py-3
+              transition-colors
+              focus-within:border-primary/60
+              dark:focus-within:border-accent-warm/60
+            `
+          : `
+              rounded-xl border border-border
+              bg-background px-4 py-3
+              transition-colors
+              focus-within:border-primary/60
+              dark:focus-within:border-accent-warm/60
+            `
+      }
     >
-      <textarea
-        name="content"
-        rows={3}
-        maxLength={1000}
-        placeholder="Add to the discussion..."
-        className="w-full resize-none bg-transparent text-sm outline-none placeholder:text-muted-foreground"
+      <RichCommentEditor
+        key={resetKey}
+        compact={compact}
+        onTextChange={(text) =>
+          setHasContent(
+            text.trim().length > 0 &&
+              text.length <= 1000,
+          )
+        }
+        footerAction={
+          <SubmitButton
+            compact={compact}
+            disabled={!hasContent}
+          />
+        }
       />
 
-      <div className="mt-3 flex items-center justify-between border-t border-border pt-3">
-        {state.error ? (
-          <p className="text-sm text-destructive">
-            {state.error}
-          </p>
-        ) : (
-          <span />
-        )}
-
-        <SubmitButton />
-      </div>
+      {state.fieldError ? (
+        <p className="mt-2 text-xs text-destructive">
+          {state.fieldError}
+        </p>
+      ) : null}
     </form>
   );
-}
 }

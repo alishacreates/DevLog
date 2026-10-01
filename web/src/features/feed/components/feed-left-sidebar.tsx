@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { Plus } from "lucide-react";
 
 type FeedLeftSidebarProps = {
   user: {
@@ -20,6 +21,7 @@ export function FeedLeftSidebar({
   return (
     <aside className="hidden lg:block">
       <div className="sticky top-28 space-y-5">
+        {/* Profile */}
         <section className="rounded-2xl border border-border bg-card p-5">
           <div className="flex flex-col items-center text-center">
             {user.image ? (
@@ -48,39 +50,33 @@ export function FeedLeftSidebar({
 
             <Link
               href="/profile"
-              className="mt-5 w-full rounded-full border border-border px-4 py-2 font-section text-[9px] font-bold uppercase tracking-widest transition-colors hover:border-primary hover:text-primary"
+              className="mt-5 w-full rounded-full border border-border px-4 py-2 font-section text-[9px] font-bold uppercase tracking-widest transition-colors hover:border-primary hover:text-primary dark:hover:border-accent-warm dark:hover:text-accent-warm"
             >
               View profile
             </Link>
           </div>
         </section>
 
+        {/* Projects */}
         <section className="rounded-2xl border border-border bg-card p-5">
-          <div className="flex items-center justify-between">
-            <p className="font-section text-[10px] font-bold uppercase tracking-widest">
-              My Projects
-            </p>
-
-            <Link
-              href="/projects"
-              className="font-mono text-[9px] text-muted-foreground hover:text-primary"
-            >
-              View all
-            </Link>
-          </div>
+         <div className="text-center">
+  <p className="text-section-label text-primary dark:text-accent-warm">
+    My Projects
+  </p>
+</div>
 
           <div className="mt-4 space-y-3">
             {projects.slice(0, 4).map((project, index) => (
               <Link
                 key={project.id}
                 href={`/projects/${project.id}`}
-                className="flex items-center gap-3 text-sm transition-colors hover:text-primary"
+                className="group flex items-center gap-3 text-sm transition-colors hover:text-primary"
               >
                 <span className="font-mono text-[9px] text-muted-foreground">
                   {String(index + 1).padStart(2, "0")}
                 </span>
 
-                <span className="line-clamp-1">
+                <span className="line-clamp-1 transition-colors group-hover:text-primary">
                   {project.title}
                 </span>
               </Link>
@@ -92,6 +88,24 @@ export function FeedLeftSidebar({
               </p>
             ) : null}
           </div>
+
+          <div className="mt-5 flex justify-center">
+  <Link
+    href="/projects/new"
+    className="
+      inline-flex items-center gap-2 rounded-full
+      bg-primary px-4 py-2
+      font-section text-[9px] font-bold uppercase tracking-widest
+      text-primary-foreground
+      transition-all
+      hover:-translate-y-0.5 hover:shadow-sm
+      dark:bg-accent-warm dark:text-[#101513]
+    "
+  >
+    <Plus className="size-3.5" />
+    New Project
+  </Link>
+</div>
         </section>
       </div>
     </aside>

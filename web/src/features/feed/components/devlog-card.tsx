@@ -11,10 +11,17 @@ import { FeedCommentsPanel } from "@/features/comments/components/feed-comments-
 
 type DevLogCardProps = {
   devLog: FeedItem;
+  currentUserId: string;
 };
 
-export function DevLogCard({ devLog }: DevLogCardProps) {
+export function DevLogCard({
+  devLog,
+  currentUserId,
+}: DevLogCardProps) {
+  
   const [commentsOpen, setCommentsOpen] = useState(false);
+  const [commentsCount, setCommentsCount] =
+  useState(devLog.commentsCount);
 
   return (
     <article className="group/card overflow-hidden rounded-2xl border border-border/70 bg-card transition-all duration-200 hover:border-border">
@@ -183,15 +190,17 @@ export function DevLogCard({ devLog }: DevLogCardProps) {
             <MessageCircle className="size-4" />
 
             <span className="text-sm">
-              {devLog.commentsCount}
-            </span>
+            {commentsCount}
+          </span>
           </button>
         </div>
 
         <FeedCommentsPanel
-          devLogId={devLog.id}
-          open={commentsOpen}
-        />
+  devLogId={devLog.id}
+  open={commentsOpen}
+  currentUserId={currentUserId}
+  onCountChange={setCommentsCount}
+/>
       </div>
     </article>
   );

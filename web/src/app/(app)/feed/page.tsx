@@ -3,18 +3,21 @@ import Link from "next/link";
 import { auth } from "@/auth";
 import { connectDB } from "@/lib/db/mongoose";
 import { Project } from "@/models/project";
+import { User } from "@/models/user";
+import { Follow } from "@/models/follow";
 import { FeedComposer } from "@/features/feed/components/feed-composer";
 import { FeedLeftSidebar } from "@/features/feed/components/feed-left-sidebar";
 import { FeedList } from "@/features/feed/components/feed-list";
 import { FeedRightSidebar } from "@/features/feed/components/feed-right-sidebar";
 import { getFeed } from "@/features/feed/queries/get-feed";
 
+
 export default async function FeedPage() {
   const session = await auth();
 
   await connectDB();
 
-  const [projects, feed] = await Promise.all([
+  const [projects, feed, following] = await Promise.all([
     Project.find({
       owner: session!.user.id,
     })
@@ -23,13 +26,43 @@ export default async function FeedPage() {
       .lean(),
 
     getFeed(undefined, session!.user.id),
+
+    Follow.find({
+      follower: session!.user.id,
+    })
+      .select("following")
+      .lean(),
   ]);
 
   const { items, nextCursor } = feed;
 
+  const excludedUserIds = [
+    session!.user.id,
+    ...following.map((follow) => follow.following),
+  ];
+
+  const suggestedDevelopers = await User.find({
+    _id: {
+      $nin: excludedUserIds,
+    },
+    isOnboarded: true,
+  })
+    .sort({ createdAt: -1 })
+    .limit(3)
+    .select("_id name username image techStack")
+    .lean();
+
   const serializedProjects = projects.map((project) => ({
     id: project._id.toString(),
     title: project.title,
+  }));
+
+  const serializedDevelopers = suggestedDevelopers.map((developer) => ({
+    id: developer._id.toString(),
+    name: developer.name,
+    username: developer.username,
+    image: developer.image ?? null,
+    techStack: developer.techStack ?? [],
   }));
 
   return (
@@ -79,15 +112,18 @@ export default async function FeedPage() {
           ) : (
             <div className="mt-5">
               <FeedList
-                initialItems={items}
-                initialCursor={nextCursor}
-              />
+  initialItems={items}
+  initialCursor={nextCursor}
+  currentUserId={session!.user.id}
+/>
             </div>
           )}
         </section>
 
         {/* Right sidebar */}
-        <FeedRightSidebar />
+        <FeedRightSidebar
+          developers={serializedDevelopers}
+        />
       </div>
     </main>
   );

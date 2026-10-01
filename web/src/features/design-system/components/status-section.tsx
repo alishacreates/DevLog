@@ -44,17 +44,19 @@ export function StatusSection() {
               </div>
             </div>
 
-            <div className="flex items-start gap-3 rounded-lg border border-destructive/20 bg-destructive/5 p-4">
-              <AlertCircle className="mt-0.5 size-4 text-destructive" />
+            <div className="flex items-start gap-3 rounded-xl border border-destructive p-4">
+  <AlertCircle className="mt-0.5 size-4 text-destructive" />
 
-              <div>
-                <p className="text-sm font-medium">Upload failed</p>
+  <div>
+    <p className="text-sm font-medium text-destructive">
+      Upload failed
+    </p>
 
-                <p className="mt-1 text-xs text-muted-foreground">
-                  Try again or choose a smaller image.
-                </p>
-              </div>
-            </div>
+    <p className="mt-1 text-xs text-muted-foreground">
+      Try again or choose a smaller image.
+    </p>
+  </div>
+</div>
           </div>
         </div>
       </div>

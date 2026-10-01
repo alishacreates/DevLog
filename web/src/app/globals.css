@@ -114,7 +114,7 @@
   --accent: #173b35;
   --accent-foreground: #c7e3dd;
 
-  --destructive: #d76157;
+  --destructive: #b42318;
 
   --border: #343b38;
   --input: #343b38;
@@ -231,4 +231,23 @@
 
 .dark {
   --accent-warm: #e2b66f;
+}
+
+button:not(:disabled),
+[role="button"]:not([aria-disabled="true"]) {
+  cursor: pointer;
+}
+
+button:disabled,
+[role="button"][aria-disabled="true"] {
+  cursor: not-allowed;
+}
+
+.tiptap p.is-editor-empty:first-child::before {
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
+  color: var(--muted-foreground);
+  opacity: 0.6;
 }

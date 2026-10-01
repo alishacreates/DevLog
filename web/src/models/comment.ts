@@ -22,6 +22,12 @@ const commentSchema = new Schema(
       trim: true,
       maxlength: 1000,
     },
+
+      contentJson: {
+        type: String,
+        required: false,
+        maxlength: 12000,
+      },
   },
   {
     timestamps: true,

@@ -1,7 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Search } from "lucide-react";
-
+import {
+  UsersRound,
+} from "lucide-react";
+import { LiveUserSearch } from "@/features/search/components/live-user-search";
 import { searchUsers } from "@/features/search/queries/search-users";
 
 type SearchPageProps = {
@@ -15,88 +17,114 @@ export default async function SearchPage({
 }: SearchPageProps) {
   const { q = "" } = await searchParams;
 
-  const users = q ? await searchUsers(q) : [];
+  const query = q.trim();
+  const users = query ? await searchUsers(query) : [];
 
   return (
-    <main className="mx-auto max-w-4xl px-6 py-10">
+    <main className="mx-auto w-full max-w-4xl px-4 py-6 sm:px-6 sm:py-10">
+      {/* Header */}
       <div>
-        <p className="text-section-label text-primary">
+        <p className="text-section-label text-primary dark:text-accent-warm">
           Discover
         </p>
 
-        <h1 className="mt-2 text-3xl font-semibold tracking-[-0.03em]">
+        <h1 className="mt-1.5 text-3xl font-semibold tracking-[-0.04em] sm:text-4xl">
           Find developers
         </h1>
 
-        <p className="mt-2 text-sm text-muted-foreground">
-          Search by developer name or username.
+        <p className="mt-2 max-w-xl text-sm leading-6 text-muted-foreground">
+          Find people building on DevLog by searching their name or username.
         </p>
       </div>
 
-      <form className="mt-8">
-        <div className="relative">
-          <Search className="absolute left-4 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+      {/* Search */}
+      <div className="mt-7">
+  <LiveUserSearch initialQuery={query} />
+</div>
+      {/* No search yet */}
+      {!query ? (
+        <section className="mt-8 rounded-2xl border border-dashed border-border bg-card p-8 text-center sm:p-10">
+          <div className="mx-auto flex size-11 items-center justify-center rounded-full bg-primary/10 text-primary dark:bg-accent-warm/10 dark:text-accent-warm">
+            <UsersRound className="size-5" />
+          </div>
 
-          <input
-            name="q"
-            type="search"
-            defaultValue={q}
-            placeholder="Search developers..."
-            className="w-full rounded-full border border-border bg-card py-3 pl-11 pr-4 text-sm outline-none transition-colors focus:border-primary"
-          />
-        </div>
-      </form>
+          <h2 className="mt-4 text-lg font-semibold">
+            Discover developers
+          </h2>
 
-      {!q ? (
-        <section className="mt-12 rounded-2xl border border-border bg-card p-8 text-center">
-          <p className="text-sm text-muted-foreground">
-            Search for a developer to get started.
+          <p className="mx-auto mt-2 max-w-sm text-sm leading-6 text-muted-foreground">
+            Search for someone by their name or DevLog username.
           </p>
         </section>
       ) : users.length === 0 ? (
-        <section className="mt-12 rounded-2xl border border-border bg-card p-8 text-center">
-          <h2 className="font-semibold">
+        /* No results */
+        <section className="mt-8 rounded-2xl border border-dashed border-border bg-card p-8 text-center sm:p-10">
+          {/* <div className="mx-auto flex size-11 items-center justify-center rounded-full bg-muted text-muted-foreground">
+            <Search className="size-5" />
+          </div> */}
+
+          <h2 className="mt-4 text-lg font-semibold">
             No developers found
           </h2>
 
-          <p className="mt-2 text-sm text-muted-foreground">
-            Try another name or username.
+          <p className="mx-auto mt-2 max-w-sm text-sm leading-6 text-muted-foreground">
+            We couldn&apos;t find anyone matching{" "}
+            <span className="font-medium text-foreground">
+              &quot;{query}&quot;
+            </span>
+            . Try another name or username.
           </p>
         </section>
       ) : (
+        /* Results */
         <section className="mt-8">
-          <p className="text-meta-uppercase text-muted-foreground">
-            {users.length} result{users.length === 1 ? "" : "s"}
-          </p>
+          <div className="flex items-center justify-between gap-4">
+            <p className="font-mono text-[9px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+              {users.length} developer
+              {users.length === 1 ? "" : "s"} found
+            </p>
+          </div>
 
-          <div className="mt-4 space-y-3">
-            {users.map((user) => (
+          <div className="mt-4 overflow-hidden rounded-2xl border border-border bg-card">
+            {users.map((user, index) => (
               <Link
                 key={user.id}
                 href={`/u/${user.username}`}
-                className="group flex items-start gap-4 rounded-2xl border border-border bg-card p-5 transition-colors hover:border-primary/40"
+                className={`
+                  group flex items-start gap-4
+                  p-4 transition-colors
+                  hover:bg-muted/40
+                  sm:p-5
+                  ${
+                    index !== users.length - 1
+                      ? "border-b border-border"
+                      : ""
+                  }
+                `}
               >
+                {/* Avatar */}
                 {user.image ? (
                   <Image
                     src={user.image}
                     alt={user.name}
                     width={52}
                     height={52}
-                    className="size-13 rounded-full object-cover"
+                    className="size-12 shrink-0 rounded-full object-cover sm:size-13"
                   />
                 ) : (
-                  <div className="flex size-13 shrink-0 items-center justify-center rounded-full bg-primary font-semibold text-primary-foreground">
+                  <div className="flex size-12 shrink-0 items-center justify-center rounded-full bg-primary/10 font-mono text-sm font-semibold text-primary dark:bg-accent-warm/10 dark:text-accent-warm sm:size-13">
                     {user.name.charAt(0).toUpperCase()}
                   </div>
                 )}
 
+                {/* User information */}
                 <div className="min-w-0 flex-1">
-                  <div className="flex flex-wrap items-center gap-2">
-                    <h2 className="font-semibold transition-colors group-hover:text-primary">
+                  <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
+                    <h2 className="truncate text-sm font-semibold transition-colors group-hover:text-primary dark:group-hover:text-accent-warm">
                       {user.name}
                     </h2>
 
-                    <span className="text-meta text-muted-foreground">
+                    <span className="truncate font-mono text-[10px] text-muted-foreground">
                       @{user.username}
                     </span>
                   </div>
@@ -108,13 +136,13 @@ export default async function SearchPage({
                   ) : null}
 
                   {user.techStack.length > 0 ? (
-                    <div className="mt-3 flex flex-wrap gap-2">
+                    <div className="mt-3 flex flex-wrap gap-1.5">
                       {user.techStack
                         .slice(0, 4)
                         .map((tech: string) => (
                           <span
                             key={tech}
-                            className="text-meta rounded-full bg-muted px-2.5 py-1 text-muted-foreground"
+                            className="rounded-full bg-muted px-2.5 py-1 font-mono text-[8px] text-muted-foreground"
                           >
                             {tech}
                           </span>
@@ -122,6 +150,11 @@ export default async function SearchPage({
                     </div>
                   ) : null}
                 </div>
+
+                {/* Desktop action */}
+                <span className="hidden shrink-0 self-center font-mono text-[9px] uppercase tracking-[0.1em] text-muted-foreground transition-colors group-hover:text-primary dark:group-hover:text-accent-warm sm:block">
+                  View profile
+                </span>
               </Link>
             ))}
           </div>

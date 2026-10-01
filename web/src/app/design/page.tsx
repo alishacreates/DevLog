@@ -15,7 +15,11 @@ import {
   SupportingPatternsSection,
   SystemStatesSection,
   TypographySection,
+  ToastSection,
+  DiscoverySection,
+  ResponsiveSection,
 } from "@/features/design-system";
+
 
 export default function DesignPage() {
   return (
@@ -28,13 +32,17 @@ export default function DesignPage() {
         <div className="border-t border-border">
           <DesignPrinciplesSection />
           <ColorSection />
+          
           <TypographySection />
           <ActionsSection />
           <FormsSection />
           <SocialContentSection />
+          <DiscoverySection />
           <SupportingPatternsSection />
           <StatusSection />
           <SystemStatesSection />
+          <ToastSection />
+          <ResponsiveSection />
           <LayoutRulesSection />
           <InterfaceVoiceSection />
         </div>
