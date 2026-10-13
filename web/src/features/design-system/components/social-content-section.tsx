@@ -7,8 +7,8 @@ export function SocialContentSection() {
     <section className="border-b border-border py-16">
       <SectionHeader
         eyebrow="Social content"
-        title="Core update pattern"
-        description="Updates are the heart of DevLog. They should read like social posts while retaining useful project context."
+        title="Core post pattern"
+        description="Posts are the heart of DevLog. They should feel social while retaining useful project context."
       />
 
       <div className="mt-10 grid gap-8 lg:grid-cols-[1.15fr_0.85fr]">
@@ -19,7 +19,7 @@ export function SocialContentSection() {
         <div className="space-y-4">
           {[
             "Avatar, identity, timestamp, and lightweight overflow action",
-            "Readable update copy with comfortable line length",
+            "Readable post copy with comfortable line length",
             "Project context and technical tags",
             "Quiet social actions without oversized vanity metrics",
           ].map((item) => (

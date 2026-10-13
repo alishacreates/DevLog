@@ -21,7 +21,7 @@ export function SupportingPatternsSection() {
       />
 
       <div className="mt-10 grid gap-6 lg:grid-cols-2">
-        <Card className="rounded-xl shadow-none">
+        <Card className="rounded-2xl shadow-none">
           <CardHeader>
             <div className="flex items-start gap-4">
               <Avatar className="size-12 border border-border">
@@ -56,7 +56,7 @@ export function SupportingPatternsSection() {
           </CardContent>
         </Card>
 
-        <Card className="rounded-xl shadow-none">
+        <Card className="rounded-2xl shadow-none">
           <CardHeader>
             <div className="flex items-start justify-between gap-4">
               <div>

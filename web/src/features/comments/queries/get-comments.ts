@@ -28,6 +28,7 @@ export async function getComments(devLogId: string) {
     return {
       id: comment._id.toString(),
       content: comment.content,
+      contentJson: comment.contentJson ?? undefined,
       createdAt: new Date(comment.createdAt).toISOString(),
 
       author: {

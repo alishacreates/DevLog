@@ -19,6 +19,12 @@ export const colors = [
     className: "bg-primary text-primary-foreground",
     variable: "#1E7A6F / bg-primary",
   },
+
+{
+  name: "Gold",
+  className: "bg-accent-warm text-[#101513]",
+  variable: "#D9A45F / #E2B66F · bg-accent-warm",
+},
   {
     name: "Secondary",
     className: "bg-secondary text-secondary-foreground",
@@ -54,4 +60,5 @@ export const colors = [
     className: "bg-destructive text-white",
     variable: "#B42318 / bg-destructive",
   },
+  
 ];

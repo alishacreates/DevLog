@@ -15,7 +15,7 @@ export async function unlikeDevLog(devLogId: string) {
   }
 
   if (!Types.ObjectId.isValid(devLogId)) {
-    throw new Error("Invalid DevLog.");
+    throw new Error("Invalid post.");
   }
 
   await connectDB();

@@ -6,6 +6,13 @@ export const commentSchema = z.object({
     .trim()
     .min(1, "Comment cannot be empty.")
     .max(1000, "Comment must be at most 1000 characters."),
+
+  contentJson: z
+    .string()
+    .max(12000, "Comment formatting data is too large.")
+    .optional(),
 });
 
-export type CommentInput = z.infer<typeof commentSchema>;
+export type CommentInput = z.infer<
+  typeof commentSchema
+>;

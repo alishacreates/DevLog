@@ -9,9 +9,9 @@ export function SectionHeader({
 }) {
   return (
     <div className="max-w-2xl">
-      <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-primary">
-        {eyebrow}
-      </p>
+      <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-primary dark:text-accent-warm">
+  {eyebrow}
+</p>
 
       <h2 className="mt-3 text-2xl font-semibold tracking-[-0.035em] sm:text-3xl">
         {title}

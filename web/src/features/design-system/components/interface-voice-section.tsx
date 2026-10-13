@@ -22,7 +22,7 @@ export function InterfaceVoiceSection() {
           },
           {
             label: "Prefer",
-            text: "Share an update",
+            text: "Publish a post",
           },
           {
             label: "Avoid",
@@ -30,7 +30,7 @@ export function InterfaceVoiceSection() {
           },
           {
             label: "Prefer",
-            text: "No updates yet. Share the first step.",
+            text: "No posts yet. Share the first step.",
           },
           {
             label: "Avoid",

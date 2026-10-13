@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { Types } from "mongoose";
 
 import { auth } from "@/auth";
+import { validateCommentContentJson } from "@/features/comments/lib/validate-comment-content";
 import { commentSchema } from "@/features/comments/schemas/comment.schema";
 import { connectDB } from "@/lib/db/mongoose";
 import { Comment } from "@/models/comment";
@@ -11,13 +12,15 @@ import { DevLog } from "@/models/devlog";
 import { Project } from "@/models/project";
 
 export type CreateCommentState = {
+  fieldError?: string;
   error?: string;
+  success?: boolean;
 };
 
 export async function createComment(
   devLogId: string,
   _previousState: CreateCommentState,
-  formData: FormData
+  formData: FormData,
 ): Promise<CreateCommentState> {
   const session = await auth();
 
@@ -29,20 +32,40 @@ export async function createComment(
 
   if (!Types.ObjectId.isValid(devLogId)) {
     return {
-      error: "Invalid DevLog.",
+      error: "Invalid post.",
     };
   }
 
   const parsed = commentSchema.safeParse({
     content: formData.get("content"),
+    contentJson:
+      formData.get("contentJson") || undefined,
   });
 
   if (!parsed.success) {
     return {
-      error:
+      fieldError:
         parsed.error.issues[0]?.message ??
         "Invalid comment.",
     };
+  }
+
+  let safeContentJson: string | undefined;
+
+  if (parsed.data.contentJson) {
+    const validated =
+      validateCommentContentJson(
+        parsed.data.contentJson,
+        parsed.data.content,
+      );
+
+    if (!validated) {
+      return {
+        error: "Invalid comment formatting.",
+      };
+    }
+
+    safeContentJson = validated;
   }
 
   await connectDB();
@@ -53,12 +76,12 @@ export async function createComment(
 
   if (!devLog) {
     return {
-      error: "DevLog not found.",
+      error: "Post not found.",
     };
   }
 
   const project = await Project.findById(
-    devLog.project
+    devLog.project,
   )
     .select("_id isPublic owner")
     .lean();
@@ -70,11 +93,13 @@ export async function createComment(
   }
 
   const isOwner =
-    project.owner.toString() === session.user.id;
+    project.owner.toString() ===
+    session.user.id;
 
   if (!project.isPublic && !isOwner) {
     return {
-      error: "You do not have permission to comment on this DevLog.",
+      error:
+        "You do not have permission to comment on this post.",
     };
   }
 
@@ -83,17 +108,25 @@ export async function createComment(
       author: session.user.id,
       devLog: devLogId,
       content: parsed.data.content,
+      contentJson: safeContentJson,
     });
   } catch (error) {
-    console.error("Create comment error:", error);
+    console.error(
+      "Create comment error:",
+      error,
+    );
 
     return {
       error: "Could not post comment.",
     };
   }
 
-  revalidatePath(`/devlogs/${devLogId}`);
+  revalidatePath(
+    `/devlogs/${devLogId}`,
+  );
   revalidatePath("/feed");
 
-  return {};
+  return {
+    success: true,
+  };
 }

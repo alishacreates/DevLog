@@ -1,12 +1,12 @@
 import Link from "next/link";
-import { Plus } from "lucide-react";
+import { PenLine, Plus } from "lucide-react";
 
 export function FeedComposer() {
   return (
     <section className="rounded-2xl border border-border bg-card p-5">
       <div className="flex items-center gap-3">
-        <div className="flex size-10 items-center justify-center rounded-full bg-primary font-mono text-xs font-bold text-primary-foreground">
-          +
+        <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground dark:bg-accent-warm dark:text-[#101513]">
+          <PenLine className="size-4" />
         </div>
 
         <Link
@@ -24,10 +24,18 @@ export function FeedComposer() {
 
         <Link
           href="/devlogs/new"
-          className="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-2 font-section text-[9px] font-bold uppercase tracking-widest text-primary-foreground"
+          className="
+            inline-flex items-center gap-2 rounded-full
+            bg-primary px-4 py-2
+            font-section text-[9px] font-bold uppercase tracking-widest
+            text-primary-foreground
+            transition-all
+            hover:-translate-y-0.5 hover:shadow-sm
+            dark:bg-accent-warm dark:text-[#101513]
+          "
         >
           <Plus className="size-3.5" />
-          New DevLog
+          New Post
         </Link>
       </div>
     </section>

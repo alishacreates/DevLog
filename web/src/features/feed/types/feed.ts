@@ -4,6 +4,7 @@ export type FeedItem = {
   content: string;
   tags: string[];
   createdAt: string;
+  images: string[];
   
   likesCount: number;
   likedByCurrentUser: boolean;

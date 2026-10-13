@@ -14,7 +14,7 @@ export function SystemStatesSection() {
 
       <div className="mt-10 grid gap-6 lg:grid-cols-2">
         <div className="rounded-xl border border-border bg-card p-6">
-          <p className="text-sm font-semibold">Loading update</p>
+          <p className="text-sm font-semibold">Loading post</p>
 
           <div className="mt-6 flex gap-4">
             <Skeleton className="size-10 rounded-full" />
@@ -33,7 +33,7 @@ export function SystemStatesSection() {
             <Sparkles className="size-5" />
           </span>
 
-          <p className="mt-4 text-sm font-semibold">No updates yet</p>
+          <p className="mt-4 text-sm font-semibold">No posts yet</p>
 
           <p className="mt-2 max-w-xs text-sm leading-6 text-muted-foreground">
             Share the first step, lesson, or small win from your project.
@@ -41,7 +41,7 @@ export function SystemStatesSection() {
 
           <Button className="mt-5" size="sm">
             <Plus className="size-4" />
-            Share update
+            New Post
           </Button>
         </div>
       </div>

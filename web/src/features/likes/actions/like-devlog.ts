@@ -16,7 +16,7 @@ export async function likeDevLog(devLogId: string) {
   }
 
   if (!Types.ObjectId.isValid(devLogId)) {
-    throw new Error("Invalid DevLog.");
+    throw new Error("Invalid post.");
   }
 
   await connectDB();
@@ -26,7 +26,7 @@ export async function likeDevLog(devLogId: string) {
     .lean();
 
   if (!devLog) {
-    throw new Error("DevLog not found.");
+    throw new Error("Post not found.");
   }
 
   try {
@@ -45,7 +45,7 @@ export async function likeDevLog(devLogId: string) {
     }
 
     console.error("Like DevLog error:", error);
-    throw new Error("Could not like DevLog.");
+    throw new Error("Could not like post.");
   }
 
   revalidatePath(`/devlogs/${devLogId}`);

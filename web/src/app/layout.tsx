@@ -9,6 +9,7 @@ import { cn } from "@/lib/utils";
 import { Anton } from "next/font/google";
 import { Source_Code_Pro } from "next/font/google";
 import { ThemeProvider } from "@/components/providers/theme-provider";
+import { ToastProvider } from "@/components/providers/toast-provider";
 
 const sourceCodePro = Source_Code_Pro({
   subsets: ["latin"],
@@ -63,8 +64,9 @@ export default function RootLayout({
         )}
       >
         <ThemeProvider>
-      {children}
-    </ThemeProvider>
+  {children}
+  <ToastProvider />
+</ThemeProvider>
       </body>
     </html>
   );

@@ -10,3 +10,6 @@ export { StatusSection } from "./components/status-section";
 export { SupportingPatternsSection } from "./components/supporting-patterns-section";
 export { SystemStatesSection } from "./components/system-states-section";
 export { TypographySection } from "./components/typography-section";
+export { ToastSection } from "./components/toast-section";
+export { DiscoverySection } from "./components/discovery-section";
+export { ResponsiveSection } from "./components/responsive-section";
