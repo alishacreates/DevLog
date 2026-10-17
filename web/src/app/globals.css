@@ -84,10 +84,10 @@
   --border: #cbc7bc;
   --input: #cbc7bc;
 
-  --success: #327a50;
+  --success: #16a34a;
   --success-foreground: #ffffff;
-  --success-subtle: #dceade;
-  --success-subtle-foreground: #285f40;
+  --success-subtle: #dcfce7;
+  --success-subtle-foreground: #166534;
 
   --radius: 0.35rem;
 }
@@ -121,10 +121,10 @@
   --input: #343b38;
   --ring: #69aa9f;
 
-  --success: #76b88b;
-  --success-foreground: #0f2015;
-  --success-subtle: #1b3825;
-  --success-subtle-foreground: #b9ddc4;
+  --success: #22c55e;
+  --success-foreground: #052e16;
+  --success-subtle: #052e16;
+  --success-subtle-foreground: #86efac;
 }
 
 
@@ -234,14 +234,22 @@
   --accent-warm: #e2b66f;
 }
 
-button:not(:disabled),
-[role="button"]:not([aria-disabled="true"]) {
-  cursor: pointer;
-}
+@layer base {
+  button:not(:disabled),
+  a[href],
+  [role="button"]:not([aria-disabled="true"]),
+  [role="link"]:not([aria-disabled="true"]),
+  summary,
+  input[type="checkbox"]:not(:disabled),
+  input[type="radio"]:not(:disabled) {
+    cursor: pointer;
+  }
 
-button:disabled,
-[role="button"][aria-disabled="true"] {
-  cursor: not-allowed;
+  button:disabled,
+  [role="button"][aria-disabled="true"],
+  [role="link"][aria-disabled="true"] {
+    cursor: not-allowed;
+  }
 }
 
 .tiptap p.is-editor-empty:first-child::before {

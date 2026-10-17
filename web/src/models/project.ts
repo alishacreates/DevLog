@@ -6,6 +6,26 @@ export const PROJECT_STATUSES = [
   "completed",
 ] as const;
 
+const projectGoalSchema = new Schema(
+  {
+    title: {
+      type: String,
+      required: true,
+      trim: true,
+      maxlength: 120,
+    },
+
+    isCompleted: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  {
+    _id: true,
+    id: false,
+  }
+);
+
 const projectSchema = new Schema(
   {
     owner: {
@@ -65,6 +85,11 @@ const projectSchema = new Schema(
         ref: "User",
       },
     ],
+
+    goals: {
+      type: [projectGoalSchema],
+      default: [],
+    },
 
     isPublic: {
       type: Boolean,

@@ -1,3 +1,4 @@
+
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -10,6 +11,7 @@ import { connectDB } from "@/lib/db/mongoose";
 import { DevLog } from "@/models/devlog";
 import { Project } from "@/models/project";
 import { BackButton } from "@/components/shared/back-button";
+import { ProjectGoalsCard } from "@/features/project-goals/components/project-goals-card";
 
 type ProjectPageProps = {
   params: Promise<{
@@ -26,18 +28,34 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
   const session = await auth();
 
+  if (!session?.user?.id) {
+    notFound();
+  }
+
   await connectDB();
 
   const project = await Project.findOne({
     _id: id,
-    $or: [{ owner: session!.user.id }, { isPublic: true }],
+    $or: [{ owner: session.user.id }, { isPublic: true }],
   }).lean();
 
   if (!project) {
     notFound();
   }
 
-  const isOwner = project.owner.toString() === session!.user.id;
+  const isOwner = project.owner.toString() === session.user.id;
+
+  const serializedGoals = (project.goals ?? []).map(
+    (goal: {
+      _id: { toString(): string };
+      title: string;
+      isCompleted: boolean;
+    }) => ({
+      id: goal._id.toString(),
+      title: goal.title,
+      isCompleted: goal.isCompleted,
+    })
+  );
 
   const devLogs = await DevLog.find({
     project: project._id,
@@ -49,6 +67,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
     <main className="mx-auto max-w-5xl px-6 py-10">
       <BackButton fallback="/projects" />
 
+      {/* Project header */}
       <section className="mt-8 overflow-hidden rounded-[28px] border border-border bg-card">
         <div className="relative min-h-[320px] overflow-hidden p-8 sm:p-10">
           <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-primary/5 to-background" />
@@ -72,7 +91,6 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                   ) : (
                     <Lock className="size-3.5" />
                   )}
-
                   {project.isPublic ? "Public" : "Private"}
                 </span>
 
@@ -160,6 +178,16 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         </div>
       </section>
 
+      {/* Project Goals */}
+      <div className="mt-8">
+        <ProjectGoalsCard
+          projectId={project._id.toString()}
+          goals={serializedGoals}
+          isOwner={isOwner}
+        />
+      </div>
+
+      {/* Project Updates */}
       <section className="mt-12">
         <div className="flex items-end justify-between gap-6 border-b border-border pb-5">
           <div>
@@ -180,7 +208,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           {isOwner ? (
             <Link
               href={`/devlogs/new?project=${project._id.toString()}`}
-              className="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-2 text-action-label text-primary-foreground"
+              className="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-2 text-action-label text-primary-foreground transition-opacity hover:opacity-90"
             >
               <Plus className="size-4" />
               New Post
@@ -204,7 +232,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
               <Link
                 key={devLog._id.toString()}
                 href={`/devlogs/${devLog._id.toString()}`}
-                className="group block overflow-hidden rounded-2xl border border-border bg-card transition-all hover:border-primary/40 hover:shadow-sm"
+                className="group block overflow-hidden rounded-2xl border border-border bg-card transition-all duration-200 hover:border-border/80 hover:bg-muted/20 hover:shadow-sm"
               >
                 <div
                   className={
@@ -216,7 +244,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                   <div className="p-5">
                     <div className="flex items-start justify-between gap-4">
                       <div>
-                        <h3 className="text-lg font-semibold tracking-[-0.02em] transition-colors group-hover:text-primary">
+                        <h3 className="text-lg font-semibold tracking-[-0.02em] text-foreground">
                           {devLog.title}
                         </h3>
 
@@ -225,7 +253,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                         </p>
                       </div>
 
-                      <ArrowUpRight className="size-4 shrink-0 text-muted-foreground transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-primary" />
+                      <ArrowUpRight className="size-4 shrink-0 text-muted-foreground transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-foreground" />
                     </div>
 
                     <p className="mt-3 line-clamp-3 text-sm leading-6 text-muted-foreground">

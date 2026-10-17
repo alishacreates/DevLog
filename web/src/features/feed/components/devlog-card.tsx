@@ -52,7 +52,7 @@ export function DevLogCard({
               <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5">
                 <Link
                   href={`/u/${devLog.author.username}`}
-                  className="truncate text-sm font-semibold transition-colors hover:text-primary"
+                  className="truncate text-sm font-semibold text-foreground hover:underline underline-offset-4"
                 >
                   {devLog.author.name}
                 </Link>
@@ -101,7 +101,7 @@ export function DevLogCard({
           href={`/devlogs/${devLog.id}`}
           className="mt-5 block"
         >
-          <h2 className="text-lg font-semibold tracking-[-0.025em] transition-colors group-hover/card:text-primary">
+          <h2 className="text-lg font-semibold tracking-[-0.025em] text-foreground">
             {devLog.title}
           </h2>
 
@@ -116,7 +116,7 @@ export function DevLogCard({
             {devLog.tags.slice(0, 5).map((tag) => (
               <span
                 key={tag}
-                className="font-mono text-[10px] text-muted-foreground transition-colors hover:text-primary"
+                className="font-mono text-[10px] text-muted-foreground"
               >
                 #{tag}
               </span>
@@ -184,7 +184,7 @@ export function DevLogCard({
             className={
               commentsOpen
                 ? "inline-flex cursor-pointer items-center gap-1.5 text-primary"
-                : "inline-flex cursor-pointer items-center gap-1.5 text-muted-foreground transition-colors hover:text-primary"
+                : "inline-flex cursor-pointer items-center gap-1.5 text-muted-foreground transition-colors hover:text-foreground"
             }
           >
             <MessageCircle className="size-4" />

@@ -1,3 +1,4 @@
+
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -68,13 +69,13 @@ export default async function PublicProfilePage({
       : {
           owner: user._id,
           isPublic: true,
-        },
+        }
   )
     .sort({ createdAt: -1 })
     .lean();
 
   const visibleProjectIds = projects.map(
-    (project) => project._id,
+    (project) => project._id
   );
 
   const [devLogs, devLogCount] = await Promise.all([
@@ -142,7 +143,7 @@ export default async function PublicProfilePage({
               {isOwnProfile ? (
                 <Link
                   href="/profile/edit"
-                  className="inline-flex rounded-full border border-border bg-card px-4 py-2 text-sm font-medium transition-colors hover:border-primary/60 hover:bg-primary/5 hover:text-primary"
+                  className="inline-flex rounded-full border border-border bg-card px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-muted/60"
                 >
                   Edit profile
                 </Link>
@@ -193,7 +194,7 @@ export default async function PublicProfilePage({
                 href={user.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 transition-colors hover:text-primary"
+                className="inline-flex items-center gap-1.5 transition-colors hover:text-foreground"
               >
                 <FaGithub className="size-4" />
                 GitHub
@@ -205,7 +206,7 @@ export default async function PublicProfilePage({
                 href={user.portfolio}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 transition-colors hover:text-primary"
+                className="inline-flex items-center gap-1.5 transition-colors hover:text-foreground"
               >
                 <ArrowUpRight className="size-4" />
                 Portfolio
@@ -288,7 +289,7 @@ export default async function PublicProfilePage({
                           </p>
                         </div>
 
-                        <h3 className="mt-2 text-base font-semibold tracking-[-0.02em] transition-colors group-hover:text-primary">
+                        <h3 className="mt-2 text-base font-semibold tracking-[-0.02em] text-foreground">
                           {devLog.title}
                         </h3>
 
@@ -323,7 +324,7 @@ export default async function PublicProfilePage({
                           />
                         </div>
                       ) : (
-                        <ArrowUpRight className="mt-1 size-4 shrink-0 text-muted-foreground transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-primary" />
+                        <ArrowUpRight className="mt-1 size-4 shrink-0 text-muted-foreground transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-foreground" />
                       )}
                     </div>
                   </Link>
@@ -348,7 +349,7 @@ export default async function PublicProfilePage({
               {isOwnProfile ? (
                 <Link
                   href="/projects/new"
-                  className="text-action-label text-muted-foreground transition-colors hover:text-primary"
+                  className="text-action-label text-muted-foreground transition-colors hover:text-foreground"
                 >
                   New project →
                 </Link>
@@ -367,7 +368,7 @@ export default async function PublicProfilePage({
                   <Link
                     key={project._id.toString()}
                     href={`/projects/${project._id.toString()}`}
-                    className="group overflow-hidden rounded-2xl border border-border bg-card transition-all hover:border-primary/40 hover:shadow-sm"
+                    className="group overflow-hidden rounded-2xl border border-border bg-card transition-all duration-200 hover:border-border/80 hover:bg-muted/20 hover:shadow-sm"
                   >
                     <div className="relative h-28 overflow-hidden bg-muted">
                       <div
@@ -396,7 +397,7 @@ export default async function PublicProfilePage({
                     <div className="p-4">
                       <div className="flex items-start justify-between gap-3">
                         <div className="min-w-0">
-                          <h3 className="truncate font-semibold tracking-[-0.02em] transition-colors group-hover:text-primary">
+                          <h3 className="truncate font-semibold tracking-[-0.02em] text-foreground">
                             {project.title}
                           </h3>
 
@@ -405,7 +406,7 @@ export default async function PublicProfilePage({
                           </p>
                         </div>
 
-                        <ArrowUpRight className="size-4 shrink-0 text-muted-foreground transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-primary" />
+                        <ArrowUpRight className="size-4 shrink-0 text-muted-foreground transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-foreground" />
                       </div>
 
                       <p className="mt-3 line-clamp-2 text-sm leading-6 text-muted-foreground">
@@ -447,7 +448,7 @@ export default async function PublicProfilePage({
                 {user.techStack.map((tech: string) => (
                   <span
                     key={tech}
-                    className="rounded-full border border-border px-2.5 py-1 font-mono text-[10px] text-muted-foreground"
+                    className="rounded-full border border-border bg-muted/30 px-2.5 py-1 font-mono text-[10px] text-muted-foreground"
                   >
                     {tech}
                   </span>
@@ -510,10 +511,7 @@ function ProfileStat({
 }) {
   return (
     <div className="flex items-baseline gap-1.5">
-      <span className="font-semibold">
-        {value}
-      </span>
-
+      <span className="font-semibold">{value}</span>
       <span className="text-xs text-muted-foreground">
         {label}
       </span>
@@ -524,11 +522,7 @@ function ProfileStat({
 function formatStatus(status: string) {
   return status
     .split("-")
-    .map(
-      (word) =>
-        word.charAt(0).toUpperCase() +
-        word.slice(1),
-    )
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
     .join(" ");
 }
 
