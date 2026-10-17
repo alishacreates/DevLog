@@ -66,21 +66,23 @@ export function FeedLeftSidebar({
 </div>
 
           <div className="mt-4 space-y-3">
-            {projects.slice(0, 4).map((project, index) => (
-              <Link
-                key={project.id}
-                href={`/projects/${project.id}`}
-                className="group flex items-center gap-3 text-sm transition-colors hover:text-primary"
-              >
-                <span className="font-mono text-[9px] text-muted-foreground">
-                  {String(index + 1).padStart(2, "0")}
-                </span>
+            
+        {projects.slice(0, 4).map((project, index) => (
+          <Link
+            key={project.id}
+            href={`/projects/${project.id}`}
+            className="group flex items-center gap-3 rounded-lg px-2 py-2 text-sm transition-colors hover:bg-muted/50"
+          >
+            <span className="font-mono text-[10px] text-muted-foreground transition-colors group-hover:text-primary dark:group-hover:text-accent-warm">
+              {String(index + 1).padStart(2, "0")}
+            </span>
 
-                <span className="line-clamp-1 transition-colors group-hover:text-primary">
-                  {project.title}
-                </span>
-              </Link>
-            ))}
+            <span className="line-clamp-1 text-foreground">
+              {project.title}
+            </span>
+          </Link>
+        ))}
+
 
             {projects.length === 0 ? (
               <p className="text-sm text-muted-foreground">

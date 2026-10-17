@@ -1,9 +1,6 @@
+
 import Link from "next/link";
-import {
-  ArrowUpRight,
-  Globe2,
-  Lock,
-} from "lucide-react";
+import { ArrowUpRight, Globe2, Lock } from "lucide-react";
 
 type ProjectCardProps = {
   project: {
@@ -30,9 +27,10 @@ export function ProjectCard({ project }: ProjectCardProps) {
       className="
         group block overflow-hidden rounded-[26px]
         border border-border bg-card
-        transition-all duration-300
-        hover:-translate-y-1
-        hover:shadow-lg
+        transition-all duration-200
+        hover:-translate-y-0.5
+        hover:border-primary/25
+        hover:shadow-md
       "
     >
       {/* Visual */}
@@ -49,7 +47,6 @@ export function ProjectCard({ project }: ProjectCardProps) {
 
         {/* Soft glow */}
         <div className="absolute -left-16 -top-16 size-52 rounded-full bg-primary/10 blur-3xl" />
-
         <div className="absolute -bottom-20 -right-12 size-48 rounded-full bg-accent-warm/10 blur-3xl" />
 
         {/* Status */}
@@ -75,7 +72,6 @@ export function ProjectCard({ project }: ProjectCardProps) {
             ) : (
               <Lock className="size-3 text-red-500" />
             )}
-
             {project.isPublic ? "Public" : "Private"}
           </span>
         </div>
@@ -149,11 +145,11 @@ export function ProjectCard({ project }: ProjectCardProps) {
       <div className="p-5">
         <div className="flex items-start justify-between gap-4">
           <div className="min-w-0">
-            <h2 className="text-xl font-semibold tracking-[-0.03em]">
+            <h2 className="text-xl font-semibold tracking-[-0.03em] text-foreground">
               {project.title}
             </h2>
 
-            <p className="mt-2 line-clamp-2 text-xs leading-relaxed text-muted-foreground font-sans">
+            <p className="mt-2 line-clamp-2 font-sans text-xs leading-relaxed text-muted-foreground">
               {project.description}
             </p>
           </div>
@@ -165,13 +161,13 @@ export function ProjectCard({ project }: ProjectCardProps) {
               transition-all duration-200
               group-hover:-translate-y-0.5
               group-hover:translate-x-0.5
-              group-hover:text-primary
+              group-hover:text-foreground
             "
           />
         </div>
 
         <div className="mt-5 flex items-center justify-between border-t border-border pt-4">
-          <span className="font-bold text-lg text-muted-foreground">
+          <span className="text-lg font-bold text-muted-foreground">
             ݁⟡ ݁
           </span>
 
@@ -179,15 +175,16 @@ export function ProjectCard({ project }: ProjectCardProps) {
             className="
               inline-flex items-center gap-2
               rounded-full border border-primary
-              px-3.5 py-2
+              bg-primary px-3.5 py-2
               font-mono text-[10px] font-semibold uppercase tracking-[0.12em]
-              bg-primary text-primary-foreground
+              text-primary-foreground
               transition-all duration-200
-              hover:bg-primary/80
-              hover:border-primary/80
-              dark:bg-accent-warm dark:text-[#101513] dark:border-accent-warm
-              dark:hover:bg-accent-warm/80
-              dark:hover:border-accent-warm/80
+              group-hover:bg-primary/80
+              group-hover:border-primary/80
+              dark:border-accent-warm
+              dark:bg-accent-warm dark:text-[#101513]
+              dark:group-hover:border-accent-warm/80
+              dark:group-hover:bg-accent-warm/80
             "
           >
             View project
@@ -201,10 +198,6 @@ export function ProjectCard({ project }: ProjectCardProps) {
 function formatStatus(status: string) {
   return status
     .split("-")
-    .map(
-      (word) =>
-        word.charAt(0).toUpperCase() +
-        word.slice(1)
-    )
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
     .join(" ");
 }
