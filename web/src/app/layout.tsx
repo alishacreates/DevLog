@@ -1,20 +1,17 @@
+
 import type { Metadata } from "next";
 import {
+  Anton,
   IBM_Plex_Mono,
   Manrope,
-  Newsreader,
+  Source_Code_Pro,
 } from "next/font/google";
+
 import "./globals.css";
+
 import { cn } from "@/lib/utils";
-import { Anton } from "next/font/google";
-import { Source_Code_Pro } from "next/font/google";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { ToastProvider } from "@/components/providers/toast-provider";
-
-const sourceCodePro = Source_Code_Pro({
-  subsets: ["latin"],
-  variable: "--font-source-code-pro",
-});
 
 const manrope = Manrope({
   variable: "--font-manrope",
@@ -27,22 +24,92 @@ const ibmPlexMono = IBM_Plex_Mono({
   weight: ["400", "500", "600"],
 });
 
-const newsreader = Newsreader({
-  variable: "--font-newsreader",
-  subsets: ["latin"],
-  style: ["normal", "italic"],
-});
-
 const anton = Anton({
   subsets: ["latin"],
   weight: "400",
   variable: "--font-anton",
 });
 
+const sourceCodePro = Source_Code_Pro({
+  subsets: ["latin"],
+  variable: "--font-source-code-pro",
+});
+
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL ??
+  "https://devlog-delta-black.vercel.app";
+
 export const metadata: Metadata = {
-  title: "DevLog — Build in public",
+  metadataBase: new URL(siteUrl),
+
+  title: {
+    default: "DevLog | Build in Motion",
+    template: "%s | DevLog",
+  },
+
   description:
-    "Share what you are building, follow developer journeys, and grow through visible progress.",
+    "DevLog is a platform for developers to document projects, share development progress, and show the journey behind what they build.",
+
+  keywords: [
+    "DevLog",
+    "developer projects",
+    "development logs",
+    "build in public",
+    "developer portfolio",
+    "developer community",
+    "software development",
+    "software projects",
+    "coding projects",
+    "project progress",
+  ],
+
+  applicationName: "DevLog",
+
+  authors: [
+    {
+      name: "Alisha",
+    },
+  ],
+
+  creator: "Alisha",
+
+  alternates: {
+    canonical: "/",
+  },
+
+  robots: {
+    index: true,
+    follow: true,
+  },
+
+  openGraph: {
+    type: "website",
+    siteName: "DevLog",
+    title: "DevLog | Build in Motion",
+    description:
+      "Projects show what you built. DevLogs show how you got there.",
+    url: "/",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "DevLog Build in Motion",
+      },
+    ],
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: "DevLog | Build in Motion",
+    description:
+      "Projects show what you built. DevLogs show how you got there.",
+    images: ["/og-image.png"],
+  },
+
+  icons: {
+    icon: "/favicon.ico",
+  },
 };
 
 export default function RootLayout({
@@ -56,17 +123,15 @@ export default function RootLayout({
         className={cn(
           manrope.variable,
           ibmPlexMono.variable,
-          newsreader.variable,
           anton.variable,
           sourceCodePro.variable,
           "min-h-screen bg-background font-sans text-foreground antialiased"
-          
         )}
       >
         <ThemeProvider>
-  {children}
-  <ToastProvider />
-</ThemeProvider>
+          {children}
+          <ToastProvider />
+        </ThemeProvider>
       </body>
     </html>
   );

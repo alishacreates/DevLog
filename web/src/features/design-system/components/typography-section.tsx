@@ -7,12 +7,13 @@ export function TypographySection() {
       <SectionHeader
         eyebrow="Typography"
         title="Type has a job."
-        description="Anton carries DevLog's bold editorial voice, Manrope handles readable interface text, IBM Plex Mono supports technical metadata, and Source Code Pro marks sections and actions."
+        description="Anton carries DevLog's bold display voice, Manrope handles the interface, Source Code Pro provides structure, IBM Plex Mono carries technical metadata, and Times New Roman adds an editorial voice for explanation and storytelling."
       />
 
       <div className="mt-10 grid gap-8 lg:grid-cols-[1.25fr_0.75fr]">
         {/* Main hierarchy */}
         <div className="space-y-10 border-l-2 border-primary pl-6 sm:pl-8">
+          {/* Anton */}
           <div>
             <p className="font-section text-sm font-bold uppercase tracking-[0.12em] text-primary">
               Display / Anton
@@ -26,6 +27,7 @@ export function TypographySection() {
             </p>
           </div>
 
+          {/* Manrope heading */}
           <div>
             <p className="font-section text-sm font-bold uppercase tracking-[0.12em] text-primary">
               Heading / Manrope
@@ -39,6 +41,7 @@ export function TypographySection() {
             </p>
           </div>
 
+          {/* Manrope body */}
           <div>
             <p className="font-section text-sm font-bold uppercase tracking-[0.12em] text-primary">
               Body / Manrope
@@ -54,6 +57,7 @@ export function TypographySection() {
 
         {/* Supporting type roles */}
         <div className="border border-border bg-card p-6">
+          {/* Source Code Pro */}
           <div>
             <p className="font-section text-sm font-bold uppercase tracking-[0.12em] text-primary">
               Section marker
@@ -71,6 +75,7 @@ export function TypographySection() {
 
           <Separator className="my-6" />
 
+          {/* IBM Plex Mono */}
           <div>
             <p className="font-section text-sm font-bold uppercase tracking-[0.12em] text-primary">
               Technical metadata
@@ -81,13 +86,14 @@ export function TypographySection() {
             </p>
 
             <p className="mt-2 text-xs leading-5 text-muted-foreground">
-              IBM Plex Mono is reserved for timestamps, tags, IDs, code-adjacent
-              labels, and technical context.
+              IBM Plex Mono is reserved for timestamps, tags, IDs,
+              code-adjacent labels, and technical context.
             </p>
           </div>
 
           <Separator className="my-6" />
 
+          {/* Manrope interface */}
           <div>
             <p className="font-section text-sm font-bold uppercase tracking-[0.12em] text-primary">
               Interface
@@ -102,20 +108,39 @@ export function TypographySection() {
               and product UI.
             </p>
           </div>
+
+          <Separator className="my-6" />
+
+          {/* Times New Roman */}
+          <div>
+            <p className="font-section text-sm font-bold uppercase tracking-[0.12em] text-primary">
+              Editorial / Explanation
+            </p>
+
+            <p className="font-editorial mt-3 text-xl leading-8 text-foreground/80">
+              The decisions, bugs, lessons, experiments, and small wins are
+              part of the story too.
+            </p>
+
+            <p className="mt-3 text-xs leading-5 text-muted-foreground">
+              Times New Roman is reserved for explanatory, reflective, and
+              story-driven content where DevLog needs a more editorial voice.
+            </p>
+          </div>
         </div>
       </div>
 
-      {/* Rule */}
+      {/* Type rule */}
       <div className="mt-10 grid gap-8 border-t border-border pt-8 lg:grid-cols-[0.7fr_1.3fr]">
         <p className="font-section text-base font-bold uppercase tracking-[0.12em] text-primary">
           Type rule
         </p>
 
         <p className="max-w-3xl text-xl leading-8 tracking-[-0.02em]">
-          Display type creates identity.
+          Display type creates identity.{" "}
           <span className="text-muted-foreground">
-            {" "}
-            Interface type creates clarity.
+            Interface type creates clarity. Editorial type gives the story a
+            voice.
           </span>
         </p>
       </div>

@@ -1,3 +1,4 @@
+
 import { redirect } from "next/navigation";
 import { FaGithub } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
@@ -30,37 +31,41 @@ export default async function SignInPage({
   return (
     <main className="relative flex min-h-screen items-center justify-center overflow-hidden bg-background px-6">
       {/* Background */}
-<div className="pointer-events-none absolute inset-0 overflow-hidden">
-  {/* teal glow - top left */}
-  <div className="absolute -left-32 -top-32 size-[430px] rounded-full bg-primary/25 blur-[110px] animate-[float-one_10s_ease-in-out_infinite]" />
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        {/* Teal glow - top left */}
+        <div className="absolute -left-32 -top-32 size-[430px] rounded-full bg-primary/25 blur-[110px] animate-[float-one_10s_ease-in-out_infinite]" />
 
-  {/* teal glow - bottom right */}
-  <div className="absolute -bottom-40 -right-28 size-[480px] rounded-full bg-primary/20 blur-[120px] animate-[float-two_12s_ease-in-out_infinite]" />
+        {/* Teal glow - bottom right */}
+        <div className="absolute -bottom-40 -right-28 size-[480px] rounded-full bg-primary/20 blur-[120px] animate-[float-two_12s_ease-in-out_infinite]" />
 
-  {/* subtle center glow */}
-  <div className="absolute left-1/2 top-1/2 size-[300px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/10 blur-[100px]" />
+        {/* Subtle center glow */}
+        <div className="absolute left-1/2 top-1/2 size-[300px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/10 blur-[100px]" />
 
-  {/* developer grid */}
-  <div
-    className="
-      absolute inset-0 opacity-[0.025]
-      [background-image:linear-gradient(to_right,currentColor_1px,transparent_1px),linear-gradient(to_bottom,currentColor_1px,transparent_1px)]
-      [background-size:34px_34px]
-    "
-  />
-</div>
+        {/* Developer grid */}
+        <div
+          className="
+            absolute inset-0 opacity-[0.025]
+            [background-image:linear-gradient(to_right,currentColor_1px,transparent_1px),linear-gradient(to_bottom,currentColor_1px,transparent_1px)]
+            [background-size:34px_34px]
+          "
+        />
+      </div>
+
+      {/* Back to home */}
       <Link
-  href="/"
-  className="absolute left-6 top-6 inline-flex size-9 items-center justify-center rounded-full border border-border bg-card text-muted-foreground transition-colors hover:text-foreground"
-  aria-label="Back to home"
->
-  <ArrowLeft className="size-4" />
-</Link>
+        href="/"
+        className="absolute left-6 top-6 inline-flex size-9 items-center justify-center rounded-full border border-border bg-card text-muted-foreground transition-colors hover:text-foreground"
+        aria-label="Back to home"
+      >
+        <ArrowLeft className="size-4" />
+      </Link>
+
+      {/* Sign-in card */}
       <section className="w-full max-w-md">
         <div className="relative z-10 rounded-[28px] border border-border/80 bg-card/90 p-8 shadow-xl backdrop-blur-sm sm:p-10">
           <div className="mb-7 text-center">
             <p className="text-section-label text-primary">
-              WELCOME, DEVELOPER 
+              WELCOME, DEVELOPER
             </p>
 
             <h1 className="mt-3 text-3xl font-semibold tracking-[-0.04em]">
@@ -72,6 +77,7 @@ export default async function SignInPage({
             </p>
           </div>
 
+          {/* Authentication error */}
           {error ? (
             <div className="mb-5 rounded-xl border border-destructive/30 bg-destructive/10 px-4 py-3">
               <p className="text-sm text-destructive">
@@ -80,6 +86,7 @@ export default async function SignInPage({
             </div>
           ) : null}
 
+          {/* OAuth providers */}
           <div className="space-y-3">
             <form
               action={async () => {
@@ -92,7 +99,7 @@ export default async function SignInPage({
             >
               <button
                 type="submit"
-                className="flex w-full cursor-pointer items-center justify-center gap-3 rounded-xl bg-foreground px-4 py-3 text-sm font-medium text-background transition-all hover:opacity-90 "
+                className="flex w-full cursor-pointer items-center justify-center gap-3 rounded-xl bg-foreground px-4 py-3 text-sm font-medium text-background transition-all hover:opacity-90"
               >
                 <FaGithub className="size-5" />
                 Continue with GitHub
@@ -118,6 +125,7 @@ export default async function SignInPage({
             </form>
           </div>
 
+          {/* Divider */}
           <div className="my-7 flex items-center gap-3">
             <div className="h-px flex-1 bg-border" />
 
