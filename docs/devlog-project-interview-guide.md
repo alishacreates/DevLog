@@ -312,7 +312,6 @@ Used for unique project slugs per owner.
 ```text
 project + createdAt
 author + createdAt
-isPublic + createdAt
 ```
 
 These support:

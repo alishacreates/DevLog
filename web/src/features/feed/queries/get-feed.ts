@@ -1,35 +1,91 @@
 import { Types } from "mongoose";
+import type { PipelineStage } from "mongoose";
 
 import { connectDB } from "@/lib/db/mongoose";
 import { DevLog } from "@/models/devlog";
 
-import "@/models/project";
-import "@/models/user";
+const FEED_PAGE_SIZE = 10;
 
-const FEED_PAGE_SIZE = 1;
-
-export async function getFeed(cursor?: string) {
+export async function getFeed(
+  cursor?: string,
+  currentUserId?: string
+) {
   await connectDB();
 
-  const query: {
-    isPublic: boolean;
-    _id?: { $lt: Types.ObjectId };
-  } = {
-    isPublic: true,
-  };
+  const pipeline: PipelineStage[] = [];
 
   if (cursor && Types.ObjectId.isValid(cursor)) {
-    query._id = {
-      $lt: new Types.ObjectId(cursor),
-    };
+    pipeline.push({
+      $match: {
+        _id: {
+          $lt: new Types.ObjectId(cursor),
+        },
+      },
+    });
   }
 
-  const devLogs = await DevLog.find(query)
-    .sort({ _id: -1 })
-    .limit(FEED_PAGE_SIZE + 1)
-    .populate("author", "name username image")
-    .populate("project", "title")
-    .lean();
+  pipeline.push(
+    {
+      $sort: {
+        _id: -1,
+      },
+    },
+
+    {
+      $lookup: {
+        from: "projects",
+        localField: "project",
+        foreignField: "_id",
+        as: "project",
+      },
+    },
+
+    {
+      $unwind: "$project",
+    },
+
+    {
+      $match: {
+        "project.isPublic": true,
+      },
+    },
+
+    {
+      $lookup: {
+        from: "users",
+        localField: "author",
+        foreignField: "_id",
+        as: "author",
+      },
+    },
+
+    {
+      $unwind: "$author",
+    },
+
+      {
+    $lookup: {
+      from: "likes",
+      localField: "_id",
+      foreignField: "devLog",
+      as: "likes",
+    },
+  },
+
+  {
+  $lookup: {
+    from: "comments",
+    localField: "_id",
+    foreignField: "devLog",
+    as: "comments",
+  },
+},
+    {
+      $limit: FEED_PAGE_SIZE + 1,
+    }
+  );
+
+  const devLogs = await DevLog.aggregate(pipeline);
 
   const hasMore = devLogs.length > FEED_PAGE_SIZE;
 
@@ -37,39 +93,36 @@ export async function getFeed(cursor?: string) {
     ? devLogs.slice(0, FEED_PAGE_SIZE)
     : devLogs;
 
-    const serializedItems = items.map((devLog) => {
-  const author = devLog.author as unknown as {
-    _id: Types.ObjectId;
-    name: string;
-    username: string;
-    image?: string;
-  };
+  const serializedItems = items.map((devLog) => ({
+  id: devLog._id.toString(),
+  title: devLog.title,
+  content: devLog.content,
+  tags: devLog.tags,
+  createdAt: new Date(devLog.createdAt).toISOString(),
+  images: devLog.images ?? [],
 
-  const project = devLog.project as unknown as {
-    _id: Types.ObjectId;
-    title: string;
-  };
+  likesCount: devLog.likes?.length ?? 0,
 
-  return {
-    id: devLog._id.toString(),
-    title: devLog.title,
-    content: devLog.content,
-    tags: devLog.tags,
-    createdAt: new Date(devLog.createdAt).toISOString(),
+likedByCurrentUser: currentUserId
+  ? (devLog.likes ?? []).some(
+      (like: { user: Types.ObjectId }) =>
+        like.user.toString() === currentUserId
+    )
+  : false,
+  commentsCount: devLog.comments?.length ?? 0,
 
-    author: {
-      id: author._id.toString(),
-      name: author.name,
-      username: author.username,
-      image: author.image,
-    },
+  author: {
+    id: devLog.author._id.toString(),
+    name: devLog.author.name,
+    username: devLog.author.username,
+    image: devLog.author.image,
+  },
 
-    project: {
-      id: project._id.toString(),
-      title: project.title,
-    },
-  };
-});
+  project: {
+    id: devLog.project._id.toString(),
+    title: devLog.project.title,
+  },
+}));
 
   const nextCursor =
     hasMore && items.length > 0
@@ -77,7 +130,7 @@ export async function getFeed(cursor?: string) {
       : null;
 
   return {
-  items: serializedItems,
-  nextCursor,
-};
+    items: serializedItems,
+    nextCursor,
+  };
 }

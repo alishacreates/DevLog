@@ -1,3 +1,4 @@
+
 import type { Metadata } from "next";
 import {
   Anton,
@@ -9,6 +10,8 @@ import {
 import "./globals.css";
 
 import { cn } from "@/lib/utils";
+import { ThemeProvider } from "@/components/providers/theme-provider";
+import { ToastProvider } from "@/components/providers/toast-provider";
 
 const manrope = Manrope({
   variable: "--font-manrope",
@@ -33,7 +36,8 @@ const sourceCodePro = Source_Code_Pro({
 });
 
 const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+  process.env.NEXT_PUBLIC_SITE_URL ??
+  "https://devlog-delta-black.vercel.app";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -114,7 +118,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={cn(
           manrope.variable,
@@ -124,7 +128,10 @@ export default function RootLayout({
           "min-h-screen bg-background font-sans text-foreground antialiased"
         )}
       >
-        {children}
+        <ThemeProvider>
+          {children}
+          <ToastProvider />
+        </ThemeProvider>
       </body>
     </html>
   );

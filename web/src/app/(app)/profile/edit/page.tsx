@@ -4,6 +4,7 @@ import { auth } from "@/auth";
 import { EditProfileForm } from "@/features/profile/components/edit-profile-form";
 import { connectDB } from "@/lib/db/mongoose";
 import { User } from "@/models/user";
+import { BackButton } from "@/components/shared/back-button";
 
 export default async function EditProfilePage() {
   const session = await auth();
@@ -26,6 +27,7 @@ export default async function EditProfilePage() {
 
   return (
     <main className="mx-auto max-w-2xl px-6 py-10">
+      <BackButton fallback="/profile" />
       <div className="mb-8">
         <h1 className="text-3xl font-semibold tracking-tight">
           Edit profile

@@ -1,6 +1,6 @@
+
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
-
 import type { Metadata } from "next";
 
 import { DesignHeader } from "@/components/layout/design-header";
@@ -17,15 +17,16 @@ import {
   SupportingPatternsSection,
   SystemStatesSection,
   TypographySection,
+  ToastSection,
+  DiscoverySection,
+  ResponsiveSection,
 } from "@/features/design-system";
-
 
 export const metadata: Metadata = {
   title: "Design System",
   description:
     "Explore the visual language, typography, colors, components, and design principles behind DevLog.",
 };
-
 
 export default function DesignPage() {
   return (
@@ -42,9 +43,12 @@ export default function DesignPage() {
           <ActionsSection />
           <FormsSection />
           <SocialContentSection />
+          <DiscoverySection />
           <SupportingPatternsSection />
           <StatusSection />
           <SystemStatesSection />
+          <ToastSection />
+          <ResponsiveSection />
           <LayoutRulesSection />
           <InterfaceVoiceSection />
         </div>
@@ -67,7 +71,7 @@ export default function DesignPage() {
             className="inline-flex items-center gap-3 font-section text-sm font-bold uppercase tracking-widest text-white/65 transition-colors hover:text-primary"
           >
             Back to product
-             <ArrowUpRight className="size-4" />
+            <ArrowUpRight className="size-4" />
           </Link>
         </div>
       </footer>

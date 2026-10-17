@@ -1,99 +1,147 @@
 # User Personas
 
+
 ## Primary Persona
 
-### Student Builder
+### The Active Builder
 
-**Age:** 18–24
+**Experience:** Any level
 
-**Education:** Computer Science or Software Engineering student
-
-**Experience:** Beginner to intermediate
+**Background:** A developer actively building software — whether a student, professional developer, self-taught developer, indie hacker, or open-source contributor.
 
 ### Goals
 
-* Build strong portfolio projects.
-* Improve programming skills.
-* Find teammates.
-* Learn new technologies.
-* Prepare for internships.
+- Build meaningful software projects.
+- Document progress while building.
+- Preserve technical decisions and lessons.
+- Share work before it is completely finished.
+- Develop a visible developer identity through real work.
+- Discover what other developers are building.
 
 ### Frustrations
 
-* Projects receive little visibility.
-* Difficult to find motivated collaborators.
-* Limited feedback outside university.
-* LinkedIn feels too career-focused.
-* GitHub doesn't highlight the development journey.
+- GitHub shows code but not the complete development story.
+- Portfolios usually show only finished projects.
+- Small development milestones do not feel substantial enough for a blog post or professional announcement.
+- Valuable bugs, experiments, decisions, and lessons disappear over time.
+- Developer discovery often revolves around profiles rather than active work.
 
 ### Needs
 
-* A place to share progress.
-* Constructive feedback.
-* Motivation through community.
-* Easy project discovery.
-* Networking with other student developers.
+- A simple place to create and showcase projects.
+- A lightweight way to document progress.
+- A persistent history of how a project evolved.
+- A way to discover developers through what they build.
+- Control over what work is public and private.
 
 ---
 
 ## Secondary Persona
 
-### Hackathon Participant
+### The Learning Builder
+
+A developer actively improving through project-based learning.
+
+This may include:
+
+- University students
+- Self-taught developers
+- Bootcamp learners
+- Early-career developers
+- Developers exploring a new technology
 
 ### Goals
 
-* Quickly find teammates.
-* Showcase hackathon projects.
-* Continue projects after competitions.
-* Meet developers with complementary skills.
+- Learn by building.
+- Track progress over time.
+- Build a portfolio backed by real development history.
+- Learn from how other developers solve problems.
+- Become more consistent with projects.
 
 ### Pain Points
 
-* Team formation is difficult.
-* Projects disappear after hackathons.
-* Networking opportunities are limited.
+- Learning progress is scattered across notes, commits, and repositories.
+- Projects are often abandoned before they feel portfolio-ready.
+- Small milestones rarely get documented.
+- It is difficult to demonstrate how much was learned while building a project.
+
+---
+
+## Secondary Persona
+
+### The Indie / Side-Project Builder
+
+### Goals
+
+- Document product development.
+- Share milestones before launch.
+- Build publicly without writing full articles.
+- Create a persistent history of the product.
+- Discover other people building similar things.
+
+### Pain Points
+
+- Traditional social posts are disconnected from the project itself.
+- Development updates disappear in timelines.
+- Git commits lack the context behind product decisions.
+- Most product pages only represent the current state.
 
 ---
 
 ## Future Persona
 
-### Open Source Contributor
+### The Open-Source Builder
 
 ### Goals
 
-* Discover interesting projects.
-* Find contributors.
-* Share updates.
-* Build technical reputation.
+- Share project progress.
+- Explain important technical decisions.
+- Attract contributors.
+- Build a visible project history.
+- Help others understand a project beyond its repository.
 
 ### Pain Points
 
-* Difficult to attract contributors.
-* Limited visibility for smaller repositories.
-* Hard to explain project progress beyond commits.
+- Commit histories do not always explain why decisions were made.
+- Smaller repositories can struggle for visibility.
+- Project progress is difficult to communicate outside the repository.
+- Attracting contributors requires context around where a project is heading.
 
 ---
 
-## Target Audience
+# Target Audience
 
-For the MVP, DevLog focuses on:
+DevLog is for **developers who build**.
 
-* University students studying Computer Science or related fields.
-* Student developers building projects outside the classroom.
-* Hackathon participants.
-* Beginners learning through practical projects.
+Early users may include:
 
-Professional developers and recruiters may become important audiences later, but they are not the primary focus during the MVP stage.
+- Student developers
+- Early-career developers
+- Self-taught developers
+- Indie hackers
+- Side-project builders
+- Hackathon participants
+- Open-source contributors
+
+DevLog does not define its community by experience level.
+
+> **Experience level does not define the community. Building does.**
 
 ---
 
-## User Success
+# User Success
 
-A user should be able to:
+For the MVP, a user should be able to:
 
-1. Create an account in under five minutes.
-2. Build a developer profile.
-3. Publish their first DevLog.
-4. Showcase at least one project.
-5. Receive meaningful engagement from the community.
-6. Discover collaborators for future projects.
+1. Sign in quickly.
+2. Complete a developer profile.
+3. Create a project.
+4. Publish a DevLog connected to that project.
+5. View the history of their project.
+6. Control whether their work is public or private.
+7. Discover public DevLogs from other developers.
+8. Return later and continue documenting the project.
+
+The core success moment is:
+
+> **"I made progress on my project. I'll DevLog it."**

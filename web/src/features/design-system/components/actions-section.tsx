@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowUpRight, Plus, Trash2 } from "lucide-react";
+import { Plus, Trash2 } from "lucide-react";
 
 import { SectionHeader } from "@/components/shared/section-header";
 
@@ -9,54 +9,68 @@ export function ActionsSection() {
       <SectionHeader
         eyebrow="Actions"
         title="Actions should feel deliberate."
-        description="DevLog uses bold pill actions, restrained outlines, and compact circular controls instead of generic SaaS buttons."
+        description="DevLog uses clear pill actions, restrained secondary controls, and semantic destructive states."
       />
 
       <div className="mt-10 grid gap-8 lg:grid-cols-2">
         {/* Primary hierarchy */}
-        <div className="border border-border bg-card p-6">
+        <div className="rounded-2xl border border-border bg-card p-6">
           <p className="font-section text-sm font-bold uppercase tracking-widest">
-            Primary hierarchy
+            Action hierarchy
           </p>
 
           <p className="mt-2 max-w-md text-sm leading-6 text-muted-foreground">
-            Primary actions are high-contrast. Secondary actions stay quieter.
-            Destructive actions keep their semantic red treatment.
+            Primary actions carry the strongest emphasis. Secondary actions stay
+            visible without competing for attention.
           </p>
 
           <div className="mt-7 flex flex-wrap items-center gap-3">
             <button
               type="button"
-              className="inline-flex items-center gap-3 rounded-full bg-foreground px-6 py-3 font-section text-xs font-bold uppercase tracking-widest text-background transition-all hover:bg-primary hover:text-white active:scale-[0.98]"
+              className="
+                inline-flex items-center gap-2 rounded-full
+                bg-primary px-5 py-2.5
+                font-section text-[10px] font-bold uppercase tracking-widest
+                text-primary-foreground
+                transition-all
+                hover:-translate-y-0.5 hover:shadow-sm
+                dark:bg-accent-warm dark:text-[#101513]
+              "
             >
-              <Plus className="size-4" />
-              Share update
+              <Plus className="size-3.5" />
+              New Post
             </button>
 
             <button
               type="button"
-              className="inline-flex items-center gap-3 rounded-full border border-foreground/45 px-6 py-3 font-section text-xs font-bold uppercase tracking-widest transition-all hover:border-primary hover:text-primary active:scale-[0.98]"
+              className="
+                rounded-full border border-border
+                px-5 py-2.5 text-sm font-medium
+                transition-colors hover:bg-muted
+              "
             >
-              Explore builders
+              View profile
             </button>
 
             <button
               type="button"
-              className="inline-flex items-center gap-3 rounded-full bg-secondary px-6 py-3 font-section text-xs font-bold uppercase tracking-widest text-secondary-foreground transition-all hover:bg-secondary/70 active:scale-[0.98]"
-            >
-              Save draft
-            </button>
-
-            <button
-              type="button"
-              className="inline-flex items-center gap-3 rounded-full px-5 py-3 font-section text-xs font-bold uppercase tracking-widest text-muted-foreground transition-colors hover:text-foreground"
+              className="
+                rounded-full px-5 py-2.5
+                text-sm font-medium text-muted-foreground
+                transition-colors hover:text-foreground
+              "
             >
               Cancel
             </button>
 
             <button
               type="button"
-              className="inline-flex items-center gap-3 rounded-full bg-destructive px-6 py-3 font-section text-xs font-bold uppercase tracking-widest text-white transition-all hover:opacity-90 active:scale-[0.98]"
+              className="
+                inline-flex items-center gap-2 rounded-full
+                bg-destructive px-5 py-2.5
+                text-sm font-semibold text-white
+                transition-opacity hover:opacity-90
+              "
             >
               <Trash2 className="size-4" />
               Delete
@@ -64,67 +78,60 @@ export function ActionsSection() {
           </div>
         </div>
 
-        {/* Navigation + compact actions */}
-        <div className="border border-border bg-card p-6">
+        {/* Navigation actions */}
+        <div className="rounded-2xl border border-border bg-card p-6">
           <p className="font-section text-sm font-bold uppercase tracking-widest">
             Navigation actions
           </p>
 
           <p className="mt-2 max-w-md text-sm leading-6 text-muted-foreground">
-            Links can use the same visual grammar when they represent actions
-            rather than simple navigation.
+            Navigation should remain explicit. Use text labels when an icon alone
+            would make the destination unclear.
           </p>
 
           <div className="mt-7 flex flex-wrap items-center gap-3">
             <Link
               href="#"
-              className="group inline-flex items-center gap-3 rounded-full bg-foreground px-6 py-3 font-section text-xs font-bold uppercase tracking-widest text-background transition-all hover:bg-primary hover:text-white"
+              className="
+                rounded-full border border-border
+                px-5 py-2.5 text-sm font-medium
+                transition-colors
+                hover:border-primary hover:text-primary
+                dark:hover:border-accent-warm
+                dark:hover:text-accent-warm
+              "
             >
-              Join DevLog
-
-              <ArrowUpRight className="size-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              View Project
             </Link>
 
             <Link
               href="#"
-              className="inline-flex items-center gap-3 rounded-full border border-foreground/45 px-6 py-3 font-section text-xs font-bold uppercase tracking-widest transition-all hover:border-primary hover:text-primary"
+              className="
+                font-mono text-[9px] font-semibold uppercase tracking-[0.1em]
+                text-primary transition-colors hover:text-foreground
+                dark:text-accent-warm
+              "
             >
-              View profile
-            </Link>
-
-            <Link
-              href="#"
-              className="font-section text-xs font-bold uppercase tracking-widest text-muted-foreground transition-colors hover:text-primary"
-            >
-              Learn more →
-            </Link>
-
-            <Link
-              href="#"
-              aria-label="Open project"
-              className="group flex size-12 items-center justify-center rounded-full border border-foreground/45 transition-all hover:border-primary hover:bg-primary hover:text-white"
-            >
-              <ArrowUpRight className="size-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              Discover developers
             </Link>
           </div>
         </div>
       </div>
 
-      {/* Usage rule */}
       <div className="mt-8 grid gap-6 border-t border-border pt-8 sm:grid-cols-3">
         <ActionRule
           label="Primary"
-          rule="One dominant action per decision area."
+          rule="Use one dominant action per decision area."
         />
 
         <ActionRule
           label="Secondary"
-          rule="Use outlines when the action should remain visible but quieter."
+          rule="Use borders or quieter text when an action should remain available without competing."
         />
 
         <ActionRule
-          label="Compact"
-          rule="Circular arrows are for opening, exploring, or moving forward."
+          label="Icon only"
+          rule="Use icon-only controls only when the meaning is familiar and an accessible label is provided."
         />
       </div>
     </section>
@@ -140,7 +147,7 @@ function ActionRule({
 }) {
   return (
     <div>
-      <p className="font-section text-xs font-bold uppercase tracking-[0.12em] text-primary">
+      <p className="font-section text-xs font-bold uppercase tracking-[0.12em] text-primary dark:text-accent-warm">
         {label}
       </p>
 

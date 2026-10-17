@@ -6,6 +6,7 @@ import { EditProjectForm } from "@/features/projects/components/edit-project-for
 import { connectDB } from "@/lib/db/mongoose";
 import { Project } from "@/models/project";
 import { DeleteProjectDialog } from "@/features/projects/components/delete-project-dialog";
+import { BackButton } from "@/components/shared/back-button";
 
 type EditProjectPageProps = {
   params: Promise<{
@@ -37,6 +38,8 @@ export default async function EditProjectPage({
 
   return (
     <main className="mx-auto max-w-2xl px-6 py-10">
+      
+  <BackButton fallback={`/projects/${id}`} />
       <div className="mb-8">
         <h1 className="text-3xl font-semibold tracking-tight">
           Edit project
@@ -66,9 +69,9 @@ export default async function EditProjectPage({
     </h2>
 
     <p className="mt-2 text-sm text-muted-foreground">
-      Permanently delete this project from DevLog.
-      This action cannot be undone.
-    </p>
+  Permanently delete this project and all of its posts.
+  This action cannot be undone.
+</p>
 
     <div className="mt-5">
       <DeleteProjectDialog

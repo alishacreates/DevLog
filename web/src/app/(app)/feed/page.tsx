@@ -1,57 +1,130 @@
 import Link from "next/link";
 
+import { auth } from "@/auth";
+import { connectDB } from "@/lib/db/mongoose";
+import { Project } from "@/models/project";
+import { User } from "@/models/user";
+import { Follow } from "@/models/follow";
+import { FeedComposer } from "@/features/feed/components/feed-composer";
+import { FeedLeftSidebar } from "@/features/feed/components/feed-left-sidebar";
 import { FeedList } from "@/features/feed/components/feed-list";
+import { FeedRightSidebar } from "@/features/feed/components/feed-right-sidebar";
 import { getFeed } from "@/features/feed/queries/get-feed";
 
+
 export default async function FeedPage() {
-  const { items, nextCursor } = await getFeed();
+  const session = await auth();
+
+  await connectDB();
+
+  const [projects, feed, following] = await Promise.all([
+    Project.find({
+      owner: session!.user.id,
+    })
+      .sort({ createdAt: -1 })
+      .limit(4)
+      .lean(),
+
+    getFeed(undefined, session!.user.id),
+
+    Follow.find({
+      follower: session!.user.id,
+    })
+      .select("following")
+      .lean(),
+  ]);
+
+  const { items, nextCursor } = feed;
+
+  const excludedUserIds = [
+    session!.user.id,
+    ...following.map((follow) => follow.following),
+  ];
+
+  const suggestedDevelopers = await User.find({
+    _id: {
+      $nin: excludedUserIds,
+    },
+    isOnboarded: true,
+  })
+    .sort({ createdAt: -1 })
+    .limit(3)
+    .select("_id name username image techStack")
+    .lean();
+
+  const serializedProjects = projects.map((project) => ({
+    id: project._id.toString(),
+    title: project.title,
+  }));
+
+  const serializedDevelopers = suggestedDevelopers.map((developer) => ({
+    id: developer._id.toString(),
+    name: developer.name,
+    username: developer.username,
+    image: developer.image ?? null,
+    techStack: developer.techStack ?? [],
+  }));
 
   return (
-    <main className="mx-auto max-w-3xl px-6 py-10">
-      <div className="flex items-start justify-between gap-6">
-        <div>
-          <h1 className="text-3xl font-semibold tracking-tight">
-            Feed
-          </h1>
+    <main className="mx-auto w-full max-w-[1440px] px-4 py-6 sm:px-6 lg:px-10 lg:py-8">
+      <div className="grid gap-7 xl:grid-cols-[240px_minmax(0,760px)_240px] xl:justify-center">
+        {/* Left sidebar */}
+        <FeedLeftSidebar
+          user={session!.user}
+          projects={serializedProjects}
+        />
 
-          <p className="mt-2 text-muted-foreground">
-            See what developers are building.
-          </p>
-        </div>
+        {/* Main feed */}
+        <section className="min-w-0">
+          <div className="mb-5">
+            <p className="text-section-label text-primary dark:text-accent-warm">
+              Community Feed
+            </p>
 
-        <Link
-          href="/devlogs/new"
-          className="rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground"
-        >
-          New DevLog
-        </Link>
-      </div>
+            <h1 className="mt-1.5 text-2xl font-semibold tracking-[-0.03em] sm:text-[28px]">
+              See what developers are building.
+            </h1>
+          </div>
 
-      {items.length === 0 ? (
-        <section className="mt-12 rounded-xl border p-8 text-center">
-          <h2 className="text-lg font-semibold">
-            Nothing here yet
-          </h2>
+          <FeedComposer />
 
-          <p className="mx-auto mt-2 max-w-md text-sm text-muted-foreground">
-            Public DevLogs from the community will appear here.
-          </p>
+          {items.length === 0 ? (
+            <section className="mt-5 rounded-2xl border border-dashed border-border bg-card p-10 text-center">
+              <p className="text-section-label text-primary dark:text-accent-warm">
+                Feed empty
+              </p>
 
-          <Link
-            href="/devlogs/new"
-            className="mt-5 inline-block rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground"
-          >
-            Publish the first DevLog
-          </Link>
+              <h2 className="mt-2 text-lg font-semibold">
+                Nothing here yet
+              </h2>
+
+              <p className="mx-auto mt-2 max-w-md text-sm leading-6 text-muted-foreground">
+                Public posts from developers in the community will appear here.
+              </p>
+
+              <Link
+                href="/devlogs/new"
+                className="mt-5 inline-flex rounded-full bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90 dark:bg-accent-warm dark:text-[#101513]"
+              >
+                Publish Post
+              </Link>
+            </section>
+          ) : (
+            <div className="mt-5">
+              <FeedList
+  initialItems={items}
+  initialCursor={nextCursor}
+  currentUserId={session!.user.id}
+/>
+            </div>
+          )}
         </section>
-      ) : (
-        <div className="mt-8">
-          <FeedList
-            initialItems={items}
-            initialCursor={nextCursor}
-          />
-        </div>
-      )}
+
+        {/* Right sidebar */}
+        <FeedRightSidebar
+          developers={serializedDevelopers}
+        />
+      </div>
     </main>
   );
 }

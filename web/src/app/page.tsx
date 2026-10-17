@@ -12,7 +12,7 @@ import {
 
 export default function Home() {
   return (
-    <main>
+     <main className="landing-theme min-h-screen">
       <LandingHero />
 <ProductStorySection />
 <CommunitySection />

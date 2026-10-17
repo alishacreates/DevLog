@@ -139,12 +139,12 @@ export function CommunitySection() {
           </div>
 
           <Link
-            href="/sign-in"
-            className="inline-flex items-center gap-3 rounded-full bg-black px-6 py-3 font-mono text-[9px] font-semibold uppercase tracking-widest text-white transition-colors hover:bg-[#1e7a6f]"
-          >
-            Explore DevLogs
-            <ArrowUpRight className="size-4" />
-          </Link>
+  href="/sign-in"
+  className="inline-flex items-center gap-3 rounded-full bg-black px-6 py-3 font-mono text-[9px] font-semibold uppercase tracking-widest text-white transition-colors hover:bg-[#1e7a6f]"
+>
+  Explore Posts
+  <ArrowUpRight className="size-4" />
+</Link>
         </div>
       </div>
     </section>

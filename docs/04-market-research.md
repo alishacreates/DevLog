@@ -2,107 +2,50 @@
 
 ## Overview
 
-DevLog enters a market where developers already use several platforms, each serving a different purpose. Rather than replacing these platforms, DevLog aims to connect the gaps between them by focusing on the developer's building journey.
+Developers already use several platforms throughout the software-building process.
+
+DevLog does not aim to replace these platforms.
+
+Instead, it focuses on a layer that is often missing between them:
+
+> **The persistent story of how software gets built.**
 
 ---
 
 # Competitor Analysis
 
-| Platform | Primary Purpose         | Strengths                      | Weaknesses                          | Opportunity for DevLog                  |
-| -------- | ----------------------- | ------------------------------ | ----------------------------------- | --------------------------------------- |
-| GitHub   | Code Hosting            | Version control, collaboration | Weak social features                | Showcase progress, developer identity   |
-| LinkedIn | Professional Networking | Recruiter visibility           | Career-focused, not builder-focused | Build community around projects         |
-| Dev.to   | Technical Blogging      | Great technical articles       | Less project-centric                | Daily development logs                  |
-| Hashnode | Blogging                | Developer community            | Limited networking                  | Collaboration features                  |
-| Peerlist | Developer Portfolio     | Modern UI, portfolios          | Smaller ecosystem                   | Student-first community                 |
-| Discord  | Community Chat          | Real-time communication        | Poor discoverability                | Persistent profiles and project history |
-| Reddit   | Discussion              | Large communities              | Anonymous, temporary                | Verified developer identity             |
+| Platform | Primary Purpose | Strengths | Gap Relevant to DevLog |
+| --- | --- | --- | --- |
+| GitHub | Code hosting and collaboration | Repositories, version control, open source | Commits rarely capture the complete development story |
+| LinkedIn | Professional networking | Professional identity and reach | Progress updates are disconnected from persistent project history |
+| Dev.to | Technical publishing | Technical articles and developer audience | Optimized for articles rather than lightweight project progress |
+| Hashnode | Developer publishing | Blogs and developer content | Less centered around evolving projects |
+| Peerlist | Developer professional identity | Developer portfolios and professional profiles | More outcome/profile-oriented than development-journal-oriented |
+| Discord | Community communication | Real-time developer communities | Conversations are difficult to preserve and discover later |
+| Reddit | Discussion | Large topic-based communities | Discussion is not organized around persistent developer projects |
 
 ---
 
 # Market Gap
 
-Current platforms solve only one part of a developer's workflow.
+A developer may currently use:
 
-A student developer typically uses:
+- **GitHub** for code
+- **LinkedIn** for professional updates
+- **Discord** for conversations
+- **Notion** for personal development notes
+- **Dev.to / Hashnode** for longer technical writing
+- **A portfolio** for finished projects
 
-* GitHub for code
-* LinkedIn for networking
-* Discord for communication
-* Notion for notes
-* Reddit for discussions
+This creates a fragmented representation of the development journey.
 
-This creates a fragmented experience.
+The missing layer is a persistent relationship between:
 
-DevLog aims to combine the most valuable aspects into one platform.
-
----
-
-# Target Audience
-
-Primary
-
-* University students
-* Computer Science students
-* Self-taught developers
-* Hackathon participants
-
-Secondary
-
-* Open-source contributors
-* Bootcamp students
-* Junior developers
-
-Future
-
-* Recruiters
-* Startup founders
-* Technical mentors
-
----
-
-# Competitive Advantage
-
-DevLog focuses on the process of building software rather than only the final outcome.
-
-Instead of asking users to upload resumes or repositories, DevLog encourages them to document their progress, share milestones, and collaborate with others throughout the development journey.
-
----
-
-# SWOT Analysis
-
-## Strengths
-
-* Student-focused
-* Build-in-public concept
-* Collaboration-oriented
-* Portfolio generation
-* Community-first
-
-## Weaknesses
-
-* New platform with no users
-* Network effects are difficult
-* Limited resources
-
-## Opportunities
-
-* Growing student developer community
-* Increasing interest in hackathons
-* Rise of public learning
-* Demand for project-based portfolios
-
-## Threats
-
-* GitHub adding similar features
-* LinkedIn expanding creator tools
-* Existing communities on Discord and Reddit
-* Difficulty acquiring initial users
-
----
-
-# Conclusion
-
-DevLog should not compete directly with GitHub or LinkedIn.
-
-Instead, it should become the platform where student developers document and share the journey of building software.
+```text
+Developer
+    ↓
+Project
+    ↓
+Progress
+    ↓
+Development History

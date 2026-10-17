@@ -2,6 +2,7 @@
 
 import { redirect } from "next/navigation";
 import { Types } from "mongoose";
+import { revalidatePath } from "next/cache";
 
 import { auth } from "@/auth";
 import { devLogSchema } from "../schema/devlog.schema";
@@ -16,7 +17,7 @@ export type CreateDevLogState = {
     title?: string[];
     content?: string[];
     tags?: string[];
-    isPublic?: string[];
+    images?: string[];
   };
 };
 
@@ -28,7 +29,7 @@ export async function createDevLog(
 
   if (!session?.user?.id) {
     return {
-      error: "You must be signed in to create a DevLog.",
+      error: "You must be signed in to create a post.",
     };
   }
 
@@ -43,12 +44,18 @@ export async function createDevLog(
     .map((tag) => tag.trim())
     .filter(Boolean);
 
+  const images = formData
+    .getAll("images")
+    .map(String)
+    .map((image) => image.trim())
+    .filter(Boolean);
+
   const parsed = devLogSchema.safeParse({
     projectId: formData.get("projectId"),
     title: formData.get("title"),
     content: formData.get("content"),
     tags,
-    isPublic: formData.get("isPublic") === "on",
+    images,
   });
 
   if (!parsed.success) {
@@ -86,7 +93,7 @@ export async function createDevLog(
       title: parsed.data.title,
       content: parsed.data.content,
       tags: parsed.data.tags,
-      isPublic: parsed.data.isPublic,
+      images: parsed.data.images,
     });
 
     devLogId = devLog._id.toString();
@@ -94,9 +101,12 @@ export async function createDevLog(
     console.error("Create DevLog error:", error);
 
     return {
-      error: "Something went wrong while creating the DevLog.",
+      error: "Something went wrong while creating the post.",
     };
   }
+
+  revalidatePath("/feed");
+  revalidatePath(`/projects/${parsed.data.projectId}`);
 
   redirect(`/devlogs/${devLogId}`);
 }

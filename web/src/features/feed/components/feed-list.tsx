@@ -9,11 +9,13 @@ import type { FeedItem } from "@/features/feed/types/feed";
 type FeedListProps = {
   initialItems: FeedItem[];
   initialCursor: string | null;
+  currentUserId: string;
 };
 
 export function FeedList({
   initialItems,
   initialCursor,
+  currentUserId,
 }: FeedListProps) {
   const [items, setItems] = useState(initialItems);
   const [cursor, setCursor] = useState(initialCursor);
@@ -43,6 +45,7 @@ export function FeedList({
           <DevLogCard
             key={devLog.id}
             devLog={devLog}
+            currentUserId={currentUserId}
           />
         ))}
       </div>
@@ -53,7 +56,17 @@ export function FeedList({
             type="button"
             disabled={isPending}
             onClick={handleLoadMore}
-            className="rounded-md border px-4 py-2 text-sm font-medium transition-colors hover:bg-muted disabled:cursor-not-allowed disabled:opacity-60"
+            className="
+              rounded-full border border-black/30
+              px-6 py-3
+              font-section text-[9px] font-bold uppercase tracking-widest
+              transition-colors
+              hover:border-primary hover:text-primary
+              disabled:opacity-50
+              dark:border-border
+              dark:hover:border-accent-warm
+              dark:hover:text-accent-warm
+            "
           >
             {isPending ? "Loading..." : "Load more"}
           </button>
