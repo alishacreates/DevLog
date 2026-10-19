@@ -13,7 +13,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   session: {
     strategy: "jwt",
   },
-
+  
   callbacks: {
     async signIn({ user }) {
       if (!user.email) {
@@ -51,8 +51,10 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
        * Only populate our application user fields when they
        * are not already present in the JWT.
        */
-      if (!token.userId) {
-        await connectDB();
+
+
+        if (!token.userId) {
+          await connectDB();
 
         const dbUser = await User.findOne({
           email: token.email.toLowerCase(),
