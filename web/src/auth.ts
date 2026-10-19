@@ -42,35 +42,31 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       return true;
     },
 
-    async jwt({ token }) {
-      if (!token.email) {
-        return token;
-      }
+    
+async jwt({ token }) {
+  if (!token.email) {
+    return token;
+  }
 
-      /*
-       * Only populate our application user fields when they
-       * are not already present in the JWT.
-       */
-      if (!token.userId) {
-        await connectDB();
+  await connectDB();
 
-        const dbUser = await User.findOne({
-          email: token.email.toLowerCase(),
-        })
-          .select("_id name image username")
-          .lean();
+  const dbUser = await User.findOne({
+    email: token.email.toLowerCase(),
+  })
+    .select("_id name image username")
+    .lean();
 
-        if (dbUser) {
-          token.userId = dbUser._id.toString();
-          token.name = dbUser.name;
-          token.picture = dbUser.image;
-          token.username = dbUser.username ?? null;
-          token.isOnboarded = Boolean(dbUser.username);
-        }
-      }
+  if (dbUser) {
+    token.userId = dbUser._id.toString();
+    token.name = dbUser.name;
+    token.picture = dbUser.image;
+    token.username = dbUser.username ?? null;
+    token.isOnboarded = Boolean(dbUser.username);
+  }
 
-      return token;
-    },
+  return token;
+},
+
 
     async session({ session, token }) {
       if (session.user) {
