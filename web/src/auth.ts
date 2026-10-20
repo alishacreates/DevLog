@@ -1,3 +1,4 @@
+
 import NextAuth from "next-auth";
 import GitHub from "next-auth/providers/github";
 import Google from "next-auth/providers/google";
@@ -13,7 +14,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   session: {
     strategy: "jwt",
   },
-  
+
   callbacks: {
     async signIn({ user }) {
       if (!user.email) {
@@ -47,28 +48,20 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         return token;
       }
 
-      /*
-       * Only populate our application user fields when they
-       * are not already present in the JWT.
-       */
+      await connectDB();
 
+      const dbUser = await User.findOne({
+        email: token.email.toLowerCase(),
+      })
+        .select("_id name image username")
+        .lean();
 
-        if (!token.userId) {
-          await connectDB();
-
-        const dbUser = await User.findOne({
-          email: token.email.toLowerCase(),
-        })
-          .select("_id name image username")
-          .lean();
-
-        if (dbUser) {
-          token.userId = dbUser._id.toString();
-          token.name = dbUser.name;
-          token.picture = dbUser.image;
-          token.username = dbUser.username ?? null;
-          token.isOnboarded = Boolean(dbUser.username);
-        }
+      if (dbUser) {
+        token.userId = dbUser._id.toString();
+        token.name = dbUser.name;
+        token.picture = dbUser.image;
+        token.username = dbUser.username ?? null;
+        token.isOnboarded = Boolean(dbUser.username);
       }
 
       return token;
@@ -85,8 +78,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         session.user.username =
           (token.username as string | null) ?? null;
 
-        session.user.isOnboarded =
-          Boolean(token.isOnboarded);
+        session.user.isOnboarded = Boolean(token.isOnboarded);
       }
 
       return session;
